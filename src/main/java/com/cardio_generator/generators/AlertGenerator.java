@@ -1,7 +1,7 @@
 package com.cardio_generator.generators;
 
+//removed spacing between imports
 import java.util.Random;
-
 import com.cardio_generator.outputs.OutputStrategy;
 
 public class AlertGenerator implements PatientDataGenerator {
