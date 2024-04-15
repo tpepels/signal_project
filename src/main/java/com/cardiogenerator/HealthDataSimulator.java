@@ -1,20 +1,20 @@
-package com.cardio_generator;
+package com.cardiogenerator;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.cardio_generator.generators.AlertGenerator;
+import com.cardiogenerator.generators.AlertGenerator;
 
-import com.cardio_generator.generators.BloodPressureDataGenerator;
-import com.cardio_generator.generators.BloodSaturationDataGenerator;
-import com.cardio_generator.generators.BloodLevelsDataGenerator;
-import com.cardio_generator.generators.ECGDataGenerator;
-import com.cardio_generator.outputs.ConsoleOutputStrategy;
-import com.cardio_generator.outputs.FileOutputStrategy;
-import com.cardio_generator.outputs.OutputStrategy;
-import com.cardio_generator.outputs.TcpOutputStrategy;
-import com.cardio_generator.outputs.WebSocketOutputStrategy;
+import com.cardiogenerator.generators.BloodPressureDataGenerator;
+import com.cardiogenerator.generators.BloodSaturationDataGenerator;
+import com.cardiogenerator.generators.BloodLevelsDataGenerator;
+import com.cardiogenerator.generators.ECGDataGenerator;
+import com.cardiogenerator.outputs.ConsoleOutputStrategy;
+import com.cardiogenerator.outputs.FileOutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.TcpOutputStrategy;
+import com.cardiogenerator.outputs.WebSocketOutputStrategy;
 
 import java.util.Collections;
 import java.util.List;

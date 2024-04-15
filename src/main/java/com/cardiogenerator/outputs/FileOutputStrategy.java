@@ -1,4 +1,4 @@
-package com.cardio_generator.outputs;
+package com.cardiogenerator.outputs;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ public class FileOutputStrategy implements OutputStrategy {
 
     public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
-    public FileOutputStrategy(String baseDirectory) {
+    public FileOutputStrategy(String baseDirectory) { // class name changed to UpperCamelCase
 
         this.BaseDirectory = baseDirectory;
     }

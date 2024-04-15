@@ -1,12 +1,11 @@
-package com.cardio_generator.generators;
+package com.cardiogenerator.generators; // package name changed to one not containing an underscore
 
-import java.util.Random;
-
-import com.cardio_generator.outputs.OutputStrategy;
+import java.util.Random; // removed empty line in between two non-static import statements
+import com.cardiogenerator.outputs.OutputStrategy;
 
 public class AlertGenerator implements PatientDataGenerator {
 
-    public static final Random randomGenerator = new Random();
+    public static final Random RANDOM_GENERATOR = new Random(); // changed variable name to UPPER_SNAKE_CASE
     private boolean[] AlertStates; // false = resolved, true = pressed
 
     public AlertGenerator(int patientCount) {
@@ -17,15 +16,15 @@ public class AlertGenerator implements PatientDataGenerator {
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
             if (AlertStates[patientId]) {
-                if (randomGenerator.nextDouble() < 0.9) { // 90% chance to resolve
+                if (RANDOM_GENERATOR.nextDouble() < 0.9) { // 90% chance to resolve
                     AlertStates[patientId] = false;
                     // Output the alert
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "resolved");
                 }
             } else {
-                double Lambda = 0.1; // Average rate (alerts per period), adjust based on desired frequency
-                double p = -Math.expm1(-Lambda); // Probability of at least one alert in the period
-                boolean alertTriggered = randomGenerator.nextDouble() < p;
+                double lambda = 0.1; // changed to lowerCamelCase, Average rate (alerts per period), adjust based on desired frequency
+                double p = -Math.expm1(-lambda); // Probability of at least one alert in the period
+                boolean alertTriggered = RANDOM_GENERATOR.nextDouble() < p;
 
                 if (alertTriggered) {
                     AlertStates[patientId] = true;
