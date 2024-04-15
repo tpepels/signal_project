@@ -12,6 +12,13 @@ public class TcpOutputStrategy implements OutputStrategy {
     private Socket clientSocket;
     private PrintWriter out;
 
+
+    /**
+     * Constructor for the TcpOutputStrategy class, which creates a new instance of the TcpOutputStrategy class
+     * @param port - the port to listen for connections on
+     * @throws IOException if an error occurs while creating the server socket
+     * @throws IOException if an error occurs while accepting a client connection
+     */
     public TcpOutputStrategy(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -31,6 +38,14 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
+    /**
+     * Output the data to a TCP client
+     * @param patientId - the ID of the patient
+     * @param timestamp - the timestamp of the data
+     * @param label - the label of the data
+     * @param data - the data to output
+     * @return void
+     */
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {

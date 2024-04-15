@@ -13,10 +13,21 @@ public class FileOutputStrategy implements OutputStrategy {
 
     public final ConcurrentHashMap<String, String> FILE_MAP = new ConcurrentHashMap<>(); // changed variable name to upper camel case
 
+    /**
+     * Constructor for the FileOutputStrategy class, which creates a new instance of the FileOutputStrategy class
+     * @param baseDirectory The base directory to write the files to
+     */
     public FileOutputStrategy(String baseDirectory) { // class name changed to UpperCamelCase
         this.baseDirectory = baseDirectory;
     }
-
+    /**
+     * Output the data to a file
+     * @param patientId - the ID of the patient
+     * @param timeStamp - the timestamp of the data
+     * @param label - the label of the data
+     * @param data - the data to output
+     * @return void
+     */
     @Override
     public void output(int patientId, long timeStamp, String label, String data) { // changed timestamp to timeStamp
         try {

@@ -8,10 +8,20 @@ public class AlertGenerator implements PatientDataGenerator {
     public static final Random RANDOM_GENERATOR = new Random(); // changed variable name to UPPER_SNAKE_CASE
     private boolean[] alertStates; // changed to camelCase, false = resolved, true = pressed
 
+    /**
+     * Constructor for the AlertGenerator class, which creates a new instance of the AlertGenerator class
+     * @param patientCount - the number of patients
+     */
     public AlertGenerator(int patientCount) {
         alertStates = new boolean[patientCount + 1];
     }
-
+    /**
+     * Generate the alert data for a patient and output it. If the alert is already triggered, there is a 90% chance it will resolve.
+     * @param patientId - the ID of the patient
+     * @param outputStrategy - the output strategy to use
+     * @return void
+     * @throws Exception if an error occurs while generating the alert data
+    */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
