@@ -24,13 +24,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+
+/**
+* Represents a patient data generator for health monitoring simulations.
+* This class is responsible for generating randomized patient data, including vital signs.
+* It utilizes a pseudo-random number generator to simulate real-time patient data variations.
+*/
+
 public class HealthDataSimulator {
 
     private static int patientCount = 50; // Default number of patients
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
-
+    
     public static void main(String[] args) throws IOException {
 
         parseArguments(args);
@@ -43,6 +50,13 @@ public class HealthDataSimulator {
         scheduleTasksForPatients(patientIds);
     }
 
+    /**
+     * Takes the command line arguments and sets the program accordingly.
+     * Settable parameters are the patientcount and the output method.
+     * 
+     * @param args Commandline input
+     * @throws IOException
+     */
     private static void parseArguments(String[] args) throws IOException {
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -104,6 +118,7 @@ public class HealthDataSimulator {
         }
     }
 
+    /** Prints instructions for using the program*/
     private static void printHelp() {
         System.out.println("Usage: java HealthDataSimulator [options]");
         System.out.println("Options:");
@@ -123,6 +138,7 @@ public class HealthDataSimulator {
 
     /**
      * creates a list of patient id's of a specified size
+     * 
      * @param patientCount number of patientIDs to be simulated
      * @return an integer list containing patientIDs from zero to patientCount
      */
@@ -135,6 +151,8 @@ public class HealthDataSimulator {
     }
 
     /**
+     * schedules the generation of patient data at a fixed interval.
+     * this includes bloodpressure, blood saturation, ecg, bloodlevel and alert data.
      * 
      * @param patientIds
      */
@@ -154,6 +172,13 @@ public class HealthDataSimulator {
         }
     }
 
+    /**
+     * Schedules a task to be executed periodically with a fixed delay between executions.
+     *
+     * @param task     The task to be executed.
+     * @param period   The time between executions.
+     * @param timeUnit The time unit for the period.
+     */
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
     }
