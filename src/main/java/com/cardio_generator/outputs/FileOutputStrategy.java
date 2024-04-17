@@ -7,16 +7,33 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * This class implements the OutputStrategy interface to output patient data to files.
+ */
 public class FileOutputStrategy implements OutputStrategy {
 
     private String baseDirectory; // Updated variable name to lowerCamelCase
 
     public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
+    /**
+     * Constructs a FileOutputStrategy with the specified base directory.
+     *
+     * @param baseDirectory the base directory to store the output files
+     */
     public FileOutputStrategy(String baseDirectory) {
         this.baseDirectory = baseDirectory; // Removed unnecessary whitespace
     }
 
+    /**
+     * Outputs the patient data to a file.
+     * Overridden method from the OutputStrategy interface.
+     *
+     * @param patientId the patient ID
+     * @param timeStamp the timestamp of the data
+     * @param label the label of the data
+     * @param data the data to output
+     */
     @Override
     public void output(int patientId, long timeStamp, String label, String data) { // Shifted timeStamp variable to lowerCamelCase
         try {
