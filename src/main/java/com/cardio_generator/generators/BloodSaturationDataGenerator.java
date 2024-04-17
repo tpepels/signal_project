@@ -4,6 +4,11 @@ import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
 
+/**
+* Implements PatienDataGenerator to simulate blood pressure.
+* This class is responsible for generating randomized patient blood saturations as percentages.
+* It utilizes a pseudo-random number generator to simulate real-time patient data variations.
+*/
 public class BloodSaturationDataGenerator implements PatientDataGenerator {
     private static final Random random = new Random();
     private int[] lastSaturationValues;
@@ -17,6 +22,13 @@ public class BloodSaturationDataGenerator implements PatientDataGenerator {
         }
     }
 
+    /**
+     * Generates and outputs a simulated blood saturation reading for a patient.
+     * The method simulates blood saturation as percentages.
+     * 
+     * @param patientId patientId linked to patient.
+     * @param outputStrategy The strategy used for outputting the alert.
+     */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
