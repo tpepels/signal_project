@@ -7,13 +7,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class fileOutputStrategy implements OutputStrategy {
+// change : made the name of the class (plus constructor) match filename (name starting with capital letter)
+public class FileOutputStrategy implements OutputStrategy {
 
     private String BaseDirectory;
 
     public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
-    public fileOutputStrategy(String baseDirectory) {
+    public FileOutputStrategy(String baseDirectory) {
 
         this.BaseDirectory = baseDirectory;
     }

@@ -1,7 +1,6 @@
 package com.cardio_generator.generators;
 
-import java.util.Random;
-
+import java.util.Random; //the imports (non static) are supposed to be in the same block and not separated by a blank line
 import com.cardio_generator.outputs.OutputStrategy;
 
 public class AlertGenerator implements PatientDataGenerator {
