@@ -7,6 +7,9 @@ import java.net.InetSocketAddress;
 
 /**
  * An implementation of the {@link OutputStrategy} interface that sends data to WebSocket clients.
+ * <p>
+ * This class establishes a WebSocket server that listens for incoming connections on the specified port.
+ * When data is received, it is sent to all connected WebSocket clients.
  */
 public class WebSocketOutputStrategy implements OutputStrategy {
 
