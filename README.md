@@ -66,7 +66,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Project Members:
 - Student ID: 6361564 and 6362299
-## UML Diagram
+## UML Diagrams:
 uml_models directory contains the UML diagrams for this project.
 
 
