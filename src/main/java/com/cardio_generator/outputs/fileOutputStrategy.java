@@ -7,18 +7,35 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
-// change : made the name of the class (plus constructor) match filename (name starting with capital letter)
-public class FileOutputStrategy implements OutputStrategy {
+/**
+ * Strategy that creates files with a patient's data
+ * 
+ * The class implements the interface OutputStrategy
+ */
+public class FileOutputStrategy implements OutputStrategy {// change : made the name of the class (plus constructor) match filename (name starting with capital letter)
 
     private String BaseDirectory;
 
     public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
+    /**
+     * Contructs a FileOutputStrategy with the base directory
+     * 
+     * @param baseDirectory base directory to store the files
+     */
     public FileOutputStrategy(String baseDirectory) {
 
         this.BaseDirectory = baseDirectory;
     }
 
+    /**
+     * Outputs the data to the file 
+     *
+     * @param patientId identifier (integer) of the patient
+     * @param timestamp timestamp of the data
+     * @param label     label of the data
+     * @param data      data associated with the patient
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {
