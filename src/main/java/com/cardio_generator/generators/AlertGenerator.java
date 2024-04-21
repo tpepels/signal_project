@@ -3,7 +3,7 @@ package com.cardio_generator.generators;
 import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
-
+//hello
 public class AlertGenerator implements PatientDataGenerator {
 
     public static final Random RANDOMGENERATOR = new Random();//constants are written in UPPER_SNAKE_CASE
