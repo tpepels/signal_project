@@ -63,6 +63,9 @@ java -jar target/target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --
 ## Project Members
 - Student ID: i6364649
 
+## UML diagrams
+An overview of the class structure can be found [here](uml_models/uml_descriptions.md).
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
