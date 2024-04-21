@@ -7,35 +7,36 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class fileOutputStrategy implements OutputStrategy {
+public class FileOutputStrategy implements OutputStrategy {// class names have to be written in UpperCamelCase
 
-    private String BaseDirectory;
 
-    public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
+    private String baseDirectory;//Non-constant field names are written in lowerCamelCase
 
-    public fileOutputStrategy(String baseDirectory) {
+    public final ConcurrentHashMap<String, String> FILE_MAP = new ConcurrentHashMap<>();//constants have to be written in UPPER_SNAKE_CASE
 
-        this.BaseDirectory = baseDirectory;
+    public FileOutputStrategy(String baseDirectory) {//class renaming
+
+        this.baseDirectory = baseDirectory;
     }
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {
             // Create the directory
-            Files.createDirectories(Paths.get(BaseDirectory));
+            Files.createDirectories(Paths.get(baseDirectory));
         } catch (IOException e) {
             System.err.println("Error creating base directory: " + e.getMessage());
             return;
         }
         // Set the FilePath variable
-        String FilePath = file_map.computeIfAbsent(label, k -> Paths.get(BaseDirectory, label + ".txt").toString());
+        String filePath = FILE_MAP.computeIfAbsent(label, k -> Paths.get(baseDirectory, label + ".txt").toString());//local variables are lowerCamelCase
 
         // Write the data to the file
         try (PrintWriter out = new PrintWriter(
-                Files.newBufferedWriter(Paths.get(FilePath), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
+                Files.newBufferedWriter(Paths.get(filePath), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
             out.printf("Patient ID: %d, Timestamp: %d, Label: %s, Data: %s%n", patientId, timestamp, label, data);
         } catch (Exception e) {
-            System.err.println("Error writing to file " + FilePath + ": " + e.getMessage());
+            System.err.println("Error writing to file " + filePath + ": " + e.getMessage());
         }
     }
 }
