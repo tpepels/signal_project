@@ -7,7 +7,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
-// Class names should start with an uppercase letter
+
+/**
+ * Providing a strategy for outputting health data to files
+ */
+
+ // Class names should start with an uppercase letter
 public class FileOutputStrategy implements OutputStrategy {
 
     // Variable names should start with a lowercase letter
@@ -16,10 +21,24 @@ public class FileOutputStrategy implements OutputStrategy {
     // Final variables need to be all capital letters
     public final ConcurrentHashMap<String, String> FILE_MAP = new ConcurrentHashMap<>();
 
-    public FileOutputStrategy(String baseDirectory) {
+    /**
+     * Constructs a FileOutputStrategy with the specified base directory.
+     *
+     * @param baseDirectory The base directory where output files will be stored.
+     */
 
+    public FileOutputStrategy(String baseDirectory) {
         this.baseDirectory = baseDirectory;
     }
+
+/**
+* Outputs health data for a specific patient to a file.
+ *
+ * @param patientId The ID of the patient for whom the data is being outputted.
+ * @param timestamp The timestamp associated with the data.
+ * @param label     The label or type of data being outputted.
+ * @param data      The actual data being outputted.
+ */
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
