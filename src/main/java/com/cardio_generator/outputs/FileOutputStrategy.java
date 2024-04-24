@@ -28,6 +28,14 @@ public class FileOutputStrategy implements OutputStrategy {
         this.baseDirectory = baseDirectory;
     }
 
+    /**
+     * Outputs the data to a file with the specified label.
+     *
+     * @param patientId  The ID of the patient.
+     * @param timestamp  The timestamp of the data.
+     * @param label      The label associated with the data.
+     * @param data       The data to be outputted.
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {
