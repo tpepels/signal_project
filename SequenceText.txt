@@ -1,0 +1,6 @@
+The sequence diagram outlines the process triggered when, for instance, Patient C's heart rate surpasses the predetermined threshold. It kicks off with the heart rate monitor detecting the escalation in heart rate, prompting the AlertGenerator to commence its evaluation.
+Upon detecting the problem, the AlertGenerator accesses Patient C's historical data stored in the DataStorage to validate the condition's significance.
+Once confirmed, the AlertGenerator generates an alert, instantly dispatching it to the Nurse on Duty and triggering immediate notification. This rapid dissemination ensures that the nurse is promptly informed
+Upon receiving the alert, the Nurse on Duty promptly attends to the patient, administering necessary interventions to address the detected condition and stabilize the patient's health.
+If the patient's condition stabilizes, the Nurse has the option to manually resolve the alert within the system, ensuring proper documentation and closure.
+In summary, this systematic process enables the prompt detection, notification, and response to critical patient conditions, thereby enhancing patient care and outcomes.
