@@ -70,7 +70,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 ## Description of UML State Diagram for an Alert
-The UML State Diagram for an Alert in the Alert Generation System provides a visual representation of the various states an alert can occupy from inception to conclusion. This diagram is instrumental in illustrating the lifecycle of an alert, delineating the progression from the "Generated" state to the "Resolved" state, with intermediate states of "Sent" and "Acknowledged."
+The UML State Diagram for an Alert in the Alert Generation System provides a visual representation of the various states an alert can occupy from inception to conclusion. 
+This diagram is instrumental in illustrating the lifecycle of an alert, delineating the progression from the "Generated" state to the "Resolved" state, with intermediate states of "Sent" and "Acknowledged."
 
 ### Generated State: 
 The lifecycle of an alert begins in the "Generated" state. This state is entered when the system detects that patient data has crossed a predefined threshold. For instance, an alert may be generated if a patient's heart rate exceeds a certain limit. The state transition occurs due to a system-triggered event based on real-time data monitoring.
@@ -81,7 +82,8 @@ Following the alert's receipt, it enters the "Acknowledged" state when a medical
 The final state in the alert lifecycle is "Resolved." An alert can be resolved in two ways: automatically, if subsequent patient data indicate normal conditions over a specified period, or manually, by a medical staff member after assessing and potentially modifying the patient’s treatment.
 
 ## Description of UML Sequence Diagram for the Alert Generation System
-The UML Sequence Diagram for the Alert Generation System effectively maps out the interactions and processes involved in detecting, generating, and managing alerts based on patient data that meets specific health risk criteria. This diagram serves as a comprehensive blueprint for developers and stakeholders to understand the flow of data and responsibilities across various system components.
+The UML Sequence Diagram for the Alert Generation System effectively maps out the interactions and processes involved in detecting, generating, and managing alerts based on patient data that meets specific health risk criteria. 
+This diagram serves as a comprehensive blueprint for developers and stakeholders to understand the flow of data and responsibilities across various system components.
 
 Initial Data Transmission: The sequence begins with a "Heart Rate Monitor" transmitting patient data to the "AlertGenerator." This data is crucial as it triggers the evaluation process for potential alerts.
 Data Evaluation: Upon receiving the data, the "AlertGenerator" interacts with the "DataStorage" system to retrieve historical patient data. This historical data is essential to determine if the detected condition represents an ongoing trend or an isolated event.
@@ -89,4 +91,4 @@ Alert Generation: If the evaluation confirms that the data meets the alert thres
 Alert Notification and Acknowledgment: Once the alert is generated, it is sent to the medical staff, specifically represented by a "Nurse" in the diagram. The nurse receives the alert notification on their device, acknowledges it, and may access the patient's detailed view to assess the situation further.
 Alert Resolution: After necessary interventions, the nurse has the capability to resolve the alert manually in the system. Resolution can also occur automatically if subsequent data shows the patient's condition has stabilized.
 
-link to uml_models:
+link to uml_models: https://github.com/lamanton33/signal_project/tree/master/src/uml_models
