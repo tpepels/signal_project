@@ -74,3 +74,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Student ID: 6349052
 - Student ID: 6358408
 >>>>>>> 1aad839597db72f06db7f24b8b6cc4b94904dda8
+
+## UML Tutorial
+
+This directory contains a UML document, which provides Unified Modeling Language (UML) for the Cardiovascular Health Monitoring System (CHMS).
+- [UML Tutorial PDF](uml_models/UML_Tutorial.pdf)
