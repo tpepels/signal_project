@@ -1,0 +1,13 @@
+UML sequence diagram documentation:
+
+The monitors within the system constantly monitor data levels, and if any data exceeds the predetermined threshold, 
+they promptly forward this information to the Alert generator for further analysis. 
+The Alert generator then swiftly accesses the Data storage to fetch historical data, 
+seeking out past incidents to gain a comprehensive understanding of the context and severity of the current situation. 
+Once with this valuable information, the Alert generator proceeds to create a new alert. 
+Once the alert is generated, it is promptly transmitted to the medical staff through a notification system. 
+At this point, two possible courses of action are presented: the medical staff have the possibility to acknowledge the alert, 
+attend to the patient, and then manually resolve the alert within the server, 
+or alternatively, if the monitors indicate that the patient's condition has remained stable for the predefined period of time, 
+the alert is automatically deemed resolved by the system. Subsequently, the alert is effectively eliminated from the system. 
+To conclude the process, the alert generator dutifully updates the data storage to guarantee that all information remains current and accurate, ensuring an up to date system.

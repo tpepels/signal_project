@@ -1,0 +1,23 @@
+UML State Diagram documentation:
+
+The system is designed to continuously monitor the data of patients, 
+comparing it against predefined thresholds. 
+If the system detects any patient data exceeding these thresholds, 
+it generates an alert through the alert generator. 
+Subsequently, a notification is promptly dispatched to alert the medical team 
+of the presence of an anomaly in the condition of a patient under their care. 
+  
+Upon receiving the alert, the medical staff can take necessary actions to address the situation 
+and provide appropriate treatment to the patient. Once the patient has been treated, 
+the medical staff has the option to acknowledge the alert and confirm that the conditions prompting the alert no longer persist. 
+In this case, the alert is manually resolved based on the assessment and intervention by the medical team. 
+  
+Alternatively, if the system detects that the patient's condition has stabilized for a predefined period, 
+it can automatically resolve the alert without the need for manual intervention. 
+This automated resolution is triggered when the system determines that the patient's data no longer exceeds the predefined thresholds, 
+signifying an improvement in the patient's health status. 
+  
+Following the resolution of the alert, the system ensures the integrity of the data storage 
+by updating the information to reflect the most current status of the patient. 
+This process guarantees that the data storage remains accurate and up to date, 
+providing healthcare providers with reliable information for ongoing patient care and monitoring.
