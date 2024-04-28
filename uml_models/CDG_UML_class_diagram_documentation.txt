@@ -1,24 +1,24 @@
-UML class diagram documentation:
+Cardiovascular Data Generator UML class diagram documentation:
 
 The system utilizes various data generation methods to simulate vital parameters and signals for patient monitoring. 
-The BloodLevelsDataGenerator function replicates blood levels, including cholesterol, red cells and white cells, 
+The BloodLevelsDataGenerator class replicates blood levels, including cholesterol, red cells and white cells, 
 necessary for evaluating a patient's metabolic state. 
 In parallel, the BloodPressureDataGenerator generates simulated blood pressure readings to provide insights 
-into a patient's circulatory health. Additionally, the BllodSaturationDataGenerator method simulates blood oxygen saturation levels, 
+into a patient's circulatory health. Additionally, the BllodSaturationDataGenerator class simulates blood oxygen saturation levels, 
 crucial for assessing respiratory function. 
   
-Moreover, the AlertGenerator method plays a pivotal role in patient care by producing alert data based on predefined probabilities. 
+Moreover, the AlertGenerator class plays a pivotal role in patient care by producing alert data based on predefined probabilities. 
 These alerts can prompt medical staff to take action by triggering an alert 
 or indicate a resolved issue within the patient's monitoring system. 
 This dynamic simulation enhances preparedness for managing various patient scenarios effectively. 
   
-Furthermore, the ECGDataGenerator function is instrumental in simulating electrocardiogram (ECG) data to monitor cardiac activity. 
+Furthermore, the ECGDataGenerator class is instrumental in simulating electrocardiogram (ECG) data to monitor cardiac activity. 
 By generating ECG waveforms that encompass essential features like the P wave, QRS complex, and T wave, 
 the system mirrors real-world cardiac signals. To add an element of authenticity and variability, 
 small noise components are incorporated into the ECG simulation. 
 This attention to detail ensures that the simulated ECG data closely resembles actual patient readings 
 for accurate interpretation by healthcare professionals. 
   
-All of these data generation methods adhere to the PatientDataGenerator interface, 
+All of these data generation classes adhere to the PatientDataGenerator interface, 
 guaranteeing consistency in the method structure for producing essential patient data. 
 By implementing this interface, the system maintains a standardized approach to generating diverse patient-related information.
