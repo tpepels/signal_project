@@ -1,0 +1,12 @@
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\AlertGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\outputs\fileOutputStrategy.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\HealthDataSimulator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\outputs\ConsoleOutputStrategy.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\ECGDataGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\BloodSaturationDataGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\outputs\OutputStrategy.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\PatientDataGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\BloodLevelsDataGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\generators\BloodPressureDataGenerator.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\outputs\WebSocketOutputStrategy.java
+C:\Users\micha\Documents\Software_engineering\Project\signal_project\src\main\java\com\cardio_generator\outputs\TcpOutputStrategy.java
