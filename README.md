@@ -19,50 +19,56 @@ The Cardio Data Simulator is a Java-based application designed to simulate real-
 - Java JDK 11 or newer.
 - Maven for managing dependencies and compiling the application.
 
-### Installation
+### UML Diagram
 
-1. Clone the repository:
+The following UML diagram illustrates the class structure of the Cardio Data Simulator:
 
-   ```sh
-   git clone https://github.com/tpepels/signal_project.git
-   ```
+## Alert Generation System:
+![image](UmlDiagrams/Alert Generation System.png)
 
-2. Navigate to the project directory:
+This diagram shows a services where a devices continuously send data to the system.
+The system will then go through the alertGenerator 
+to check if the data is normal or not based on the patient profile and a threshold.
+If the data is not normal, the system will send an alert to the alertManager.
+Which will then send the alert to the staff.
 
-   ```sh
-   cd signal_project
-   ```
+## Data Storage System:
+![image](UmlDiagrams/Data Storage System.png)
 
-3. Compile and package the application using Maven:
-   ```sh
-   mvn clean package
-   ```
-   This step compiles the source code and packages the application into an executable JAR file located in the `target/` directory.
+With this diagram, the system will store the data in the database.
+The data is saved in DataStorage, it stores data by retrieving the data from PatientData using DataRetriever.
+The data is then saved in the database using DataSaver.
+During the process, the system will do security to ensure the data is safe. 
+Limiting the access to the data.
 
-### Running the Simulator
+## Patient Identification System:
+![image](UmlDiagrams/Patient Identification System.png)
 
-After packaging, you can run the simulator directly from the executable JAR:
+This diagram shows the system where the patient is identified.
+The data received from the devices has to be identified to the correct patient.
+The system will Identify the patient by sending the data to,
+IdentityManager which will then send the data to the PatientIdentification and the HospitalDatabase.
+The IdentityManager will then send the data to PatientRecord to compare the data with the patient data in the database.
+The data is then cross-referenced with the data in the HospitalDatabase to ensure the data is correct.
 
-```sh
-java -jar target/target/cardio_generator-1.0-SNAPSHOT.jar
-```
+## Data Access Layer:
+![image](UmlDiagrams/Data Access Layer.png)
 
-To run with specific options (e.g., to set the patient count and choose an output strategy):
+This diagram shows the system where the data is received and handled.
+The dataListener receives constant data from four different sources:
+- TCP
+- External Source
+- Files
+- WebSocket
 
-```sh
-java -jar target/target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output file:./output
-```
+The data is sent Raw to the Data Parser to be parsed.
+The DataSourceAdapter then converts the data to the correct format to then be stored in the internalSystem.
 
-### Supported Output Options
 
-- `console`: Directly prints the simulated data to the console.
-- `file:<directory>`: Saves the simulated data to files within the specified directory.
-- `websocket:<port>`: Streams the simulated data to WebSocket clients connected to the specified port.
-- `tcp:<port>`: Streams the simulated data to TCP clients connected to the specified port.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License—see the [LICENSE](LICENSE) file for details.
 
 ## Project Members
 - Student ID: i6349778
