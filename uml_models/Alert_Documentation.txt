@@ -1,0 +1,11 @@
+Firstly, PatientData is a  component that acts as a data feed for the AlertGenerator, and stores all relevant patient information. This data is continuously fed into the AlertGenerator, providing the input for alert threshold evaluations.
+
+The Alert Generation System monitors patients in the cardiovascular ward, alerting medical staff based on individualized thresholds. The system is made up of three primary classes: AlertGenerator, Alert, and AlertManager.
+
+AlertGenerator is the core class, and is responsible fore data processing. It constantly receives data streams from devices sych as blood pressure, blood saturation etc. Each patient has a digital profile within the Cardiovascular Health Management System (CHMS), which includes alert thresholds for each patient and their history of alerts. The AlertGenerator compares incoming data against these thresholds. When a data point exceeds a threshold, it instantiates an Alert object.
+
+The Alert class encapsulates all relevant information about the generated alert. This includes the patient’s ID, the condition that triggered the alert, the specific threshold crossed, the current value, and the timestamp of the event. The Alert object is the object between which the AlertGenerator and the AlertManager can communicate through.
+
+Finally, AlertManager checks the Alert objects created by the AlertGenerator. It manages the distribution of alerts, ensuring they are sent to the correct medical staff and/or the correct device. The AlertManager improves the safety of the patients, allowing quick action from the doctors and nurses for patients in need.
+
+The UML class diagram visually represents the relationships between these classes. AlertGenerator has an association with Alert, indicated by a solid line with an open arrowhead, signifying the creation of Alert objects. AlertManager is also associated with Alert, managing the instances created by the AlertGenerator.

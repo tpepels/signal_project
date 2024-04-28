@@ -1,0 +1,9 @@
+The Data Storage System is a designed to manage and contain patient health information within a healthcare facility. It consists of three primary components: DataStorage, PatientData, and DataRetriever.
+
+The DataStorage method is the central repository for all patient-related data. It securely stores vital signs and historical medical records, using encryption to keep confidentiality. The operations of this component include the addition and removal of patient data.
+
+PatientData represents the individual records for each patient. These records have all of the health-related information, such as the vital statistics and comprehensive medical history. The class provides mechanisms to access any of the data, making sure that that the patient information is available.
+
+DataRetriever is the interface through which doctors and nurses can access patient information stored within the DataStorage. It has strict security to verify that only authorized staff members can view or interact with private patient data. This component is essential in preserving the privacy of patient information.
+
+The UML class diagram shows the interactions between these components, and the diagram emphasizes the system’s commitment to privacy and security, ensuring that patient data is handled responsibly and accessed only for medical purposes.
