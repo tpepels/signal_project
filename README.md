@@ -24,7 +24,7 @@ The Cardio Data Simulator is a Java-based application designed to simulate real-
 The following UML diagram illustrates the class structure of the Cardio Data Simulator:
 
 ## Alert Generation System:
-![image](UmlDiagrams/Alert Generation System.png)
+![image](/UmlDiagrams/Alert Generation System.png)
 
 This diagram shows a services where a devices continuously send data to the system.
 The system will then go through the alertGenerator 
@@ -33,7 +33,7 @@ If the data is not normal, the system will send an alert to the alertManager.
 Which will then send the alert to the staff.
 
 ## Data Storage System:
-![image](UmlDiagrams/Data Storage System.png)
+![image](/UmlDiagrams/Data Storage System.png)
 
 With this diagram, the system will store the data in the database.
 The data is saved in DataStorage, it stores data by retrieving the data from PatientData using DataRetriever.
@@ -42,7 +42,7 @@ During the process, the system will do security to ensure the data is safe.
 Limiting the access to the data.
 
 ## Patient Identification System:
-![image](UmlDiagrams/Patient Identification System.png)
+![image](/UmlDiagrams/Patient Identification System.png)
 
 This diagram shows the system where the patient is identified.
 The data received from the devices has to be identified to the correct patient.
@@ -52,7 +52,7 @@ The IdentityManager will then send the data to PatientRecord to compare the data
 The data is then cross-referenced with the data in the HospitalDatabase to ensure the data is correct.
 
 ## Data Access Layer:
-![image](UmlDiagrams/Data Access Layer.png)
+![image](/UmlDiagrams/Data Access Layer.png)
 
 This diagram shows the system where the data is received and handled.
 The dataListener receives constant data from four different sources:
