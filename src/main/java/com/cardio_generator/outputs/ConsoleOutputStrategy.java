@@ -1,14 +1,14 @@
 package com.cardio_generator.outputs;
 
 /**
- * implements interface to output health data 
- * the strategy formats and prints the data to standard output
+ * Implements interface to output health data 
+ * The strategy formats and prints the data to standard output
  */
 
 public class ConsoleOutputStrategy implements OutputStrategy {
     /**
-     * the outputs are form patient health data to the console
-     * method prints the patient ID, timestamp, data label, and the curent data 
+     * The outputs are form patient health data to the console
+     * Method prints the patient ID, timestamp, data label, and the curent data 
      *
      * @param patientId unique identifier for the patient
      * @param timestamp timestamp when the data was obtained

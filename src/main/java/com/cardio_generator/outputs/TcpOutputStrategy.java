@@ -7,9 +7,8 @@ import java.net.Socket;
 import java.util.concurrent.Executors;
 
 /**
- * implements the interface to send data to clients over TCP
- * it sets a TCP server on a port and sends formatted patient data
- * to a connected client
+ * Implements the interface to send data to clients over TCP
+ * It sets a TCP server on a port and sends formatted patient data to a connected client
  */
 
 public class TcpOutputStrategy implements OutputStrategy {
@@ -19,10 +18,10 @@ public class TcpOutputStrategy implements OutputStrategy {
     private PrintWriter out;
 
     /**
-     * mqke a TCP and it will start a TCP server on port
-     * server will wait for a client to be connected and if connection if sucssesful is sending data
+     * Make a TCP and it will start a TCP server on port
+     * Server will wait for a client to be connected and if connection if sucssesful is sending data
      *
-     * @param port port number which the TCP server will listen for client connections
+     * @param port number which the TCP server will listen for client connections
      */
 
     public TcpOutputStrategy(int port) {
@@ -30,7 +29,7 @@ public class TcpOutputStrategy implements OutputStrategy {
             serverSocket = new ServerSocket(port);
             System.out.println("TCP Server started on port " + port);
 
-            // get client in a new thread to not make problems in the other thread
+            // Get client in a new thread to not make problems in the other thread
             Executors.newSingleThreadExecutor().submit(() -> {
                 try {
                     clientSocket = serverSocket.accept();
@@ -46,13 +45,13 @@ public class TcpOutputStrategy implements OutputStrategy {
     }
 
     /**
-     * sends formatteed patient data to client over TCP
-     * data is formatted and sent as a single line
+     * Sends formatteed patient data to client over TCP
+     * Data is formatted and sent as a single line
      *
      * @param patientId  ID of the patient that it's data is being sent
-     * @param timestamp timestamp of the data measurement
+     * @param timestamp of the data measurement
      * @param label describes the type of the data
-     * @param data data measured for patient
+     * @param data measured for patient
      */
 
     @Override

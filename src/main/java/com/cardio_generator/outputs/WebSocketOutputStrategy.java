@@ -6,8 +6,8 @@ import org.java_websocket.server.WebSocketServer;
 import java.net.InetSocketAddress;
 
 /**
- * implements an interface that uses a WebSocket server to broadcast health data
- * the strategy initializes the WebSocket server on a specified port and sends the formatted patient data to all connected clients
+ * Implements an interface that uses a WebSocket server to broadcast health data
+ * The strategy initializes the WebSocket server on a specified port and sends the formatted patient data to all connected clients
  */
 
 public class WebSocketOutputStrategy implements OutputStrategy {
@@ -15,10 +15,10 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     private WebSocketServer server;
 
 /**
-     * makes an output strategy that it starts a WebSocket 
-     * the server broadcasts health data to all the connected WebSocket clients
+     * Makes an output strategy that it starts a WebSocket 
+     * The server broadcasts health data to all the connected WebSocket clients
      *
-     * @param port port number on which the WebSocket server will listen for connections
+     * @param port number on which the WebSocket server will listen for connections
      */
 
     public WebSocketOutputStrategy(int port) {
@@ -28,8 +28,8 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     }
 
 /**
- * sends formatted patient data to all connected clients
- * the data format is "patientId,timestamp,label,data"
+ * Sends formatted patient data to all connected clients
+ * The data format is "patientId,timestamp,label,data"
  * @param patientId the patient's ID 
  * @param timestamp when the data was recorded
  * @param label describes the data type 
@@ -49,13 +49,13 @@ public class WebSocketOutputStrategy implements OutputStrategy {
 
     
     /**
-     *private inner class that extends WebSocketServer to manage basic WebSocket events such as opening and closing and handling server errors
+     * Private inner class that extends WebSocketServer to manage basic WebSocket events such as opening and closing and handling server errors
      */
 
     private static class SimpleWebSocketServer extends WebSocketServer {
 
         /**
-         * makes a server to bound to the specified local socket address
+         * Makes a server to bound to the specified local socket address
          *
          * @param address address of server
          */
@@ -65,7 +65,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
         /**
-         * gestiones the connection of new clients
+         * Gestiones the connection of new clients
          *
          * @param conn The WebSocket connection that has been opened.
          * @param handshake The handshake details of the connection.
@@ -77,7 +77,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
         /**
-         * handles the closure of a client connnection
+         * Handles the closure of a client connnection
          *
          * @param conn the WebSocket connection closed
          * @param code status code that says the reason closure
@@ -91,10 +91,10 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
         /**
-         * recieves messages from clients. it is overridden to make more functionality
+         * Recieves messages from clients. it is overridden to make more functionality
          *
-         * @param conn  connection which the message is recieved
-         * @param message The message received.
+         * @param conn connection which the message is recieved
+         * @param message received
          */
         @Override
         public void onMessage(WebSocket conn, String message) {
@@ -102,7 +102,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
         /**
-         *is going to handle errors that occur on the WebSocket connection
+         * Is going to handle errors that occur on the WebSocket connection
          *
          * @param conn connection where the errors is at
          * @param ex expection that is gonna present error
@@ -114,7 +114,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
          /**
-         * log a message if the server is connected
+         * Log a message if the server is connected
          */
 
         @Override

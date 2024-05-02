@@ -26,8 +26,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * this class is simulating the generation and output of health data for multiple patients
- * it able to support patient count and output
+ * This class is simulating the generation and output of health data for multiple patients
+ * It's able to support patient count and output
  */
 
 public class HealthDataSimulator {
@@ -38,10 +38,10 @@ public class HealthDataSimulator {
     private static final Random random = new Random();
 
     /**
-     * main method is the entry point of the simulator
-     * it starts simulator settings from command line
+     * Main method is the entry point of the simulator
+     * It starts simulator settings from command line
      *
-     * @param args  customize the simulation settings
+     * @param args customize the simulation settings
      * @throws IOException handling possible exceptions
      */
 
@@ -52,17 +52,17 @@ public class HealthDataSimulator {
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
 
         List<Integer> patientIds = initializePatientIds(patientCount);
-        Collections.shuffle(patientIds); // chooses random patients with their IDs
+        Collections.shuffle(patientIds); // Chooses random patients with their IDs
 
         scheduleTasksForPatients(patientIds);
     }
 
     /**
-     *analizes the arguments of command line in order to be able to set the simulator
-     * counts patients and chooses the output 
+     * Analizes the arguments of command line in order to be able to set the simulator
+     * Counts patients and chooses the output 
      *
      * @param args this is an array of command lines arguments
-     * @throws IOException if there is an error creating directories for file output.
+     * @throws IOException if there is an error creating directories for file output
      */
 
     private static void parseArguments(String[] args) throws IOException {
@@ -97,7 +97,7 @@ public class HealthDataSimulator {
                         } else if (outputArg.startsWith("websocket:")) {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(10));
-                                // create websocket
+                                // Create websocket
                                 outputStrategy = new WebSocketOutputStrategy(port);
                                 System.out.println("WebSocket output will be on port: " + port);
                             } catch (NumberFormatException e) {
@@ -107,7 +107,7 @@ public class HealthDataSimulator {
                         } else if (outputArg.startsWith("tcp:")) {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(4));
-                                //create tpc
+                                // Create tpc
                                 outputStrategy = new TcpOutputStrategy(port);
                                 System.out.println("TCP socket output will be on port: " + port);
                             } catch (NumberFormatException e) {
@@ -127,7 +127,7 @@ public class HealthDataSimulator {
     }
 
     /**
-     * prints information to be able to know it 
+     * Prints information to be able to know it 
      */
 
     private static void printHelp() {
@@ -148,7 +148,7 @@ public class HealthDataSimulator {
     }
 
     /**
-     *create list of patients IDs and it is initialized
+     * Create list of patients IDs and it is initialized
      *
      * @param patientCount the number of patients to generate IDs for
      * @return a list of integers representing patient IDs
@@ -163,7 +163,7 @@ public class HealthDataSimulator {
     }
 
     /**
-     * organizes in time the tasks for each patient. ultiple generators  are used to create varied health data in a time period
+     * Organizes in time the tasks for each patient. ultiple generators  are used to create varied health data in a time period
      *
      * @param patientIds the list of patient IDs for which tasks will be organized
      */
@@ -185,7 +185,7 @@ public class HealthDataSimulator {
     }
 
     /**
-     * single task periodically to be scheduled
+     * Single task periodically to be scheduled
      *
      * @param task  task to schedule
      * @param period time between the options
