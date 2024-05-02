@@ -48,5 +48,6 @@ public class AlertGenerator {
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
+        if(alert.getCondition())
     }
 }

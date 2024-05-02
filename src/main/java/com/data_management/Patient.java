@@ -52,6 +52,10 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        List<PatientRecord>ans = new ArrayList<>();
+        for(int i = startTime;i<=endTime;i++){
+            ans.add(this.patientRecords.get(i));
+        }
+      return ans;
     }
 }
