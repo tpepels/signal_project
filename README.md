@@ -68,12 +68,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Project Members
 - Student ID: 6349052
 - Student ID: 6358408
-=======
-
-## Project member
-- Student ID: 6349052
-- Student ID: 6358408
->>>>>>> 1aad839597db72f06db7f24b8b6cc4b94904dda8
 
 ## UML Tutorial
 
