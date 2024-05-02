@@ -28,6 +28,7 @@ public class FileOutputStrategy implements OutputStrategy {
 
     /**
      * Outputs the alert information for a patient to a file associated with the label.
+     * the data is comma-separated.
      *
      * @param patientId The id of the patient.
      * @param timestamp The time at which the data was generated.
