@@ -2,6 +2,9 @@ package com.alerts;
 
 import com.data_management.DataStorage;
 import com.data_management.Patient;
+import com.data_management.PatientRecord;
+
+import java.util.List;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
@@ -36,7 +39,35 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
+        //get last record
+        List<PatientRecord> records = patient.getRecords(patient.getPrevThreeTime(), patient.getEndTime());
+
+        if (records.size() >= 3) {
+            // Check for increasing or decreasing trend
+            PatientRecord record1 = records.get(records.size() - 3);
+            PatientRecord record2 = records.get(records.size() - 2);
+            PatientRecord record3 = records.get(records.size() - 1);
+
+            // Calculate difference between consecutive readings
+            double diff1 = record2.getMeasurementValue() - record1.getMeasurementValue();
+            double diff2 = record3.getMeasurementValue() - record2.getMeasurementValue();
+
+            if (Math.abs(diff1) > 10 && Math.abs(diff2) > 10) {
+                triggerAlert(new Alert(record1.getPatientId(), "Blood Pressure Trend Detected", System.currentTimeMillis()));
+            }
+        }
+
+        // Check for critical threshold alerts
+        PatientRecord latestRecord = records.get(records.size() - 1);
+        double value = latestRecord.getMeasurementValue();
+        String recordType = latestRecord.getRecordType();
+
+        if ((recordType.equalsIgnoreCase("Systolic") && (value > 180 || value < 90)) ||
+                (recordType.equalsIgnoreCase("Diastolic") && (value > 120 || value < 60))) {
+            triggerAlert(new Alert(patient.getPatientId(), "Critical Blood Pressure", System.currentTimeMillis()));
+        }
     }
+
 
     /**
      * Triggers an alert for the monitoring system. This method can be extended to
@@ -48,6 +79,10 @@ public class AlertGenerator {
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
-        if(alert.getCondition())
+        if(alert.getCondition().equals("Changed")){
+            String patientId = alert.getPatientId();
+            dataStorage.get
+        }
+
     }
 }

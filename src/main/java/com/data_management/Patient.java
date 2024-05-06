@@ -53,9 +53,17 @@ public class Patient {
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         List<PatientRecord>ans = new ArrayList<>();
-        for(int i = startTime;i<=endTime;i++){
+        for(int i = 0;startTime<=endTime;i++,startTime++){
             ans.add(this.patientRecords.get(i));
         }
       return ans;
+    }
+
+    public long getEndTime(){
+        return patientRecords.get(patientRecords.size()-1).getTimestamp();
+    }
+
+    public long getPrevThreeTime(){
+        return patientRecords.get(patientRecords.size()-3).getTimestamp();
     }
 }
