@@ -66,4 +66,7 @@ public class Patient {
     public long getPrevThreeTime(){
         return patientRecords.get(patientRecords.size()-3).getTimestamp();
     }
+    public int getPatientId(){
+        return this.patientId;
+    }
 }

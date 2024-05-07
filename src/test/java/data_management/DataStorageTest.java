@@ -22,4 +22,5 @@ class DataStorageTest {
         assertEquals(2, records.size()); // Check if two records are retrieved
         assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
     }
+
 }
