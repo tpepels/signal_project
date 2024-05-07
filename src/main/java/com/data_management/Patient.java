@@ -69,4 +69,32 @@ public class Patient {
     public int getPatientId(){
         return this.patientId;
     }
+    public long getStartTime(){
+        return patientRecords.get(0).getTimestamp();
+    }
+
+    public List<PatientRecord>lastTenMinutesOfType(String type){
+        List<PatientRecord>returnList = new ArrayList<>();
+        long endTime = patientRecords.get(patientRecords.size()-1).getTimestamp();
+        long stopTime = endTime-600000L;
+        for(int i = patientRecords.size()-1;i>=0;i--){
+            if(patientRecords.get(i).getTimestamp()==stopTime){
+                return returnList;
+            }
+            if(patientRecords.get(i).getRecordType().equals(type)){
+                returnList.add(patientRecords.get(i));
+            }
+        }
+        return returnList;
+    }
+
+    public PatientRecord getECGRecord(){
+        for(int i = patientRecords.size()-1;i>=0;i--){
+            if(patientRecords.get(i).getRecordType().equals("ECG")){
+                return patientRecords.get(i);
+            }
+
+        }
+        return null;
+    }
 }
