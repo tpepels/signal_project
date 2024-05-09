@@ -45,12 +45,14 @@ After packaging, you can run the simulator directly from the executable JAR:
 
 ```sh
 java -jar target/target/6361564_6362299_cardio_data_simulator.jar
+java -jar target/cardio_generator-1.0-SNAPSHOT.jar
 ```
 
 To run with specific options (e.g., to set the patient count and choose an output strategy):
 
 ```sh
 java -jar target/target/6361564_6362299_cardio_data_simulator.jar --patient-count 100 --output file:./output
+java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output file:./output
 ```
 
 ### Supported Output Options
