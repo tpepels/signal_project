@@ -85,7 +85,6 @@ public class Reader implements DataReader {
         try (Stream<Path> paths = Files.walk(directoryPath)) {
             paths.filter(Files::isRegularFile)
                     .filter(path -> path.toString().endsWith(".txt")) // Filter to include only .txt files
-                    .filter(path -> !path.getFileName().toString().equals("Alert.txt")) // Exclude Alert.txt
                     .forEach(file -> {
                         try {
                             readDataAll(file, dataStorage); // Assuming readDataAll is a method you've defined
@@ -133,7 +132,17 @@ public class Reader implements DataReader {
             double measurementValue;
 
             String valueStr = scanner.next().split(": ")[1];
-            measurementValue = valueStr.equals("triggered") ? Double.NaN : Double.parseDouble(valueStr.split("%")[0]);
+            if(recordType.equals("Alert")){
+                if(valueStr.equals("triggered")){
+                    measurementValue = 1.0;//triggered
+                }
+                else{
+                    measurementValue=0.0;//resolved
+                }
+            }else{
+                measurementValue = Double.parseDouble(valueStr.split("%")[0]);
+            }
+
 
             dataStorage.addPatientData(patientId, measurementValue, recordType, timeStamp);
         }
