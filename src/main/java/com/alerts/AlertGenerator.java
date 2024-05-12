@@ -1,5 +1,7 @@
 package com.alerts;
 
+import java.util.List;
+
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 
@@ -11,6 +13,8 @@ import com.data_management.Patient;
  */
 public class AlertGenerator {
     private DataStorage dataStorage;
+
+    private final AlertCondition[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new RapidDropAlert(), new HypotensiveHypoxemiaAlert(), new TriggeredAlert()};
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -35,7 +39,13 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
+        for (AlertCondition checking : alerts) {
+            List<Alert> foundAlerts = checking.checkCondition(patient);
+
+            for (Alert i : foundAlerts) {
+                triggerAlert(i);
+            }
+        }
     }
 
     /**

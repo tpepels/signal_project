@@ -7,7 +7,7 @@ import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 public class CriticalThresholdAlert implements AlertCondition{
-    String alertName = "Blood pressure critical threshold alert";
+    private String alertName = "Blood pressure critical threshold alert";
 
     @Override
     public List<Alert> checkCondition(Patient patient) {
