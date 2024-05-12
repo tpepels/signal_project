@@ -6,19 +6,6 @@ import java.util.Scanner;
 
 public class CholesterolReader implements DataReader{
 
-    public static void main(String[] args) {
-        DataStorage test = new DataStorage();
-
-        CholesterolReader temp = new CholesterolReader();
-
-        try {
-            temp.readData(test);
-        }
-        catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
     @Override
     public void readData(DataStorage dataStorage) throws IOException {
         File outputFile = new File(System.getProperty("user.dir") + "/output/Cholesterol.txt");
@@ -32,13 +19,11 @@ public class CholesterolReader implements DataReader{
             dataScanner.skip("Patient ID: ");
             
             String patientIdString = dataScanner.next();
-
             int patientId = Integer.parseInt(patientIdString.substring(0, patientIdString.length() - 1));
 
             dataScanner.skip(" Timestamp: ");
 
             String timeStampString = dataScanner.next();
-
             long timeStamp = Long.parseLong(timeStampString.substring(0, timeStampString.length() - 1));
 
             dataScanner.skip(" Label: Cholesterol, Data: ");
@@ -46,7 +31,6 @@ public class CholesterolReader implements DataReader{
             double measurementValue = Double.parseDouble(dataScanner.next());
 
             dataStorage.addPatientData(patientId, measurementValue, "Cholesterol", timeStamp);
-
             dataScanner.close();
         }
         reader.close();
