@@ -27,7 +27,7 @@ public class RapidDropAlert implements AlertCondition{
                     break;
                 }
 
-                if (saturation - currentSaturation > 5) {
+                if (saturation - currentSaturation >= 5) {
                     res.add(new Alert(Integer.toString(records.get(0).getPatientId()), alertName, timestamp));
                     break;
                 }
