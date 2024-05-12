@@ -1,5 +1,6 @@
 package com.data_management;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,14 +14,20 @@ import com.alerts.AlertGenerator;
  * patient IDs.
  */
 public class DataStorage {
-    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private final Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private final CholesterolReader reader;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-    public DataStorage() {
+    public DataStorage(CholesterolReader reader) {
         this.patientMap = new HashMap<>();
+        this.reader = reader;
+    }
+
+    public void loadData() throws IOException {
+        reader.readData(this);
     }
 
     /**
@@ -37,11 +44,7 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
-        }
+        Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
         patient.addRecord(measurementValue, recordType, timestamp);
     }
 
@@ -75,17 +78,32 @@ public class DataStorage {
         return new ArrayList<>(patientMap.values());
     }
 
+    public List<PatientRecord> getAllRecords(long startTime, long endTime) {
+        List<PatientRecord> allRecords = new ArrayList<>();
+        List<Patient> patients = getAllPatients();
+        for (Patient patient : patients) {
+            allRecords.addAll(patient.getRecords(startTime, endTime));
+        }
+        return allRecords;
+    }
+
     /**
      * The main method for the DataStorage class.
      * Initializes the system, reads data into storage, and continuously monitors
      * and evaluates patient data.
-     * 
+     *
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        CholesterolReader reader = new CholesterolReader();
+
+        // Initialize DataStorage with the reader
+        DataStorage storage = new DataStorage(reader);
+
+        // Read data into the storage
+        reader.readData(storage);
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage

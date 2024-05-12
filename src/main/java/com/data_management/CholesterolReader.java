@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class CholesterolReader implements DataReader{
 
     public static void main(String[] args) {
-        DataStorage test = new DataStorage();
+        DataStorage test = new DataStorage(new CholesterolReader());
 
         CholesterolReader temp = new CholesterolReader();
 
@@ -15,7 +15,7 @@ public class CholesterolReader implements DataReader{
             temp.readData(test);
         }
         catch (IOException e) {
-            System.out.println(e);
+            throw new RuntimeException("Error reading data");
         }
     }
 
@@ -51,5 +51,5 @@ public class CholesterolReader implements DataReader{
         }
         reader.close();
     }
-    
+
 }
