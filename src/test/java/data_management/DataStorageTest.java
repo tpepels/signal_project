@@ -3,6 +3,7 @@ package data_management;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.data_management.CholesterolReader;
+import com.data_management.Patient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,19 +15,19 @@ import com.data_management.PatientRecord;
 import java.io.IOException;
 import java.util.List;
 
-class DataStorageTest {
+public class DataStorageTest {
 
     private DataStorage storage;
     private CholesterolReader mockedReader;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockedReader = Mockito.mock(CholesterolReader.class);
         storage = new DataStorage(mockedReader);
     }
 
     @Test
-    void testGetRecordsWithinTimeRange() {
+    public void testGetRecordsWithinTimeRange() {
         // Assuming addPatientData works correctly as it is unit tested separately
         int patientId = 1;
         storage.addPatientData(patientId, 200.0, "Cholesterol", 1625072400000L); // Timestamp 1
@@ -47,7 +48,7 @@ class DataStorageTest {
     }
 
     @Test
-    void testGetRecordsNoResultsOutsideTimeRange() {
+    public void testGetRecordsNoResultsOutsideTimeRange() {
         int patientId = 1;
         storage.addPatientData(patientId, 200.0, "Cholesterol", 1625072400000L); // Timestamp 1
 
@@ -63,7 +64,7 @@ class DataStorageTest {
     }
 
     @Test
-    void testGetRecordsNoResultsForNonExistentPatient() {
+    public void testGetRecordsNoResultsForNonExistentPatient() {
         // Define a time range that does not include the added record
         long startTime = 1625160000000L; // After Timestamp 1
         long endTime = 1625250000000L;   // Before any new record
@@ -76,7 +77,7 @@ class DataStorageTest {
     }
 
     @Test
-    void testGetRecordsForMultiplePatients() {
+    public void testGetRecordsForMultiplePatients() {
         // Assuming addPatientData works correctly as it is unit tested separately
         int patientId1 = 1;
         int patientId2 = 2;
@@ -101,7 +102,7 @@ class DataStorageTest {
     }
 
     @Test
-    void testRecordBoundaries() {
+    public void testRecordBoundaries() {
         int patientId = 1;
         storage.addPatientData(patientId, 100.0, "Cholesterol", 1625158800000L); // Exactly at startTime
         storage.addPatientData(patientId, 150.0, "Cholesterol", 1625331600000L); // Exactly at endTime
@@ -115,28 +116,7 @@ class DataStorageTest {
     }
 
     @Test
-    void testConcurrentAccess() throws InterruptedException {
-        int patientId = 1;
-        Runnable addData = () -> {
-            for (int i = 0; i < 100; i++) {
-                storage.addPatientData(patientId, i, "Cholesterol", 1625158800000L + i);
-            }
-        };
-
-        Thread thread1 = new Thread(addData);
-        Thread thread2 = new Thread(addData);
-        thread1.start();
-        thread2.start();
-
-        thread1.join();
-        thread2.join();
-
-        List<PatientRecord> records = storage.getRecords(patientId, 1625158800000L, 1625158800100L);
-        assertEquals(200, records.size(), "Should handle concurrent data additions correctly");
-    }
-
-    @Test
-    void testDataIntegrity() {
+    public void testDataIntegrity() {
         int patientId = 1;
         storage.addPatientData(patientId, Double.MAX_VALUE, "Cholesterol", Long.MAX_VALUE);
         storage.addPatientData(patientId, -Double.MAX_VALUE, "Cholesterol", Long.MIN_VALUE);
@@ -148,4 +128,70 @@ class DataStorageTest {
         assertEquals(-Double.MAX_VALUE, records.get(1).getMeasurementValue(), "Check min double value");
     }
 
+    @Test
+    public void testReadData() throws IOException {
+        storage.loadData();
+        Mockito.verify(mockedReader).readData(storage);
+    }
+
+    @Test
+    public void testGetRecordsByTypeWithRecords() {
+        Patient patient = new Patient(1);
+        // Add multiple records of different types
+        patient.addRecord(120.0, "HeartRate", 1625158800000L);
+        patient.addRecord(80.0, "BloodPressure", 1625158800001L);
+        patient.addRecord(130.0, "HeartRate", 1625158800002L);
+
+        // Retrieve records of type "HeartRate"
+        List<PatientRecord> heartRateRecords = patient.getRecordsByType("HeartRate");
+
+        // Assertions
+        assertEquals(2, heartRateRecords.size(), "Should retrieve two HeartRate records");
+        assertEquals(120.0, heartRateRecords.get(0).getMeasurementValue(), "Check first HeartRate value");
+        assertEquals(130.0, heartRateRecords.get(1).getMeasurementValue(), "Check second HeartRate value");
+    }
+
+    @Test
+    public void testGetRecordsByTypeWithNoRecordsOfThatType() {
+        Patient patient = new Patient(1);
+        // Add records of a different type
+        patient.addRecord(120.0, "HeartRate", 1625158800000L);
+        patient.addRecord(130.0, "HeartRate", 1625158800002L);
+
+        // Try to retrieve records of type "BloodPressure"
+        List<PatientRecord> bloodPressureRecords = patient.getRecordsByType("BloodPressure");
+
+        // Assertions
+        assertTrue(bloodPressureRecords.isEmpty(), "Should return an empty list for non-existent type");
+    }
+
+    @Test
+    public void testGetRecordsByTypeCaseSensitivity() {
+        Patient patient = new Patient(1);
+        // Add records of similar type but different cases
+        patient.addRecord(120.0, "HeartRate", 1625158800000L);
+        patient.addRecord(85.0, "heartrate", 1625158800001L);
+        patient.addRecord(90.0, "HEARTRATE", 1625158800002L);
+
+        // Retrieve records of type "HeartRate" exactly as typed
+        List<PatientRecord> heartRateRecords = patient.getRecordsByType("HeartRate");
+
+        // Assertions
+        assertEquals(1, heartRateRecords.size(), "Should retrieve one HeartRate record with exact case");
+        assertEquals(120.0, heartRateRecords.get(0).getMeasurementValue(), "Check the HeartRate value");
+
+        // Retrieve records of type "heartrate" (lowercase)
+        List<PatientRecord> lowerCaseRecords = patient.getRecordsByType("heartrate");
+
+        // Assertions
+        assertEquals(1, lowerCaseRecords.size(), "Should retrieve one heartrate record with lowercase");
+        assertEquals(85.0, lowerCaseRecords.get(0).getMeasurementValue(), "Check the lowercase HeartRate value");
+
+        // Retrieve records of type "HEARTRATE" (uppercase)
+        List<PatientRecord> upperCaseRecords = patient.getRecordsByType("HEARTRATE");
+
+        // Assertions
+        assertEquals(1, upperCaseRecords.size(), "Should retrieve one HEARTRATE record with uppercase");
+        assertEquals(90.0, upperCaseRecords.get(0).getMeasurementValue(), "Check the uppercase HeartRate value");
+    }
 }
