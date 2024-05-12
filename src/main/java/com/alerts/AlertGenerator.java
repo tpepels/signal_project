@@ -93,26 +93,38 @@ public class AlertGenerator {
                 PatientRecord lastECGRecord = patient.getECGRecord();
                 List<PatientRecord>lastTenMinutesECG = patient.lastTenMinutesOfType("ECG");
                 if(lastTenMinutesECG.size()!=0){
-                    if(checkECGALert(lastECGRecord,lastTenMinutesECG)){
+                    if(checkECGAlert(lastECGRecord,lastTenMinutesECG)){
                         triggerAlert(new Alert(patientId.toString(),"ECG Data Alert",lastECGRecord.getTimestamp()));
                     }
                 }
 
+                // manually triggered alert check
+            List<PatientRecord> lastManuallyTriggeredList = patient.lastTenMinutesOfType("Alert");
+            if(lastManuallyTriggeredList.size()>0){
+                PatientRecord lastTriggered = lastManuallyTriggeredList.get(lastManuallyTriggeredList.size()-1);
+                if(checkManuallyTriggered(lastTriggered)){
+                    triggerAlert(new Alert(patientId.toString(), "Manually triggered alert", lastTriggered.getTimestamp()));
+                }
 
-
-
-
+            }
 
 
     }
 
-    public boolean checkECGALert(PatientRecord lastECGRecord,List<PatientRecord>lastTenMinutesECG){
+    public boolean checkManuallyTriggered(PatientRecord lastTriggered) {
+        if(lastTriggered.getMeasurementValue()==1.0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkECGAlert(PatientRecord lastECGRecord,List<PatientRecord>lastTenMinutesECG){
         if(lastECGRecord.getMeasurementValue()<50||lastECGRecord.getMeasurementValue()>100){
             return true;
         }
         for(int i = lastTenMinutesECG.size()-1;i>0;i--){
             //Check for irregular beat
-            if(Math.abs(lastTenMinutesECG.get(i).getMeasurementValue()-lastTenMinutesECG.get(i-1).getMeasurementValue())>20){
+            if(Math.abs(lastTenMinutesECG.get(i).getMeasurementValue()-lastTenMinutesECG.get(i-1).getMeasurementValue())>=20){
                 return true;
             }
         }
@@ -153,7 +165,8 @@ public class AlertGenerator {
             if(record2.getMeasurementValue()>=record1.getMeasurementValue()+10&&record3.getMeasurementValue()>=
                     record2.getMeasurementValue()+10){
                 return true;
-            }
+            }else if(record2.getMeasurementValue()<=record1.getMeasurementValue()-10&&record3.getMeasurementValue()<=
+                    record2.getMeasurementValue()-10){return true;}
 
             //Critical threshold alert
         if(type.equals("Systolic")){

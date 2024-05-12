@@ -120,7 +120,8 @@ public class Reader implements DataReader {
      * Parses a line of data and stores it in dataStorage.
      *
      * @param line         the line to parse
-     * @param dataStorage  the storage to store data into
+     * @param dataStorage
+     * the storage to store data into
      */
     private void parseAndStoreData(String line, DataStorage dataStorage) {
         try (Scanner scanner = new Scanner(line)) {
