@@ -57,7 +57,6 @@ public class HealthDataSimulator {
         alertGenerator = new com.alerts.AlertGenerator(dataStorage);
 
     }
-
     /**
      * Parses the provided command-line arguments to set simulation parameters such as patient count and output strategy.
      * Recognizes specific flags and options to configure these parameters, and exits the application if necessary based

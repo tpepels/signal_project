@@ -41,9 +41,7 @@ public class AlertGenerator {
     public void evaluateData(Patient patient) {
         // Implementation goes here
         //get last record
-        List<PatientRecord> records = patient.getRecords(patient.getPrevThreeTime(), patient.getEndTime());
         Integer patientId = new Integer(patient.getPatientId());
-        if (records.size() >= 3) {
             // Check for increasing or decreasing trend
             //Do I have to get sort from reecords only those with systolic/diastolic and return last three?
 
@@ -87,19 +85,20 @@ public class AlertGenerator {
                 //Check Blood Pressure
 
                 List<PatientRecord>listOfLastThreeSist = getLastThreeBloodPressure(patient,"Systolic");
-                PatientRecord record1Syst = listOfLastThreeSist.get(records.size() - 3);
-                PatientRecord record2Syst = listOfLastThreeSist.get(records.size() - 2);
-                PatientRecord record3Syst = listOfLastThreeSist.get(records.size() - 1);
+                PatientRecord record1Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 3);
+                PatientRecord record2Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 2);
+                PatientRecord record3Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 1);
                 //Check systolic
                 if(checkBloodPressure(record1Syst,record2Syst,record3Syst,"Systolic")){
                     triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Syst.getTimestamp()));
 
+
                 }
                 //Same for diastolic
                 List<PatientRecord>listOfLastThreeDiast = getLastThreeBloodPressure(patient,"Diastolic");
-                PatientRecord record1Diast = listOfLastThreeDiast.get(records.size() - 3);
-                PatientRecord record2Diast = listOfLastThreeDiast.get(records.size() - 2);
-                PatientRecord record3Diast = listOfLastThreeDiast.get(records.size() - 1);
+                PatientRecord record1Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 3);
+                PatientRecord record2Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 2);
+                PatientRecord record3Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 1);
                 if(checkBloodPressure(record1Diast,record2Diast,record3Diast,"Diastolic")){
                     triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Diast.getTimestamp()));
                 }
@@ -125,7 +124,7 @@ public class AlertGenerator {
             }
 
 
-    }
+
     }
 
     public boolean checkECGALert(PatientRecord lastECGRecord,List<PatientRecord>lastTenMinutesECG){
@@ -219,10 +218,6 @@ public class AlertGenerator {
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
-//        if(alert.getCondition().equals("Changed")){
-//            String patientId = alert.getPatientId();
-//            dataStorage.get
-//        }
 
     }
 }
