@@ -1,6 +1,7 @@
 package com.data_management;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -52,7 +53,6 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
         List<PatientRecord> records = new ArrayList<>();
         for (PatientRecord record : this.patientRecords) {
             if (record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
@@ -61,4 +61,17 @@ public class Patient {
         }
         return records;
     }
+
+    public List<PatientRecord> getRecordsByType (String type) {
+        List<PatientRecord> typeRecord = new ArrayList<>();
+        for (PatientRecord record : this.patientRecords) {
+            if (record.getRecordType().equals(type)) {
+                typeRecord.add(record);
+            }
+        }
+
+        return typeRecord;
+    }
 }
+
+
