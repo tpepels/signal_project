@@ -17,6 +17,7 @@ public class DataStorage {
     private final Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
     private final CholesterolReader reader;
 
+
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
