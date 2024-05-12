@@ -1,5 +1,6 @@
 package com.data_management;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,13 +15,15 @@ import com.alerts.AlertGenerator;
  */
 public class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private CholesterolReader reader;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-    public DataStorage() {
+    public DataStorage(CholesterolReader reader) {
         this.patientMap = new HashMap<>();
+        this.reader = reader;
     }
 
     /**
@@ -37,11 +40,7 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
-        }
+        Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
         patient.addRecord(measurementValue, recordType, timestamp);
     }
 
@@ -82,10 +81,16 @@ public class DataStorage {
      * 
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        CholesterolReader reader = new CholesterolReader();
+
+        // Initialize DataStorage with the reader
+        DataStorage storage = new DataStorage(reader);
+
+        // Read data into the storage
+        reader.readData(storage);
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
