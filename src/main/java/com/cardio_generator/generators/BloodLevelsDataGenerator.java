@@ -4,14 +4,32 @@ import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
 
+/**
+ * The BloodLevelsDataGenerator class generates blood level data (cholesterol, white blood cells, and red blood cells)
+ * for patients.
+ * It implements the PatientDataGenerator interface.
+ */
 public class BloodLevelsDataGenerator implements PatientDataGenerator {
+    
+    /** The random number generator used for generating blood level data. */
     private static final Random random = new Random();
+    
+    /** An array to store the baseline cholesterol levels for each patient. */
     private final double[] baselineCholesterol;
+    
+    /** An array to store the baseline white blood cell counts for each patient. */
     private final double[] baselineWhiteCells;
+    
+    /** An array to store the baseline red blood cell counts for each patient. */
     private final double[] baselineRedCells;
 
+    /**
+     * Constructs a BloodLevelsDataGenerator object with the specified number of patients.
+     * Initializes arrays to store baseline values for cholesterol, white blood cells, and red blood cells.
+     * 
+     * @param patientCount The number of patients for whom blood level data will be generated.
+     */
     public BloodLevelsDataGenerator(int patientCount) {
-        // Initialize arrays to store baseline values for each patient
         baselineCholesterol = new double[patientCount + 1];
         baselineWhiteCells = new double[patientCount + 1];
         baselineRedCells = new double[patientCount + 1];
@@ -24,6 +42,14 @@ public class BloodLevelsDataGenerator implements PatientDataGenerator {
         }
     }
 
+    /**
+     * Generates blood level data (cholesterol, white blood cells, and red blood cells) for the specified patient 
+     * and outputs them using the given output strategy.
+     * 
+     * @param patientId      The ID of the patient for whom blood level data is generated.
+     * @param outputStrategy The output strategy used to output the generated blood level data.
+     * @throws IllegalArgumentException If the patient ID is invalid.
+     */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
