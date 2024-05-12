@@ -40,88 +40,67 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        //get last record
         Integer patientId = new Integer(patient.getPatientId());
-            // Check for increasing or decreasing trend
-            //Do I have to get sort from reecords only those with systolic/diastolic and return last three?
 
-            //Get last saturation level record.. etc (for combined alert)
 
-            //Blood pressure alert
-
-            //Check difference between blood pressures
-//            String measurmentValue = record1.getRecordType();
-//            switch(measurmentValue){
-//                case "SystolicPressure":
-//                    if(checkBloodPressure(record1,record2,record3, "Systolic")){
-//                        //First check combined alert
-//                        if(checkCombinedAlert(record1,record2,record3,"Systolic",patient)){
-//                            triggerAlert(new Alert(patientId.toString(), "Hypotensive Hypoxemia Alert", record3.getTimestamp()));
-//                        }
-//
-//                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3.getTimestamp()));
-//                    }
-//                    break;
-//                case "DiastolicPressure":
-//                    if(checkBloodPressure(record1,record2,record3, "Diastolic")){
-//                        //First check combined alert
-//                        if(checkCombinedAlert(record1,record2,record3,"Systolic",patient)){
-//                            triggerAlert(new Alert(patientId.toString(), "Hypotensive Hypoxemia Alert", record3.getTimestamp()));
-//                        }
-//                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3.getTimestamp()));
-//                    }
-//                    break;
-//                case "Saturation":
-//                    if(checkBloodSaturation(record3,patient)){
-//                        triggerAlert(new Alert(patientId.toString(),"Blood Saturation Alert", record3.getTimestamp()));
-//                    }
-//
-//                    break;
-//
-//            }
-            boolean work = true;
-            while(work){
 
                 //Check Blood Pressure
 
                 List<PatientRecord>listOfLastThreeSist = getLastThreeBloodPressure(patient,"Systolic");
-                PatientRecord record1Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 3);
-                PatientRecord record2Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 2);
-                PatientRecord record3Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 1);
-                //Check systolic
-                if(checkBloodPressure(record1Syst,record2Syst,record3Syst,"Systolic")){
-                    triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Syst.getTimestamp()));
-
-
+                if(listOfLastThreeSist.size()>=3){
+                    PatientRecord record1Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 3);
+                    PatientRecord record2Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 2);
+                    PatientRecord record3Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 1);
+                    //Check systolic
+                    if(checkBloodPressure(record1Syst,record2Syst,record3Syst,"Systolic")){
+                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Syst.getTimestamp()));
+                    }
                 }
+
+
+
                 //Same for diastolic
                 List<PatientRecord>listOfLastThreeDiast = getLastThreeBloodPressure(patient,"Diastolic");
-                PatientRecord record1Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 3);
-                PatientRecord record2Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 2);
-                PatientRecord record3Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 1);
-                if(checkBloodPressure(record1Diast,record2Diast,record3Diast,"Diastolic")){
-                    triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Diast.getTimestamp()));
+                if(listOfLastThreeDiast.size()>=3){
+                    PatientRecord record1Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 3);
+                    PatientRecord record2Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 2);
+                    PatientRecord record3Diast = listOfLastThreeDiast.get(listOfLastThreeDiast.size() - 1);
+                    if(checkBloodPressure(record1Diast,record2Diast,record3Diast,"Diastolic")){
+                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", record3Diast.getTimestamp()));
+                    }
+
                 }
+
 
                 //Check Blood Saturation
                 List<PatientRecord>lastTenMinutes = patient.lastTenMinutesOfType("Saturation");
-                if(checkBloodSaturation(lastTenMinutes.get(0),lastTenMinutes.get(lastTenMinutes.size()-1),patient)){
-                    triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", lastTenMinutes.get(lastTenMinutes.size()-1).getTimestamp()));
+                if(lastTenMinutes.size()>=1){
+                    if(checkBloodSaturation(lastTenMinutes.get(0),lastTenMinutes.get(lastTenMinutes.size()-1),patient)){
+                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", lastTenMinutes.get(lastTenMinutes.size()-1).getTimestamp()));
+                    }
                 }
+
                 //Check combined Alert
-                if(checkCombinedAlert(record3Syst,lastTenMinutes.get(lastTenMinutes.size()-1))){
-                    List<PatientRecord>recordsForTimeRetrieving = patient.getRecords(patient.getStartTime(),patient.getEndTime());
-                    triggerAlert(new Alert(patientId.toString(),"Hypotensive Hypoxemia Alert",recordsForTimeRetrieving.get(recordsForTimeRetrieving.size()-1).getTimestamp()));
-                }
+        if(listOfLastThreeSist.size()>=3){
+            PatientRecord record3Syst = listOfLastThreeSist.get(listOfLastThreeSist.size() - 1);
+            if(checkCombinedAlert(record3Syst,lastTenMinutes.get(lastTenMinutes.size()-1))){
+                List<PatientRecord>recordsForTimeRetrieving = patient.getRecords(patient.getStartTime(),patient.getEndTime());
+                triggerAlert(new Alert(patientId.toString(),"Hypotensive Hypoxemia Alert",recordsForTimeRetrieving.get(recordsForTimeRetrieving.size()-1).getTimestamp()));
+            }
+        }
+
                 //ECG Alert
                 PatientRecord lastECGRecord = patient.getECGRecord();
                 List<PatientRecord>lastTenMinutesECG = patient.lastTenMinutesOfType("ECG");
-                if(checkECGALert(lastECGRecord,lastTenMinutesECG)){
-                    triggerAlert(new Alert(patientId.toString(),"ECG Data Alert",lastECGRecord.getTimestamp()));
+                if(lastTenMinutesECG.size()!=0){
+                    if(checkECGALert(lastECGRecord,lastTenMinutesECG)){
+                        triggerAlert(new Alert(patientId.toString(),"ECG Data Alert",lastECGRecord.getTimestamp()));
+                    }
                 }
 
 
-            }
+
+
 
 
 
@@ -191,16 +170,21 @@ public class AlertGenerator {
 
     }
 
-    public List<PatientRecord> getLastThreeBloodPressure(Patient patient, String type){
-        List<PatientRecord>patientRecordList = patient.getRecords(patient.getStartTime(),patient.getEndTime());
-        int i = patientRecordList.size()-1;
-        List<PatientRecord>lastThree = new ArrayList<>();
-        while(lastThree.size()<3){
-            while(!(patientRecordList.get(i).getRecordType().equals(type))){
-                i--;
+    public List<PatientRecord> getLastThreeBloodPressure(Patient patient, String type) {
+        List<PatientRecord> patientRecordList = patient.getRecords(patient.getStartTime(), patient.getEndTime());
+        List<PatientRecord> lastThree = new ArrayList<>();
+        int count = 0; // To keep track of how many matching records we've added
+
+        // Iterate backwards through the patientRecordList
+        for (int i = patientRecordList.size() - 1; i >= 0 && count < 3; i--) {
+            PatientRecord record = patientRecordList.get(i);
+            if (record.getRecordType().equals(type)) {
+                lastThree.add(record);
+                count++; // Increment count for each matching record added
             }
-            lastThree.add(patientRecordList.get(i));
         }
+
+        // If fewer than 3 matching records were found, lastThree will have fewer than 3 elements
         return lastThree;
     }
 
@@ -218,6 +202,8 @@ public class AlertGenerator {
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
-
+        System.out.println("Alert was triggered. Details:");
+        System.out.println(alert.getCondition());
+        System.out.println(alert.getPatientId());
     }
 }

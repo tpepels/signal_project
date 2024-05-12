@@ -90,8 +90,8 @@ public class DataStorage {
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
-//        Reader reader = new Reader();
-//         reader.readData(storage);
+        Reader reader = new Reader("/Users/yurapotseluev/githubproject/signal_project/bin/src/");
+        reader.readData(storage);
 
         // Example of using DataStorage to retrieve and print records for a patient
         List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);

@@ -53,7 +53,7 @@ public class Patient {
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         List<PatientRecord>ans = new ArrayList<>();
-        for(int i = 0;startTime<=endTime;i++,startTime++){
+        for(int i = 0;startTime<=endTime&&i<patientRecords.size();i++,startTime++){
             ans.add(this.patientRecords.get(i));
         }
       return ans;
