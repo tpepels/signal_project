@@ -4,12 +4,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.alerts.Alert;
 import com.cardio_generator.generators.AlertGenerator;
 
 import com.cardio_generator.generators.BloodPressureDataGenerator;
 import com.cardio_generator.generators.BloodSaturationDataGenerator;
 import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
+import com.cardio_generator.generators.HealthDataGenerator;
 import com.cardio_generator.outputs.ConsoleOutputStrategy;
 import com.cardio_generator.outputs.FileOutputStrategy;
 import com.cardio_generator.outputs.OutputStrategy;
@@ -30,7 +32,24 @@ import java.util.ArrayList;
  * It's able to support patient count and output
  */
 
-public class HealthDataSimulator {
+ public class HealthDataSimulator implements HealthDataGenerator {
+   
+    private DataStorage dataStorage;
+    private AlertGenerator alertGenerator;
+
+    public HealthDataSimulator(DataStorage dataStorage, AlertGenerator alertGenerator) {
+        this.dataStorage = dataStorage;
+        this.alertGenerator = alertGenerator;
+    }
+
+    @Override
+    public void triggerManualAlert(String patientId) {
+        // This method simulates a patient or nurse triggering the alert manually
+        System.out.println("Manual alert triggered for patient: " + patientId);
+        alertGenerator.triggerAlert(new Alert(patientId, "Manual Alert Triggered", System.currentTimeMillis()));
+    }
+
+
 
     private static int patientCount = 50; // Default number of patients
     private static ScheduledExecutorService scheduler;

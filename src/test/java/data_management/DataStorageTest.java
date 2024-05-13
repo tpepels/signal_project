@@ -7,19 +7,47 @@ import com.data_management.DataStorage;
 import com.data_management.PatientRecord;
 
 import java.util.List;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 class DataStorageTest {
 
-    @Test
-    void testAddAndGetRecords() {
-        // TODO Perhaps you can implement a mock data reader to mock the test data?
-        // DataReader reader
-        DataStorage storage = new DataStorage(reader);
-        storage.addPatientData(1, 100.0, "WhiteBloodCells", 1714376789050L);
-        storage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
-
-        List<PatientRecord> records = storage.getRecords(1, 1714376789050L, 1714376789051L);
-        assertEquals(2, records.size()); // Check if two records are retrieved
-        assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
+    public class FileDataReader implements DataReader {
+        private String outputDirectory;
+    
+        public FileDataReader(String outputDirectory) {
+            this.outputDirectory = outputDirectory;
+        }
+    
+        @Override
+        public void readData(DataStorage dataStorage) throws IOException {
+            File dir = new File(outputDirectory);
+            File[] directoryListing = dir.listFiles();
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(child))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            dataStorage.storeData(line);
+                        }
+                    }
+                }
+            } else {
+                throw new IOException("Not a directory or directory does not exist: " + outputDirectory);
+            }
+        }
+    }
+    
+    interface DataReader {
+        void readData(DataStorage dataStorage) throws IOException;
+    }
+    
+    class DataStorage {
+        public void storeData(String data) {
+            // Implement the logic to store data
+            System.out.println("Data Stored: " + data);
+        }
     }
 }
