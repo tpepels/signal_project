@@ -37,11 +37,7 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
-        }
+        Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
         patient.addRecord(measurementValue, recordType, timestamp);
     }
 

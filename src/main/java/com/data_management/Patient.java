@@ -1,7 +1,9 @@
 package com.data_management;
 
+import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a patient and manages their medical records.
@@ -36,8 +38,8 @@ public class Patient {
      *                         milliseconds since UNIX epoch
      */
     public void addRecord(double measurementValue, String recordType, long timestamp) {
-        PatientRecord record = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
-        this.patientRecords.add(record);
+        PatientRecord rec = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
+        this.patientRecords.add(rec);
     }
 
     /**
@@ -53,5 +55,12 @@ public class Patient {
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         // TODO Implement and test this method
+        return patientRecords.stream()
+                .filter(record -> ValueRange.of(startTime, endTime).isValidValue(PatientRecord.getTimestamp()))
+                .collect(Collectors.toList());
+        }
+
+
+
     }
 }
