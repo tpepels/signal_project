@@ -1,5 +1,8 @@
 package com.cardio_generator;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -11,21 +14,14 @@ import com.cardio_generator.generators.BloodPressureDataGenerator;
 import com.cardio_generator.generators.BloodSaturationDataGenerator;
 import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
-import com.cardio_generator.outputs.ConsoleOutputStrategy;
-import com.cardio_generator.outputs.FileOutputStrategy;
-import com.cardio_generator.outputs.OutputStrategy;
-import com.cardio_generator.outputs.TcpOutputStrategy;
-import com.cardio_generator.outputs.WebSocketOutputStrategy;
+import com.cardio_generator.outputs.*;
 import com.data_management.DataStorage;
+import com.data_management.Patient;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class HealthDataSimulator {
 
@@ -35,6 +31,7 @@ public class HealthDataSimulator {
     private static com.alerts.AlertGenerator alertGenerator;
     private static DataStorage dataStorage;
     private static final Random random = new Random();
+    private static RealTimeWebSocketClient webSocketClient;
 
     /**
      * Entry point of the HealthDataSimulator application. It parses command-line arguments, sets up the environment,
@@ -46,6 +43,7 @@ public class HealthDataSimulator {
     public static void main(String[] args) throws IOException {
 
         parseArguments(args);
+//        parseArguments();
 
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
 
@@ -54,7 +52,15 @@ public class HealthDataSimulator {
 
         scheduleTasksForPatients(patientIds);
         DataStorage dataStorage = new DataStorage();
+        List<Patient>patients = dataStorage.getAllPatients();
+        Map<Integer, Patient> patientMap = dataStorage.getPatientMap();
+        for(Integer integer: patientMap.keySet()){
+            System.out.println(dataStorage.getPatientMap().get(integer));
+        }
         alertGenerator = new com.alerts.AlertGenerator(dataStorage);
+
+
+
 
     }
     /**
@@ -118,11 +124,40 @@ public class HealthDataSimulator {
                         }
                     }
                     break;
+                case "--websocket-client-uri":
+                    if (i + 1 < args.length) {
+                        initializeWebSocketClient(args[++i]);
+                    } else {
+                        System.err.println("Expected URI after '--websocket-client-uri'");
+                        printHelp();
+                        System.exit(1);
+                    }
+                    break;
                 default:
                     System.err.println("Unknown option '" + args[i] + "'");
                     printHelp();
                     System.exit(1);
             }
+        }
+    }
+
+
+    private static void parseArguments(){
+        int port = 8080;
+        // Initialize your WebSocket output strategy here
+        outputStrategy = new WebSocketOutputStrategy(port);
+        System.out.println("WebSocket output will be on port: " + port);
+    }
+
+
+    private static void initializeWebSocketClient(String serverURI) {
+        try {
+            URI uri = new URI(serverURI);
+            webSocketClient = new RealTimeWebSocketClient(uri, dataStorage);
+            webSocketClient.connect();
+        } catch (URISyntaxException e) {
+            System.err.println("Invalid WebSocket server URI: " + e.getMessage());
+            System.exit(1);
         }
     }
 

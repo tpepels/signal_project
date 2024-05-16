@@ -65,6 +65,10 @@ public class DataStorage {
         return new ArrayList<>(); // return an empty list if no patient is found
     }
 
+    public Map<Integer, Patient> getPatientMap() {
+        return patientMap;
+    }
+
     /**
      * Retrieves a collection of all patients stored in the data storage.
      *

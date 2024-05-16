@@ -10,18 +10,25 @@ import java.util.Set;
 public class WebSocketOutputStrategy implements OutputStrategy {
 
     private WebSocketServer server;
+    private RealTimeWebSocketClient client;
 
     public WebSocketOutputStrategy(int port) {
         server = new SimpleWebSocketServer(new InetSocketAddress(port));
         System.out.println("WebSocket server created on port: " + port + ", listening for connections...");
         server.start();
     }
+    public WebSocketOutputStrategy(RealTimeWebSocketClient client) {
+        this.client = client;
+    }
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
-        broadcastMessage(message);
+        if (client != null && client.isOpen()) {
+            client.send(message);
+        }
     }
+
 
     private void broadcastMessage(String message) {
         Collection<WebSocket> connections = server.getConnections();
