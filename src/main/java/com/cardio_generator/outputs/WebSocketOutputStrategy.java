@@ -4,6 +4,8 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
+import java.util.Collection;
+import java.util.Set;
 
 public class WebSocketOutputStrategy implements OutputStrategy {
 
@@ -18,9 +20,15 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
-        // Broadcast the message to all connected clients
-        for (WebSocket conn : server.getConnections()) {
-            conn.send(message);
+        broadcastMessage(message);
+    }
+
+    private void broadcastMessage(String message) {
+        Collection<WebSocket> connections = server.getConnections();
+        synchronized (connections) {
+            for (WebSocket conn : connections) {
+                conn.send(message);
+            }
         }
     }
 

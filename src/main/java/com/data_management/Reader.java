@@ -14,6 +14,7 @@ public class Reader implements DataReader {
     public Reader(String directoryPath) {
         this.directoryPath = Path.of(directoryPath);
     }
+    public Reader(){}
 
 //    /**
 //     * Reads data from a specified file and stores it in the provided DataStorage object.
@@ -123,7 +124,7 @@ public class Reader implements DataReader {
      * @param dataStorage
      * the storage to store data into
      */
-    private void parseAndStoreData(String line, DataStorage dataStorage) {
+    public void parseAndStoreData(String line, DataStorage dataStorage) {
         try (Scanner scanner = new Scanner(line)) {
             scanner.useDelimiter(", ");
 
