@@ -76,7 +76,7 @@ public class AlertGenerator {
                 List<PatientRecord>lastTenMinutes = patient.lastTenMinutesOfType("Saturation");
                 if(lastTenMinutes.size()>=1){
                     if(checkBloodSaturation(lastTenMinutes.get(0),lastTenMinutes.get(lastTenMinutes.size()-1),patient)){
-                        triggerAlert(new Alert(patientId.toString(), "Blood Pressure Alert", lastTenMinutes.get(lastTenMinutes.size()-1).getTimestamp()));
+                        triggerAlert(new Alert(patientId.toString(), "Blood Saturation Alert", lastTenMinutes.get(lastTenMinutes.size()-1).getTimestamp()));
                     }
                 }
 

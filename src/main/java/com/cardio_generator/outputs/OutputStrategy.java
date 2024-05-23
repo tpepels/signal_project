@@ -1,5 +1,7 @@
 package com.cardio_generator.outputs;
 
+import com.data_management.DataStorage;
+
 /**
  * Defines a strategy for outputting patient data generated during simulations.
  * This interface is intended to be implemented by various output handlers that may direct data to different

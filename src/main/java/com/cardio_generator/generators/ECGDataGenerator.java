@@ -3,6 +3,7 @@ package com.cardio_generator.generators;
 import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
+import com.data_management.DataStorage;
 
 public class ECGDataGenerator implements PatientDataGenerator {
     private static final Random random = new Random();

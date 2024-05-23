@@ -1,22 +1,28 @@
 package com.cardio_generator.outputs;
 
+import com.alerts.AlertGenerator;
 import com.data_management.DataStorage;
+import com.data_management.Patient;
 import com.data_management.Reader;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Scanner;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RealTimeWebSocketClient extends WebSocketClient {
     private DataStorage dataStorage;
     private Reader reader;
+    private AlertGenerator alertGenerator;
 
     public RealTimeWebSocketClient(URI serverUri, DataStorage dataStorage) {
         super(serverUri);
         this.dataStorage = dataStorage;
         this.reader = new Reader();
+        this.alertGenerator = new AlertGenerator(dataStorage);
     }
 
     @Override
@@ -26,12 +32,35 @@ public class RealTimeWebSocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        // Parse message and store it using DataStorage
+
         try {
-            reader.parseAndStoreData(message, dataStorage);
+            reader.parseAndStoreDataWeb(message, dataStorage);
+            List<Patient>patientList = dataStorage.getAllPatients();
+            for(Patient patient : patientList){
+                System.out.println(patient.getPatientId());
+            }
+//            List<Patient> patientList = dataStorage.getAllPatients();
+//            for (Patient patient : patientList) {
+//                alertGenerator.evaluateData(patient);
+
+            evaluateDataPeriodically();
+
         } catch (Exception e) {
             System.err.println("Error storing data: " + e.getMessage());
         }
+    }
+
+    private void evaluateDataPeriodically() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                List<Patient> patientList = dataStorage.getAllPatients();
+                for (Patient patient : patientList) {
+                    alertGenerator.evaluateData(patient);
+                }
+            }
+        }, 0, 5000); // Run every 5 seconds
     }
 
     @Override
@@ -43,5 +72,4 @@ public class RealTimeWebSocketClient extends WebSocketClient {
     public void onError(Exception ex) {
         System.err.println("WebSocket error: " + ex.getMessage());
     }
-
 }

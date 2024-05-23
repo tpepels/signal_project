@@ -24,45 +24,35 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class HealthDataSimulator {
-
     private static int patientCount = 50; // Default number of patients
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static com.alerts.AlertGenerator alertGenerator;
-    private static DataStorage dataStorage;
+    private static DataStorage dataStorage = new DataStorage();
     private static final Random random = new Random();
     private static RealTimeWebSocketClient webSocketClient;
 
-    /**
-     * Entry point of the HealthDataSimulator application. It parses command-line arguments, sets up the environment,
-     * and schedules tasks for generating patient health data based on specified configurations.
-     *
-     * @param args Command-line arguments to configure the simulation.
-     * @throws IOException If an I/O error occurs during setup.
-     */
     public static void main(String[] args) throws IOException {
+        outputStrategy = new WebSocketOutputStrategy(8080);
+//        initializeWebSocketClient("ws://127.0.0.1:8080/");
 
-        parseArguments(args);
-//        parseArguments();
 
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
 
         List<Integer> patientIds = initializePatientIds(patientCount);
         Collections.shuffle(patientIds); // Randomize the order of patient IDs
+//
+//        ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
+//        ecgDataGenerator.generate(patientIds.get(0),outputStrategy);
 
         scheduleTasksForPatients(patientIds);
-        DataStorage dataStorage = new DataStorage();
-        List<Patient>patients = dataStorage.getAllPatients();
-        Map<Integer, Patient> patientMap = dataStorage.getPatientMap();
-        for(Integer integer: patientMap.keySet()){
-            System.out.println(dataStorage.getPatientMap().get(integer));
-        }
+
         alertGenerator = new com.alerts.AlertGenerator(dataStorage);
-
-
-
-
     }
+    public static RealTimeWebSocketClient getClient(){
+        return webSocketClient;
+    }
+
     /**
      * Parses the provided command-line arguments to set simulation parameters such as patient count and output strategy.
      * Recognizes specific flags and options to configure these parameters, and exits the application if necessary based
@@ -71,93 +61,93 @@ public class HealthDataSimulator {
      * @param args Command-line arguments array to be parsed.
      * @throws IOException If an I/O error occurs, particularly when setting up file-based output strategies.
      */
-    private static void parseArguments(String[] args) throws IOException {
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-                case "-h":
-                    printHelp();
-                    System.exit(0);
-                    break;
-                case "--patient-count":
-                    if (i + 1 < args.length) {
-                        try {
-                            patientCount = Integer.parseInt(args[++i]);
-                        } catch (NumberFormatException e) {
-                            System.err
-                                    .println("Error: Invalid number of patients. Using default value: " + patientCount);
-                        }
-                    }
-                    break;
-                case "--output":
-                    if (i + 1 < args.length) {
-                        String outputArg = args[++i];
-                        if (outputArg.equals("console")) {
-                            outputStrategy = new ConsoleOutputStrategy();
-                        } else if (outputArg.startsWith("file:")) {
-                            String baseDirectory = outputArg.substring(5);
-                            Path outputPath = Paths.get(baseDirectory);
-                            if (!Files.exists(outputPath)) {
-                                Files.createDirectories(outputPath);
-                            }
-                            outputStrategy = new FileOutputStrategy(baseDirectory);
-                        } else if (outputArg.startsWith("websocket:")) {
-                            try {
-                                int port = Integer.parseInt(outputArg.substring(10));
-                                // Initialize your WebSocket output strategy here
-                                outputStrategy = new WebSocketOutputStrategy(port);
-                                System.out.println("WebSocket output will be on port: " + port);
-                            } catch (NumberFormatException e) {
-                                System.err.println(
-                                        "Invalid port for WebSocket output. Please specify a valid port number.");
-                            }
-                        } else if (outputArg.startsWith("tcp:")) {
-                            try {
-                                int port = Integer.parseInt(outputArg.substring(4));
-                                // Initialize your TCP socket output strategy here
-                                outputStrategy = new TcpOutputStrategy(port);
-                                System.out.println("TCP socket output will be on port: " + port);
-                            } catch (NumberFormatException e) {
-                                System.err.println("Invalid port for TCP output. Please specify a valid port number.");
-                            }
-                        } else {
-                            System.err.println("Unknown output type. Using default (console).");
-                        }
-                    }
-                    break;
-                case "--websocket-client-uri":
-                    if (i + 1 < args.length) {
-                        initializeWebSocketClient(args[++i]);
-                    } else {
-                        System.err.println("Expected URI after '--websocket-client-uri'");
-                        printHelp();
-                        System.exit(1);
-                    }
-                    break;
-                default:
-                    System.err.println("Unknown option '" + args[i] + "'");
-                    printHelp();
-                    System.exit(1);
-            }
-        }
-    }
+//    private static void parseArguments(String[] args) throws IOException {
+//        for (int i = 0; i < args.length; i++) {
+//            switch (args[i]) {
+//                case "-h":
+//                    printHelp();
+//                    System.exit(0);
+//                    break;
+//                case "--patient-count":
+//                    if (i + 1 < args.length) {
+//                        try {
+//                            patientCount = Integer.parseInt(args[++i]);
+//                        } catch (NumberFormatException e) {
+//                            System.err
+//                                    .println("Error: Invalid number of patients. Using default value: " + patientCount);
+//                        }
+//                    }
+//                    break;
+//                case "--output":
+//                    if (i + 1 < args.length) {
+//                        String outputArg = args[++i];
+//                        if (outputArg.equals("console")) {
+//                            outputStrategy = new ConsoleOutputStrategy();
+//                        } else if (outputArg.startsWith("file:")) {
+//                            String baseDirectory = outputArg.substring(5);
+//                            Path outputPath = Paths.get(baseDirectory);
+//                            if (!Files.exists(outputPath)) {
+//                                Files.createDirectories(outputPath);
+//                            }
+//                            outputStrategy = new FileOutputStrategy(baseDirectory);
+//                        } else if (outputArg.startsWith("websocket:")) {
+//                            try {
+//                                int port = Integer.parseInt(outputArg.substring(10));
+//                                // Initialize your WebSocket output strategy here
+//                                outputStrategy = new WebSocketOutputStrategy(port);
+//                                System.out.println("WebSocket output will be on port: " + port);
+//                            } catch (NumberFormatException e) {
+//                                System.err.println(
+//                                        "Invalid port for WebSocket output. Please specify a valid port number.");
+//                            }
+//                        } else if (outputArg.startsWith("tcp:")) {
+//                            try {
+//                                int port = Integer.parseInt(outputArg.substring(4));
+//                                // Initialize your TCP socket output strategy here
+//                                outputStrategy = new TcpOutputStrategy(port);
+//                                System.out.println("TCP socket output will be on port: " + port);
+//                            } catch (NumberFormatException e) {
+//                                System.err.println("Invalid port for TCP output. Please specify a valid port number.");
+//                            }
+//                        } else {
+//                            System.err.println("Unknown output type. Using default (console).");
+//                        }
+//                    }
+//                    break;
+//                case "--websocket-client-uri":
+//                    if (i + 1 < args.length) {
+//                        initializeWebSocketClient(args[++i]);
+//                    } else {
+//                        System.err.println("Expected URI after '--websocket-client-uri'");
+//                        printHelp();
+//                        System.exit(1);
+//                    }
+//                    break;
+//                default:
+//                    System.err.println("Unknown option '" + args[i] + "'");
+//                    printHelp();
+//                    System.exit(1);
+//            }
+//        }
+//    }
 
 
-    private static void parseArguments(){
-        int port = 8080;
-        // Initialize your WebSocket output strategy here
-        outputStrategy = new WebSocketOutputStrategy(port);
-        System.out.println("WebSocket output will be on port: " + port);
-    }
+//    private static void parseArguments(){
+//        int port = 8080;
+//        // Initialize your WebSocket output strategy here
+//        outputStrategy = new WebSocketOutputStrategy(port);
+//        System.out.println("WebSocket output will be on port: " + port);
+//    }
 
 
-    private static void initializeWebSocketClient(String serverURI) {
+    public static void initializeWebSocketClient(String serverURI) {
         try {
             URI uri = new URI(serverURI);
             webSocketClient = new RealTimeWebSocketClient(uri, dataStorage);
             webSocketClient.connect();
+//            webSocketClient.connectBlocking(); // Ensure connection is established before proceeding
         } catch (URISyntaxException e) {
-            System.err.println("Invalid WebSocket server URI: " + e.getMessage());
-            System.exit(1);
+            throw new RuntimeException(e);
         }
     }
 

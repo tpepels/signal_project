@@ -1,9 +1,13 @@
 package com.cardio_generator.outputs;
 
+import com.cardio_generator.HealthDataSimulator;
+import com.data_management.DataStorage;
 import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Set;
 
@@ -15,7 +19,14 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     public WebSocketOutputStrategy(int port) {
         server = new SimpleWebSocketServer(new InetSocketAddress(port));
         System.out.println("WebSocket server created on port: " + port + ", listening for connections...");
+
         server.start();
+        HealthDataSimulator.initializeWebSocketClient("ws://127.0.0.1:8080/");
+        this.client = HealthDataSimulator.getClient();
+    }
+
+    public void addClient(RealTimeWebSocketClient client){
+        this.client = client;
     }
     public WebSocketOutputStrategy(RealTimeWebSocketClient client) {
         this.client = client;
@@ -24,9 +35,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
-        if (client != null && client.isOpen()) {
-            client.send(message);
-        }
+       broadcastMessage(message);
     }
 
 
@@ -48,6 +57,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         @Override
         public void onOpen(WebSocket conn, org.java_websocket.handshake.ClientHandshake handshake) {
             System.out.println("New connection: " + conn.getRemoteSocketAddress());
+
         }
 
         @Override

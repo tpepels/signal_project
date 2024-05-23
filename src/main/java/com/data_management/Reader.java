@@ -1,5 +1,6 @@
 package com.data_management;
 
+import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -148,6 +149,27 @@ public class Reader implements DataReader {
 
             dataStorage.addPatientData(patientId, measurementValue, recordType, timeStamp);
         }
+    }
+
+    public void parseAndStoreDataWeb(String line, DataStorage dataStorage){
+        String[] splitString = line.split(",");
+        int patientId = Integer.parseInt(splitString[0]);
+        long timeStamp = Long.parseLong(splitString[1]);
+        String recordType = splitString[2];
+        String valueStr = splitString[3];
+        double measurementValue;
+        if(recordType.equals("Alert")){
+            if(valueStr.equals("triggered")){
+                measurementValue = 1.0;//triggered
+            }
+            else{
+                measurementValue=0.0;//resolved
+            }
+        }else{
+            measurementValue = Double.parseDouble(valueStr.split("%")[0]);
+        }
+
+        dataStorage.addPatientData(patientId, measurementValue, recordType, timeStamp);
     }
 
 }
