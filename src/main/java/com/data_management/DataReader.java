@@ -1,6 +1,7 @@
 package com.data_management;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface DataReader {
     /**
@@ -10,5 +11,5 @@ public interface DataReader {
      * @return
      * @throws IOException if there is an error reading the data
      */
-    DataStorage readData(DataStorage dataStorage) throws IOException;
+    DataStorage readData(DataStorage dataStorage, InputStream data) throws IOException;
 }

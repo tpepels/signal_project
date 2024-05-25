@@ -1,6 +1,5 @@
 package com.data_management;
 
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +25,13 @@ public class Patient {
         this.patientRecords = new ArrayList<>();
     }
 
+    public String getPatientId() {
+        return String.valueOf(patientId);
+    }
+    public int getPatientIdAsInt() {
+        return patientId;
+    }
+
     /**
      * Adds a new record to this patient's list of medical records.
      * The record is created with the specified measurement value, record type, and
@@ -47,20 +53,15 @@ public class Patient {
      * specified time range.
      * The method filters records based on the start and end times provided.
      *
-     * @param startTime the start of the time range, in milliseconds since UNIX
-     *                  epoch
-     * @param endTime   the end of the time range, in milliseconds since UNIX epoch
      * @return a list of PatientRecord objects that fall within the specified time
-     *         range
+     * range
      */
-    public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+    public List<PatientRecord> getRecords() {
+        // getting patient records as a stream
         return patientRecords.stream()
-                .filter(record -> ValueRange.of(startTime, endTime).isValidValue(PatientRecord.getTimestamp()))
+                .filter(record -> record.getTimestamp() >= startTime && record.getTimestamp() <= endTime)
                 .collect(Collectors.toList());
-        }
-
+       }
 
 
     }
-}
