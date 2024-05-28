@@ -1,5 +1,6 @@
 package com.cardio_generator;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -28,7 +29,7 @@ public class HealthDataSimulator {
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static com.alerts.AlertGenerator alertGenerator;
-    private static DataStorage dataStorage = new DataStorage();
+    public static DataStorage dataStorage = new DataStorage();
     private static final Random random = new Random();
     private static RealTimeWebSocketClient webSocketClient;
 
@@ -36,18 +37,23 @@ public class HealthDataSimulator {
         outputStrategy = new WebSocketOutputStrategy(8080);
 //        initializeWebSocketClient("ws://127.0.0.1:8080/");
 
+        System.out.println("Choose 1 if you want to use generated data from HealthDataSimulator using websocket");
+        System.out.println("Choose 2 if you want to see test output to see how RealTimeWebSocketClient works");
+        Scanner scanner = new Scanner(System.in);
 
-        scheduler = Executors.newScheduledThreadPool(patientCount * 4);
+        System.out.print("Enter your choice (1 or 2): ");
+        String option = scanner.nextLine();
 
-        List<Integer> patientIds = initializePatientIds(patientCount);
-        Collections.shuffle(patientIds); // Randomize the order of patient IDs
-//
-//        ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
-//        ecgDataGenerator.generate(patientIds.get(0),outputStrategy);
+        scanner.close();
+        int optionInt = Integer.parseInt(option);
+        switch(optionInt){
+            case 1: showGeneratedData();
+            break;
+            case 2: showTestRun();
+            break;
+        }
 
-        scheduleTasksForPatients(patientIds);
 
-        alertGenerator = new com.alerts.AlertGenerator(dataStorage);
     }
     public static RealTimeWebSocketClient getClient(){
         return webSocketClient;
@@ -220,6 +226,24 @@ public class HealthDataSimulator {
 
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
+    }
+    public static void showTestRun(){
+        outputStrategy.output(1, 1700000000000L, "Alert", "triggered");
+
+    }
+
+    public static void showGeneratedData(){
+        scheduler = Executors.newScheduledThreadPool(patientCount * 4);
+
+        List<Integer> patientIds = initializePatientIds(patientCount);
+        Collections.shuffle(patientIds); // Randomize the order of patient IDs
+//
+//        ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
+//        ecgDataGenerator.generate(patientIds.get(0),outputStrategy);
+
+        scheduleTasksForPatients(patientIds);
+
+        alertGenerator = new com.alerts.AlertGenerator(dataStorage);
     }
 
 //    public void triggerManualAlert(){

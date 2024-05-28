@@ -15,8 +15,8 @@ import java.util.TimerTask;
 
 public class RealTimeWebSocketClient extends WebSocketClient {
     private DataStorage dataStorage;
-    private Reader reader;
-    private AlertGenerator alertGenerator;
+    public Reader reader;
+    public AlertGenerator alertGenerator;
 
     public RealTimeWebSocketClient(URI serverUri, DataStorage dataStorage) {
         super(serverUri);
@@ -35,10 +35,6 @@ public class RealTimeWebSocketClient extends WebSocketClient {
 
         try {
             reader.parseAndStoreDataWeb(message, dataStorage);
-            List<Patient>patientList = dataStorage.getAllPatients();
-            for(Patient patient : patientList){
-                System.out.println(patient.getPatientId());
-            }
 //            List<Patient> patientList = dataStorage.getAllPatients();
 //            for (Patient patient : patientList) {
 //                alertGenerator.evaluateData(patient);
