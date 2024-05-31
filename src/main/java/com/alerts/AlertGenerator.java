@@ -15,8 +15,11 @@ public class AlertGenerator {
     }
 
     public void evaluateData(Patient patient) {
-        List<PatientRecord> bloodPressureRecords = filterBloodPressureRecords(patient.getRecords());
-        List<PatientRecord> bloodOxygenRecords = filterBloodOxygenRecords(patient.getRecords());
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000); // 24 hours ago
+        long endTime = System.currentTimeMillis(); // Current time
+
+        List<PatientRecord> bloodPressureRecords = filterBloodPressureRecords(patient.getRecords(startTime, endTime));
+        List<PatientRecord> bloodOxygenRecords = filterBloodOxygenRecords(patient.getRecords(startTime, endTime));
 
         checkForBloodPressureTrends(patient, bloodPressureRecords);
         checkForCriticalThresholds(patient, bloodPressureRecords);

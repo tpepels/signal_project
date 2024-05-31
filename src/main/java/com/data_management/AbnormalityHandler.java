@@ -1,6 +1,7 @@
 package com.data_management;
 
-import com.alerts.*;
+import com.alerts.AlertGenerator;
+import com.data_management.Abnormalities.patientState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,10 @@ public class AbnormalityHandler implements Abnormalities {
         List<PatientRecord> criticalRecords = new ArrayList<>();
 
         // Check for critical conditions and save the patient records
-        for (PatientRecord record : patient.getRecords()) {
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000); // 24 hours ago
+        long endTime = System.currentTimeMillis(); // Current time
+
+        for (PatientRecord record : patient.getRecords(startTime, endTime)) {
             if (state.abnormalHeartRate || state.diastolicMin || state.diastolicMax ||
                     state.lowSaturation || state.systolicMin || state.systolicMax) {
                 criticalRecords.add(record);

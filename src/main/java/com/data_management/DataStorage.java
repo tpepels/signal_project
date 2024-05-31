@@ -1,10 +1,10 @@
 package com.data_management;
-import com.alerts.AlertGenerator;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.alerts.AlertGenerator;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -12,9 +12,8 @@ import java.util.Map;
  * This class serves as a repository for all patient records, organized by
  * patient IDs.
  */
-public class DataStorage{
-    private final Map<Integer, Patient> patientMap;
-    // Stores patient objects indexed by their unique patient ID.
+public class DataStorage {
+    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
@@ -38,7 +37,11 @@ public class DataStorage{
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
+        Patient patient = patientMap.get(patientId);
+        if (patient == null) {
+            patient = new Patient(patientId);
+            patientMap.put(patientId, patient);
+        }
         patient.addRecord(measurementValue, recordType, timestamp);
     }
 
@@ -58,7 +61,7 @@ public class DataStorage{
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
         if (patient != null) {
-            return patient.getRecords();
+            return patient.getRecords(startTime, endTime);
         }
         return new ArrayList<>(); // return an empty list if no patient is found
     }
@@ -72,33 +75,29 @@ public class DataStorage{
         return new ArrayList<>(patientMap.values());
     }
 
-
-
     /**
      * The main method for the DataStorage class.
      * Initializes the system, reads data into storage, and continuously monitors
      * and evaluates patient data.
      *
+     * @param args command line arguments
      */
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataReader reader = new DataProcessor();
         DataStorage storage = new DataStorage();
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
         // reader.readData(storage);
-        reader.readData(storage, "path/to/data");
 
         // Example of using DataStorage to retrieve and print records for a patient
         List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
-        for (PatientRecord rec : records) {
-            System.out.println("Record for Patient ID: " + rec.getPatientId() +
-                    ", Type: " + rec.getRecordType() +
-                    ", Data: " + rec.getMeasurementValue() +
-                    ", Timestamp: " + rec.getTimestamp());
+        for (PatientRecord record : records) {
+            System.out.println("Record for Patient ID: " + record.getPatientId() +
+                    ", Type: " + record.getRecordType() +
+                    ", Data: " + record.getMeasurementValue() +
+                    ", Timestamp: " + record.getTimestamp());
         }
 
         // Initialize the AlertGenerator with the storage
@@ -109,6 +108,4 @@ public class DataStorage{
             alertGenerator.evaluateData(patient);
         }
     }
-
-
 }

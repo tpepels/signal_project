@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a patient and manages their medical records.
  * This class stores patient-specific data, allowing for the addition and
- * retrieval
- * of medical records based on specified criteria.
+ * retrieval of medical records based on specified criteria.
  */
 public class Patient {
     private int patientId;
@@ -28,6 +27,7 @@ public class Patient {
     public String getPatientId() {
         return String.valueOf(patientId);
     }
+
     public int getPatientIdAsInt() {
         return patientId;
     }
@@ -38,8 +38,7 @@ public class Patient {
      * timestamp.
      *
      * @param measurementValue the measurement value to store in the record
-     * @param recordType       the type of record, e.g., "HeartRate",
-     *                         "BloodPressure"
+     * @param recordType       the type of record, e.g., "HeartRate", "BloodPressure"
      * @param timestamp        the time at which the measurement was taken, in
      *                         milliseconds since UNIX epoch
      */
@@ -53,15 +52,13 @@ public class Patient {
      * specified time range.
      * The method filters records based on the start and end times provided.
      *
-     * @return a list of PatientRecord objects that fall within the specified time
-     * range
+     * @param startTime the start time of the range, in milliseconds since UNIX epoch
+     * @param endTime   the end time of the range, in milliseconds since UNIX epoch
+     * @return a list of PatientRecord objects that fall within the specified time range
      */
-    public List<PatientRecord> getRecords() {
-        // getting patient records as a stream
+    public List<PatientRecord> getRecords(long startTime, long endTime) {
         return patientRecords.stream()
                 .filter(record -> record.getTimestamp() >= startTime && record.getTimestamp() <= endTime)
                 .collect(Collectors.toList());
-       }
-
-
     }
+}

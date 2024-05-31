@@ -1,18 +1,15 @@
 package com.cardio_generator.outputs;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 import com.data_management.DataReader;
 import com.data_management.DataStorage;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-import org.junit.jupiter.api.extension.ExtensionContext;
-
-import java.net.URISyntaxException;
-
-
-import java.net.InetSocketAddress;
 
 public class WSClient extends WebSocketClient {
     private DataReader dr;
@@ -30,24 +27,24 @@ public class WSClient extends WebSocketClient {
     }
 
     @Override
-    public void onMessage(String s) {
-        System.out.println("Storing data " + s);
+    public void onMessage(String message) {
+        System.out.println("Storing data " + message);
         InputStream stream = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
         try {
-            dataProcessor.readData(dataStorage, stream);
+            dr.readData(ds, stream);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onClose(int i, String s, boolean b) {
-
+    public void onClose(int code, String reason, boolean remote) {
+        System.out.println("Closed with exit code " + code + " additional info: " + reason);
     }
 
     @Override
-    public void onError(Exception e) {
-
+    public void onError(Exception ex) {
+        System.err.println("An error occurred:" + ex);
     }
 }
 
