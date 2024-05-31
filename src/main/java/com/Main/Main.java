@@ -17,7 +17,11 @@ public class Main {
                     CholesterolReader.main(new String[]{});
                     break;
                 case "HealthDataSimulator":
-                    HealthDataSimulator.main(new String[]{});
+                    String[] arguments = new String[args.length - 1];
+                    for (int i = 0; i < arguments.length; i++) {
+                        arguments[i] = args[i+1];
+                    }
+                    HealthDataSimulator.main(arguments);
                     break;
                 default:
                     System.out.println("Invalid argument. Please provide one of the following arguments: DataStorage, CholesterolReader, HealthDataSimulator");

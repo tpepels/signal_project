@@ -19,6 +19,7 @@ public class CholesterolReader implements DataReader{
         }
     }
 
+    
     @Override
     public void readData(DataStorage dataStorage) throws IOException {
         File outputFile = new File(System.getProperty("user.dir") + "/output/Cholesterol.txt");

@@ -3,7 +3,12 @@ package com.cardio_generator.outputs;
 import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
 
+import com.data_management.CholesterolReader;
+import com.data_management.DataStorage;
+import com.data_management.WebSocketClient;
+
 import java.net.InetSocketAddress;
+import java.net.URI;
 
 public class WebSocketOutputStrategy implements OutputStrategy {
 
@@ -18,6 +23,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
+        System.out.println(message);
         // Broadcast the message to all connected clients
         for (WebSocket conn : server.getConnections()) {
             conn.send(message);
