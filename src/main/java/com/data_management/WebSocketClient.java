@@ -21,12 +21,18 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient{
 
     @Override
     public void onMessage(String message) {
-        String[] information = message.split(",");
-        if(information[3].endsWith("%")) {
-            information[3] = information[3].substring(0, information[3].length() - 1);
+        try {
+            String[] information = message.split(",");
+            if (information.length == 4) {
+                if(information[3].endsWith("%")) {
+                    information[3] = information[3].substring(0, information[3].length() - 1);
+                }
+                storage.addPatientData(Integer.parseInt(information[0]), Double.parseDouble(information[3]), information[2], Long.parseLong(information[1]));
+            }
         }
-        storage.addPatientData(Integer.parseInt(information[0]), Double.parseDouble(information[3]), information[2], Long.parseLong(information[1]));
-        
+        catch (NumberFormatException e) {
+            System.out.println(e);
+        }
     }
 
     @Override
