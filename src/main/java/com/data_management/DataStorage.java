@@ -45,8 +45,24 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
+        Thread uploadThread = new Thread();
+        uploadThread.start();
         Patient patient = patientMap.computeIfAbsent(patientId, Patient::new);
-        patient.addRecord(measurementValue, recordType, timestamp);
+
+        List<PatientRecord> recordList = patient.getRecordsByType(recordType);
+        boolean addNeeded = true;
+        for (PatientRecord record : recordList) {
+            if (record.getMeasurementValue() == measurementValue && record.getTimestamp() == timestamp) {
+                addNeeded = false;
+                break;
+            }
+        }
+
+        if (addNeeded) {
+            patient.addRecord(measurementValue, recordType, timestamp);
+        }
+
+        uploadThread.interrupt();
     }
 
     /**
