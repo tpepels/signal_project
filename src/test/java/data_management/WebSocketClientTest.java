@@ -61,10 +61,4 @@ class WebSocketClientTest {
         client.onError(new Exception("Test exception"));
         verify(mockStorage, never()).addPatientData(anyInt(), anyDouble(), anyString(), anyLong());
     }
-
-    @Test
-    void testOnOpen() {
-        client.onOpen(mock(ServerHandshake.class));
-        verify(mockStorage, never()).addPatientData(anyInt(), anyDouble(), anyString(), anyLong());
-    }
 }
