@@ -1,7 +1,6 @@
 package com.data_management;
 
 import java.net.URI;
-import java.util.Scanner;
 
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -31,7 +30,7 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient{
             }
         }
         catch (NumberFormatException e) {
-            System.out.println(e);
+            throw new NumberFormatException("Invalid data format");
         }
     }
 

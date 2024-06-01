@@ -18,9 +18,7 @@ public class Main {
                     break;
                 case "HealthDataSimulator":
                     String[] arguments = new String[args.length - 1];
-                    for (int i = 0; i < arguments.length; i++) {
-                        arguments[i] = args[i+1];
-                    }
+                    System.arraycopy(args, 1, arguments, 0, arguments.length);
                     HealthDataSimulator.main(arguments);
                     break;
                 default:

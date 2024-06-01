@@ -3,16 +3,11 @@ package com.cardio_generator.outputs;
 import org.java_websocket.WebSocket;
 import org.java_websocket.server.WebSocketServer;
 
-import com.data_management.CholesterolReader;
-import com.data_management.DataStorage;
-import com.data_management.WebSocketClient;
-
 import java.net.InetSocketAddress;
-import java.net.URI;
 
 public class WebSocketOutputStrategy implements OutputStrategy {
 
-    private WebSocketServer server;
+    private final WebSocketServer server;
 
     public WebSocketOutputStrategy(int port) {
         server = new SimpleWebSocketServer(new InetSocketAddress(port));
@@ -53,7 +48,7 @@ public class WebSocketOutputStrategy implements OutputStrategy {
 
         @Override
         public void onError(WebSocket conn, Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(System.err);
         }
 
         @Override
