@@ -18,11 +18,14 @@ import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.*;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.testng.AssertJUnit.assertTrue;
 
 public class HealthDataSimulator {
     private static int patientCount = 50; // Default number of patients
@@ -227,10 +230,7 @@ public class HealthDataSimulator {
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
     }
-    public static void showTestRun(){
-        outputStrategy.output(1, 1700000000000L, "Alert", "triggered");
 
-    }
 
     public static void showGeneratedData(){
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
@@ -249,4 +249,13 @@ public class HealthDataSimulator {
 //    public void triggerManualAlert(){
 //        alertGenerator.triggerAlert(new Alert(patiend))
 //    }
+
+    @Test
+    public static void showTestRun(){
+        try{outputStrategy.output(1, 1700000000000L, "Alert", "triggered");}
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
 }
