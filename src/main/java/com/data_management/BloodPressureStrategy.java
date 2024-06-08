@@ -19,14 +19,20 @@ public class BloodPressureStrategy implements AlertStrategy {
     }
     @Override
     public void checkAlert(Patient patient, String recordType) {
-        if(!recordType.equals("Blood pressure")){
+        if(!recordType.equals("Systolic Blood pressure") && !recordType.equals("Diastolic Blood pressure")){
             throw new IllegalArgumentException("Please provide the correct record type");
         }
-        for(PatientRecord record : patient.getRecords(startTime, endTime, recordType)){
-            if(record.getMeasurementValue() >= 10 || record.getMeasurementValue() < 4){
-               System.out.println(new BloodPressureAlertFactory());
-            }
+        boolean systolicAlert = patient.getRecords(startTime, endTime, recordType).stream().anyMatch(record -> "Systolic blood pressure".equals(record.getRecordType()) && (record.getMeasurementValue() > 180 || record.getMeasurementValue() < 90));
+
+        if(systolicAlert){
+            new BloodPressureAlertFactory();
         }
+        boolean diastolicAlert = patient.getRecords(startTime, endTime, recordType).stream().anyMatch(record -> "Diastolic blood pressure".equals(record.getRecordType()) && (record.getMeasurementValue() > 120 || record.getMeasurementValue() < 60));
+
+        if(diastolicAlert){
+            new BloodPressureAlertFactory();
+        }
+
     }
 
 }

@@ -21,7 +21,7 @@ public class HeartRateStrategy implements AlertStrategy {
             throw new IllegalArgumentException("Please provide the correct argument");
         }
         for(PatientRecord record : patient.getRecords(startTime, endTime, recordType)){
-            if(record.getMeasurementValue() > 95 || record.getMeasurementValue() < 75){
+            if(record.getMeasurementValue() > 100 || record.getMeasurementValue() < 60){
                 new ECGAlertFactory();
             }
         }
