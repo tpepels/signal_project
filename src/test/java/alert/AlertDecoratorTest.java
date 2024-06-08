@@ -20,12 +20,12 @@ class AlertDecoratorTest {
     @BeforeEach
     void setUp() {
         originalCondition = mock(AlertCondition.class);
-        patient = new Patient(123);
+        patient = new Patient(1);
     }
 
     @Test
     void testAlertDecoratorForwardsCheckCondition() {
-        Alert alert = new Alert("123", "Heart rate too high", System.currentTimeMillis());
+        Alert alert = new Alert("1", "Heart rate too high", System.currentTimeMillis());
         List<Alert> expectedAlerts = List.of(alert);
 
         when(originalCondition.checkCondition(patient)).thenReturn(expectedAlerts);

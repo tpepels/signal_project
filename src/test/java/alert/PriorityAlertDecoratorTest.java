@@ -20,13 +20,13 @@ class PriorityAlertDecoratorTest {
     @BeforeEach
     void setUp() {
         originalCondition = mock(AlertCondition.class);
-        patient = new Patient(123);
+        patient = new Patient(1);
     }
 
     @Test
     void testPriorityUpdatesSetting() {
-        Alert alert1 = new Alert("123", "Brain aneurysm", System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "Stroke", System.currentTimeMillis());
+        Alert alert1 = new Alert("1", "Brain aneurysm", System.currentTimeMillis());
+        Alert alert2 = new Alert("1", "Stroke", System.currentTimeMillis());
         List<Alert> alerts = Arrays.asList(alert1, alert2);
 
         when(originalCondition.checkCondition(patient)).thenReturn(alerts);
@@ -44,8 +44,8 @@ class PriorityAlertDecoratorTest {
 
     @Test
     void testPrioritySetting() {
-        Alert alert1 = new Alert("123", "Seizure", System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "Allergic reaction", System.currentTimeMillis());
+        Alert alert1 = new Alert("1", "Seizure", System.currentTimeMillis());
+        Alert alert2 = new Alert("1", "Allergic reaction", System.currentTimeMillis());
         List<Alert> alerts = Arrays.asList(alert1, alert2);
 
         when(originalCondition.checkCondition(patient)).thenReturn(alerts);

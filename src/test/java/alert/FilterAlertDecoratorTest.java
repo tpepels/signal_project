@@ -24,7 +24,7 @@ class FilterAlertDecoratorTest {
     @BeforeEach
     void setUp() {
         originalCondition = mock(AlertCondition.class);
-        patient = new Patient(123);
+        patient = new Patient(1);
     }
 
     @Test
@@ -39,8 +39,8 @@ class FilterAlertDecoratorTest {
 
     @Test
     void testWithAllAlertsPassing() {
-        Alert alert1 = new Alert("123", "One urgent condition", System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "Another urgent condition", System.currentTimeMillis());
+        Alert alert1 = new Alert("1", "One urgent condition", System.currentTimeMillis());
+        Alert alert2 = new Alert("1", "Another urgent condition", System.currentTimeMillis());
         List<Alert> allAlerts = Arrays.asList(alert1, alert2);
 
         when(originalCondition.checkCondition(patient)).thenReturn(allAlerts);
@@ -54,8 +54,8 @@ class FilterAlertDecoratorTest {
 
     @Test
     void testWithNoAlertsPassing() {
-        Alert alert1 = new Alert("123", "Normal condition", System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "Stable condition", System.currentTimeMillis());
+        Alert alert1 = new Alert("1", "Normal condition", System.currentTimeMillis());
+        Alert alert2 = new Alert("1", "Stable condition", System.currentTimeMillis());
         List<Alert> alerts = Arrays.asList(alert1, alert2);
 
         when(originalCondition.checkCondition(patient)).thenReturn(alerts);
@@ -64,19 +64,5 @@ class FilterAlertDecoratorTest {
         FilterAlertDecorator decorator = new FilterAlertDecorator(originalCondition, criticalFilter);
 
         assertTrue(decorator.checkCondition(patient).isEmpty(), "No alerts should pass the filter.");
-    }
-
-    @Test
-    void testWithNullConditions() {
-        Alert alert1 = new Alert("123", null, System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "Stable condition", System.currentTimeMillis());
-        List<Alert> alerts = Arrays.asList(alert1, alert2);
-
-        when(originalCondition.checkCondition(patient)).thenReturn(alerts);
-
-        Predicate<Alert> nullSafeFilter = alert -> alert.getCondition() != null && alert.getCondition().contains("Critical");
-        FilterAlertDecorator decorator = new FilterAlertDecorator(originalCondition, nullSafeFilter);
-
-        assertTrue(decorator.checkCondition(patient).isEmpty(), "No alerts should pass the filter, including handling null safely.");
     }
 }

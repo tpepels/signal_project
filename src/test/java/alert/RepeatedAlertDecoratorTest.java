@@ -22,12 +22,12 @@ class RepeatedAlertDecoratorTest {
     @BeforeEach
     void setUp() {
         originalCondition = mock(AlertCondition.class);
-        patient = new Patient(123);
+        patient = new Patient(1);
     }
 
     @Test
     void testRepeatedChecks() {
-        Alert alert = new Alert("123", "High Blood Pressure", System.currentTimeMillis());
+        Alert alert = new Alert("1", "High Blood Pressure", System.currentTimeMillis());
         List<Alert> alerts = List.of(alert);
 
         when(originalCondition.checkCondition(patient)).thenReturn(alerts);
@@ -42,7 +42,7 @@ class RepeatedAlertDecoratorTest {
 
     @Test
     void testConsistentAlertsAcrossCalls() {
-        Alert alert = new Alert("123", "Low iron", System.currentTimeMillis());
+        Alert alert = new Alert("1", "Low iron", System.currentTimeMillis());
         List<Alert> alerts = List.of(alert);
 
         when(originalCondition.checkCondition(patient)).thenReturn(alerts);
@@ -57,9 +57,9 @@ class RepeatedAlertDecoratorTest {
 
     @Test
     void testDifferentAlertsInEachCall() {
-        Alert alert1 = new Alert("123", "Heart stopped", System.currentTimeMillis());
-        Alert alert2 = new Alert("123", "No brain function", System.currentTimeMillis());
-        Alert alert3 = new Alert("123", "Blood clog", System.currentTimeMillis());
+        Alert alert1 = new Alert("1", "Heart stopped", System.currentTimeMillis());
+        Alert alert2 = new Alert("1", "No brain function", System.currentTimeMillis());
+        Alert alert3 = new Alert("1", "Blood clog", System.currentTimeMillis());
 
         when(originalCondition.checkCondition(patient))
                 .thenReturn(List.of(alert1))
