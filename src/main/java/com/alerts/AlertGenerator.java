@@ -49,9 +49,9 @@ public class AlertGenerator {
             double diff2 = r3.getMeasurementValue() - r2.getMeasurementValue();
 
             if (diff1 > 10 && diff2 > 10) {
-                generateAlert(patient, "Increasing Blood Pressure Trend");
+                generateAlert(patient, "Increasing Blood Pressure Trend", "BloodPressure");
             } else if (diff1 < -10 && diff2 < -10) {
-                generateAlert(patient, "Decreasing Blood Pressure Trend");
+                generateAlert(patient, "Decreasing Blood Pressure Trend", "BloodPressure");
             }
         }
     }
@@ -60,7 +60,7 @@ public class AlertGenerator {
         for (PatientRecord record : records) {
             double measurementValue = record.getMeasurementValue();
             if (measurementValue > 180 || measurementValue < 90 || measurementValue > 120 || measurementValue < 60) {
-                generateAlert(patient, "Critical Blood Pressure Threshold");
+                generateAlert(patient, "Critical Blood Pressure Threshold", "BloodPressure");
             }
         }
     }
@@ -70,7 +70,7 @@ public class AlertGenerator {
             if ("BloodOxygenSaturation".equals(record.getRecordType())) {
                 double measurementValue = record.getMeasurementValue();
                 if (measurementValue < 92) {
-                    generateAlert(patient, "Low Blood Oxygen Saturation");
+                    generateAlert(patient, "Low Blood Oxygen Saturation", "BloodOxygen");
                 }
             }
         }
@@ -86,15 +86,29 @@ public class AlertGenerator {
                 long timeDiff = r2.getTimestamp() - r1.getTimestamp();
 
                 if (diff <= -5 && timeDiff <= 600000) { // 10 minutes in milliseconds
-                    generateAlert(patient, "Rapid Drop in Blood Oxygen Saturation");
+                    generateAlert(patient, "Rapid Drop in Blood Oxygen Saturation", "BloodOxygen");
                 }
             }
         }
     }
 
-    public void generateAlert(Patient patient, String condition) {
-        Alert alert = new Alert(patient.getPatientId(), condition, System.currentTimeMillis());
+    public void generateAlert(Patient patient, String condition, String alertType) {
+        AlertFactory factory = getFactory(alertType);
+        Alert alert = factory.createAlert(patient.getPatientId(), condition, System.currentTimeMillis());
         triggerAlert(alert);
+    }
+
+    private AlertFactory getFactory(String alertType) {
+        switch (alertType) {
+            case "BloodPressure":
+                return new BloodPressureAlertFactory();
+            case "BloodOxygen":
+                return new BloodOxygenAlertFactory();
+            case "ECG":
+                return new ECGAlertFactory();
+            default:
+                throw new IllegalArgumentException("Unknown alert type: " + alertType);
+        }
     }
 
     protected void triggerAlert(Alert alert) {
