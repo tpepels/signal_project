@@ -22,7 +22,7 @@ public class OxygenSaturationStrategy implements AlertStrategy {
             throw new IllegalArgumentException("Please provide the correct record");
         }
         for (PatientRecord record : patient.getRecords(startTime, endTime, recordType)) {
-            if (record.getMeasurementValue() < 76) {
+            if (record.getMeasurementValue() < 92) {
                 new BloodOxygenAlertFactory();
             }
 
