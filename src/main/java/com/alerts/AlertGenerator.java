@@ -93,7 +93,7 @@ public class AlertGenerator {
     }
 
     public void generateAlert(Patient patient, String condition) {
-        AlertFactory factory = getFactory(alertType);
+        AlertFactory factory = new AlertFactory();
         Alert alert = factory.createAlert(patient.getPatientId(), condition, System.currentTimeMillis());
         triggerAlert(alert);
     }
