@@ -1,0 +1,78 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b\fs24 \cf0 \expnd0\expndtw0\kerning0
+Alert Generation System\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 The Alert Generation System is responsible for continuously monitoring patient data streams to find and alert medical staff about any signs of distress. The core components include the 
+\f2\fs26 AlertGenerator
+\f1\fs24 , which evaluates incoming data against predefined thresholds for each patient, the 
+\f2\fs26 Alert
+\f1\fs24  class representing the alert itself, and the 
+\f2\fs26 AlertManager
+\f1\fs24 , which handles the communication of alerts to medical staff. Communication between these classes ensure real time evaluation of patient conditions, triggering alerts, and notifying the appropriate personnel. The system works with the Data Storage system for historical data and the Patient Identification system for accurate patient tracking.\
+\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b \cf0 Data Storage System\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 The Data Storage System handles all patient data, ensuring con\
+fidentiality and accessibility for authorized medical staff. Key classes include 
+\f2\fs26 DataStorage
+\f1\fs24 , which manages the storage of patient data, 
+\f2\fs26 PatientData
+\f1\fs24 , representing individual data entries, and 
+\f2\fs26 DataRetriever
+\f1\fs24 , which allows secure data retrieval based on patient IDs. This system supports operations like adding new data, retrieving historical records, and deleting data, with security checks to protect patient privacy. It ensures organized data handling for real-time monitoring and retrospective analysis, integrating with other subsystems for fluent data flow.\
+\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b \cf0 Patient Identification System\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 The Patient Identification System ensures accurate connecting of incoming data to the correct profiles, preventing errors and ensuring reliable patient monitoring. The main components are the 
+\f2\fs26 PatientIdentifier
+\f1\fs24 , which matches incoming data IDs with hospital records, 
+\f2\fs26 PatientRecord
+\f1\fs24 , representing the comprehensive patient data, and 
+\f2\fs26 IdentityManager
+\f1\fs24 , which oversees the integrity of this matching process. This system interfaces with the hospital\'92s main patient database and other subsystems, ensuring that all data is correctly attributed, thus maintaining the accuracy and reliability of patient records.\
+\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b \cf0 Data Access Layer\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 The Data Access Layer facilitates handling of diverse patient data sources. It includes 
+\f2\fs26 DataListener
+\f1\fs24  classes tailored to specific data inflows like 
+\f2\fs26 TCPDataListener
+\f1\fs24 , 
+\f2\fs26 WebSocketDataListener
+\f1\fs24 , and 
+\f2\fs26 FileDataListener
+\f1\fs24 , which ensure accurate data reception. The 
+\f2\fs26 DataParser
+\f1\fs24  standardizes raw data into a uniform format, and the 
+\f2\fs26 DataSourceAdapter
+\f1\fs24  manages the final processing and storage. This layer is crucial for integrating various data sources into the system, ensuring efficient data retrieval, preprocessing, and seamless integration with internal subsystems like Data Storage and Alert Generation.\
+\
+State diagram\
+\pard\pardeftab720\partightenfactor0
+\cf0 \outl0\strokewidth0 \strokec2 The state diagram illustrates the lifecycle of an alert within the Alert Generation System. It begins with the creation of an alert when patient data meets predefined criteria and progresses through states such as Generated, Sent, Acknowledged, and Resolved. Transitions between states occur based on system actions, like alert generation and notification sending, as well as user actions, such as acknowledgment by medical staff.\
+\
+Sequence diagram\
+\
+The sequence diagram depicts the process of alert generation starting from the detection of patient data meeting the alert criteria. It showcases interactions between the AlertGenerator, DataStorage (for fetching historical data), and the Alert itself. Critical interactions, including data checks, alert generation, notification sending, and acknowledgment processes, are highlighted.\
+\outl0\strokewidth0 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 \
+}

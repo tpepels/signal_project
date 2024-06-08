@@ -67,3 +67,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Project Members
 - Student ID:
 i6365574
+
+
+project week 2 
+The uml_models folder contains now the 4 class models ,1 sequence diagram and 1 state diagram, as well as their descriptions
