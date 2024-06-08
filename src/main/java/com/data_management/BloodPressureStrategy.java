@@ -2,6 +2,7 @@ package com.data_management;
 
 import com.alerts.Alert;
 import com.alerts.AlertGenerator;
+import com.alerts.BloodPressureAlertFactory;
 
 public class BloodPressureStrategy implements AlertStrategy {
     private Patient patient;
@@ -23,7 +24,7 @@ public class BloodPressureStrategy implements AlertStrategy {
         }
         for(PatientRecord record : patient.getRecords(startTime, endTime, recordType)){
             if(record.getMeasurementValue() >= 10 || record.getMeasurementValue() < 4){
-                //AlertGenerator generator = new AlertGenerator();
+               System.out.println(new BloodPressureAlertFactory());
             }
         }
     }

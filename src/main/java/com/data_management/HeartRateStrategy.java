@@ -1,5 +1,6 @@
 package com.data_management;
 import com.alerts.Alert;
+import com.alerts.ECGAlertFactory;
 
 public class HeartRateStrategy implements AlertStrategy {
     private Patient patient;
@@ -19,7 +20,11 @@ public class HeartRateStrategy implements AlertStrategy {
         if(!recordType.equals("Heart Rate")){
             throw new IllegalArgumentException("Please provide the correct argument");
         }
-        patient.getRecords(startTime, endTime, recordType);
+        for(PatientRecord record : patient.getRecords(startTime, endTime, recordType)){
+            if(record.getMeasurementValue() > 95 || record.getMeasurementValue() < 75){
+                new ECGAlertFactory();
+            }
+        }
     }
 }
 
