@@ -61,4 +61,12 @@ public class Patient {
                 .filter(record -> record.getTimestamp() >= startTime && record.getTimestamp() <= endTime)
                 .collect(Collectors.toList());
     }
+
+    public List<PatientRecord> getRecords(long startTime, long endTime, String recordType) {
+        return patientRecords.stream()
+                .filter(record -> record.getTimestamp() >= startTime && record.getTimestamp() <= endTime)
+                .filter(record -> record.getRecordType().equals(recordType))
+                .collect(Collectors.toList());
+    }
+    //overloading "getRecords" method so there is the option of both filtering by a recordType and filtering by timeframe
 }
