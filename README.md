@@ -64,10 +64,13 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-<<<<<<< HEAD
 ## Project Members
 - Student ID: 6349052
 - Student ID: 6358408
+
+
+## IMPORTANT REMARK
+To find all the tasks you need to go to the branch that is named  uml_models
 
 ## UML Tutorial
 
