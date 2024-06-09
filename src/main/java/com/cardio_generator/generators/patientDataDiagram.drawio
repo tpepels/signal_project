@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" modified="2024-04-23T20:48:56.723Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="fdnszDf1XRubTPd3L_uQ" version="24.2.7" type="github">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="887" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-43" value="PatientDataGenerator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=27.9;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="985" y="20" width="178" height="147.9" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-44" value="+private int patientID" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-43">
+          <mxGeometry y="27.9" width="178" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-45" value="+private int OutputStrategy" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-43">
+          <mxGeometry y="55.9" width="178" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-46" value="+private int outputstrategy" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-43">
+          <mxGeometry y="83.9" width="178" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-47" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-43">
+          <mxGeometry y="111.9" width="178" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-48" value="+private void generate()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-43">
+          <mxGeometry y="119.9" width="178" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-49" value="BloodLevelsDataGenerator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26.357142857142858;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="218" width="344" height="190.35714285714286" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-50" value="+ private Random random" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="26.357142857142858" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-51" value="+ private double[] baselineCholesterol" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="52.35714285714286" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-52" value="+ private double[] baselineWhiteCells" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="78.35714285714286" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-53" value="+ private double[] baselineRedCells" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="104.35714285714286" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-54" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="130.35714285714286" width="344" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-55" value="+ public BloodLevelsDataGenerator(int patientCount)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="138.35714285714286" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-56" value="+ public void generate()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry y="164.35714285714286" width="344" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-57" value="BloodPressureDataGenerator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=27.9;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="414" y="240" width="400" height="147.9" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-58" value="+ private int[] lastSystolicValues" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry y="27.9" width="400" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-59" value="+private int[] lastDiolisticValues" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry y="55.9" width="400" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-60" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry y="83.9" width="400" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-61" value="+ public BloodPressureDataGenerator(int patient count)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry y="91.9" width="400" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-62" value="+public void generate(patientId, OutputStrategy, outputstrategy)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry y="119.9" width="400" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-63" value="BloodSaturationDataGenerator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=27.9;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="863" y="240" width="421" height="147.9" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-64" value="+ private static Random random" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry y="27.9" width="421" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-65" value="+ private int[] lastSaturationvalues" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry y="55.9" width="421" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-66" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry y="83.9" width="421" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-67" value="+BloodSaturationDataGenerator(int patientCount)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry y="91.9" width="421" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-68" value="+ public void generate(int patientId, OutputStrategy outputStrategy)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry y="119.9" width="421" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-69" value="ECGDataGenerator" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26.357142857142858;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1335" y="218" width="489" height="190.35714285714286" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-70" value="+private static final Random random" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="26.357142857142858" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-71" value="+private double[] lastEcgValues" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="52.35714285714286" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-72" value="+private static final double PI" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="78.35714285714286" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-73" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="104.35714285714286" width="489" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-74" value="+ public ECGDataGenerator(int patientCount)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="112.35714285714286" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-75" value="+ public generate()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="138.35714285714286" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-76" value="+double simulateEcgWaveform(int patientId, double lastEcgValue)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry y="164.35714285714286" width="489" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-77" value="AlertGenerator" style="swimlane;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=24.75;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1870" y="210" width="370" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-86" value="+ public static final Random randomGenerator&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ private boolean[] AlertStates&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-77">
+          <mxGeometry y="24.75" width="370" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-78" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-77">
+          <mxGeometry y="64.75" width="370" height="145.25" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-87" value="+ public AlertGenerator(int patientCount)&lt;div&gt;&lt;br&gt;+ public void generate(int patientId, OutputStrategy outputStrategy)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Af25B5TgeSPkg5sPbAyL-77">
+          <mxGeometry y="210" width="370" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-79" value="" style="curved=1;startArrow=block;startSize=16;startFill=0;endArrow=none;exitX=0.001250877808988764;exitY=0.565482897763586;entryX=0.4997615370639535;entryY=-0.0025906735751295338;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Af25B5TgeSPkg5sPbAyL-43" target="Af25B5TgeSPkg5sPbAyL-49">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="192" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-80" value="" style="curved=1;startArrow=block;startSize=16;startFill=0;endArrow=none;exitX=0.001250877808988764;exitY=0.6270039308745743;entryX=0.499013671875;entryY=0;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Af25B5TgeSPkg5sPbAyL-43" target="Af25B5TgeSPkg5sPbAyL-57">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-81" value="" style="curved=1;startArrow=block;startSize=16;startFill=0;endArrow=none;exitX=0.5001536165730337;exitY=0.9966216216216216;entryX=0.5012525979809976;entryY=0;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Af25B5TgeSPkg5sPbAyL-43" target="Af25B5TgeSPkg5sPbAyL-63">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-82" value="" style="curved=1;startArrow=block;startSize=16;startFill=0;endArrow=none;exitX=0.9990563553370787;exitY=0.6155793334791757;entryX=0.4996005879345603;entryY=-0.0025906735751295338;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Af25B5TgeSPkg5sPbAyL-43" target="Af25B5TgeSPkg5sPbAyL-69">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1579" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Af25B5TgeSPkg5sPbAyL-83" value="" style="curved=1;startArrow=block;startSize=16;startFill=0;endArrow=none;exitX=0.9990563553370787;exitY=0.566902603905308;entryX=0.499053955078125;entryY=0;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Af25B5TgeSPkg5sPbAyL-43" target="Af25B5TgeSPkg5sPbAyL-77">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1938" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

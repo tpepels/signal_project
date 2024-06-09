@@ -27,13 +27,23 @@
             <version>1.5.2</version>
         </dependency>
 
+        <!-- JUnit for unit testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Other dependencies -->
     </dependencies>
+
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.6</version> <!-- Use the version that's compatible with your Spring Boot version -->
+                <version>2.5.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -48,4 +58,18 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>simulator</id>
+            <properties>
+                <start-class>com.cardio_generator.HealthDataSimulator</start-class>
+            </properties>
+        </profile>
+        <profile>
+            <id>data-storage</id>
+            <properties>
+                <start-class>com.cardio_generator.DataStorage</start-class>
+            </properties>
+        </profile>
+    </profiles>
 </project>
