@@ -1,6 +1,5 @@
 package com.cardio_generator;
 
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -8,7 +7,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.alerts.Alert;
 import com.cardio_generator.generators.AlertGenerator;
 
 import com.cardio_generator.generators.BloodPressureDataGenerator;
@@ -17,13 +15,9 @@ import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.*;
 import com.data_management.DataStorage;
-import com.data_management.Patient;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.testng.AssertJUnit.assertTrue;
 

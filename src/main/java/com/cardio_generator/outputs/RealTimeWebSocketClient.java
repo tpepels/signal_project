@@ -1,6 +1,8 @@
 package com.cardio_generator.outputs;
 
 import com.alerts.AlertGenerator;
+import com.alerts.Strategy.AlertStrategy;
+import com.alerts.Strategy.BloodPressureStrategy;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 import com.data_management.Reader;

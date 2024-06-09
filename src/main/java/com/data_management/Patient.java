@@ -78,7 +78,7 @@ public class Patient {
         long endTime = patientRecords.get(patientRecords.size()-1).getTimestamp();
         long stopTime = endTime-600000L;
         for(int i = patientRecords.size()-1;i>=0;i--){
-            if(patientRecords.get(i).getTimestamp()==stopTime){
+            if(patientRecords.get(i).getTimestamp()<=stopTime){
                 return returnList;
             }
             if(patientRecords.get(i).getRecordType().equals(type)){
@@ -96,5 +96,22 @@ public class Patient {
 
         }
         return null;
+    }
+    public List<PatientRecord> getLastThreeBloodPressure(String type) {
+        List<PatientRecord> patientRecordList = this.getRecords(this.getStartTime(), this.getEndTime());
+        List<PatientRecord> lastThree = new ArrayList<>();
+        int count = 0; // To keep track of how many matching records we've added
+
+        // Iterate backwards through the patientRecordList
+        for (int i = patientRecordList.size() - 1; i >= 0 && count < 3; i--) {
+            PatientRecord record = patientRecordList.get(i);
+            if (record.getRecordType().equals(type)) {
+                lastThree.add(record);
+                count++; // Increment count for each matching record added
+            }
+        }
+
+        // If fewer than 3 matching records were found, lastThree will have fewer than 3 elements
+        return lastThree;
     }
 }

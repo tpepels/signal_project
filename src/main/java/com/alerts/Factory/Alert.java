@@ -1,4 +1,4 @@
-package com.alerts;
+package com.alerts.Factory;
 
 // Represents an alert
 public class Alert {
@@ -22,5 +22,8 @@ public class Alert {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public void triggerAlert() {
     }
 }
