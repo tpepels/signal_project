@@ -63,3 +63,16 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Project Members
+- Student ID: 6349052
+- Student ID: 6358408
+
+
+## IMPORTANT REMARK
+To find all the tasks you need to go to the branch that is named  uml_models
+
+## UML Tutorial
+
+This directory contains a UML document, which provides Unified Modeling Language (UML) for the Cardiovascular Health Monitoring System (CHMS).
+- [UML Tutorial PDF](uml_models/UML_Tutorial.pdf)
