@@ -93,9 +93,7 @@ public class AlertGenerator {
     }
 
     public void generateAlert(Patient patient, String condition) {
-        AlertFactory factory = new AlertFactory();
-        Alert alert = factory.createAlert(patient.getPatientId(), condition, System.currentTimeMillis());
-        triggerAlert(alert);
+        System.out.println("place holder");
     }
 
     private AlertFactory getFactory(String alertType) {

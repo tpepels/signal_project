@@ -16,6 +16,8 @@ public class OxygenSaturationStrategy implements AlertStrategy {
         this.recordType = recordType;
     }
 
+
+
     @Override
     public void checkAlert(Patient patient, String recordType) {
         if (!recordType.equals("Oxygen Saturation")) {
