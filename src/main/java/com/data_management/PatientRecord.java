@@ -67,4 +67,5 @@ public class PatientRecord {
     public String getRecordType() {
         return recordType;
     }
+
 }

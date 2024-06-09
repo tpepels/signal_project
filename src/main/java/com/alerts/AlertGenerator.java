@@ -1,52 +1,117 @@
 package com.alerts;
 
-import com.data_management.DataStorage;
 import com.data_management.Patient;
+import com.data_management.PatientRecord;
+import com.data_management.DataStorage;
 
-/**
- * The {@code AlertGenerator} class is responsible for monitoring patient data
- * and generating alerts when certain predefined conditions are met. This class
- * relies on a {@link DataStorage} instance to access patient data and evaluate
- * it against specific health criteria.
- */
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AlertGenerator {
     private DataStorage dataStorage;
 
-    /**
-     * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
-     * The {@code DataStorage} is used to retrieve patient data that this class
-     * will monitor and evaluate.
-     *
-     * @param dataStorage the data storage system that provides access to patient
-     *                    data
-     */
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
-    /**
-     * Evaluates the specified patient's data to determine if any alert conditions
-     * are met. If a condition is met, an alert is triggered via the
-     * {@link #triggerAlert}
-     * method. This method should define the specific conditions under which an
-     * alert
-     * will be triggered.
-     *
-     * @param patient the patient data to evaluate for alert conditions
-     */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000); // 24 hours ago
+        long endTime = System.currentTimeMillis(); // Current time
+
+        List<PatientRecord> bloodPressureRecords = filterBloodPressureRecords(patient.getRecords(startTime, endTime));
+        List<PatientRecord> bloodOxygenRecords = filterBloodOxygenRecords(patient.getRecords(startTime, endTime));
+
+        checkForBloodPressureTrends(patient, bloodPressureRecords);
+        checkForCriticalThresholds(patient, bloodPressureRecords);
+        checkForLowSaturation(patient, bloodOxygenRecords);
+        checkForRapidDrop(patient, bloodOxygenRecords);
     }
 
-    /**
-     * Triggers an alert for the monitoring system. This method can be extended to
-     * notify medical staff, log the alert, or perform other actions. The method
-     * currently assumes that the alert information is fully formed when passed as
-     * an argument.
-     *
-     * @param alert the alert object containing details about the alert condition
-     */
-    private void triggerAlert(Alert alert) {
-        // Implementation might involve logging the alert or notifying staff
+    private List<PatientRecord> filterBloodPressureRecords(List<PatientRecord> records) {
+        return records.stream()
+                .filter(record -> "BloodPressure".equals(record.getRecordType()))
+                .collect(Collectors.toList());
+    }
+
+    private List<PatientRecord> filterBloodOxygenRecords(List<PatientRecord> records) {
+        return records.stream()
+                .filter(record -> "BloodOxygenSaturation".equals(record.getRecordType()))
+                .collect(Collectors.toList());
+    }
+
+    private void checkForBloodPressureTrends(Patient patient, List<PatientRecord> records) {
+        for (int i = 2; i < records.size(); i++) {
+            PatientRecord r1 = records.get(i - 2);
+            PatientRecord r2 = records.get(i - 1);
+            PatientRecord r3 = records.get(i);
+
+            double diff1 = r2.getMeasurementValue() - r1.getMeasurementValue();
+            double diff2 = r3.getMeasurementValue() - r2.getMeasurementValue();
+
+            if (diff1 > 10 && diff2 > 10) {
+                generateAlert(patient, "Increasing Blood Pressure Trend");
+            } else if (diff1 < -10 && diff2 < -10) {
+                generateAlert(patient, "Decreasing Blood Pressure Trend");
+            }
+        }
+    }
+
+    private void checkForCriticalThresholds(Patient patient, List<PatientRecord> records) {
+        for (PatientRecord record : records) {
+            double measurementValue = record.getMeasurementValue();
+            if (measurementValue > 180 || measurementValue < 90 || measurementValue > 120 || measurementValue < 60) {
+                generateAlert(patient, "Critical Blood Pressure Threshold");
+            }
+        }
+    }
+
+    private void checkForLowSaturation(Patient patient, List<PatientRecord> records) {
+        for (PatientRecord record : records) {
+            if ("BloodOxygenSaturation".equals(record.getRecordType())) {
+                double measurementValue = record.getMeasurementValue();
+                if (measurementValue < 92) {
+                    generateAlert(patient, "Low Blood Oxygen Saturation");
+                }
+            }
+        }
+    }
+
+    private void checkForRapidDrop(Patient patient, List<PatientRecord> records) {
+        for (int i = 1; i < records.size(); i++) {
+            PatientRecord r1 = records.get(i - 1);
+            PatientRecord r2 = records.get(i);
+
+            if ("BloodOxygenSaturation".equals(r1.getRecordType()) && "BloodOxygenSaturation".equals(r2.getRecordType())) {
+                double diff = r2.getMeasurementValue() - r1.getMeasurementValue();
+                long timeDiff = r2.getTimestamp() - r1.getTimestamp();
+
+                if (diff <= -5 && timeDiff <= 600000) { // 10 minutes in milliseconds
+                    generateAlert(patient, "Rapid Drop in Blood Oxygen Saturation");
+                }
+            }
+        }
+    }
+
+    public void generateAlert(Patient patient, String condition) {
+        System.out.println("place holder");
+    }
+
+    private AlertFactory getFactory(String alertType) {
+        switch (alertType) {
+            case "BloodPressure":
+                return new BloodPressureAlertFactory();
+            case "BloodOxygen":
+                return new BloodOxygenAlertFactory();
+            case "ECG":
+                return new ECGAlertFactory();
+            default:
+                throw new IllegalArgumentException("Unknown alert type: " + alertType);
+        }
+    }
+
+    protected void triggerAlert(Alert alert) {
+        System.out.println("Alert triggered for Patient ID: " + alert.getPatientId() +
+                ", Condition: " + alert.getCondition() +
+                ", Timestamp: " + alert.getTimestamp());
     }
 }

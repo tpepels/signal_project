@@ -12,9 +12,7 @@ public class Alert {
         this.timestamp = timestamp;
     }
 
-    public String getPatientId() {
-        return patientId;
-    }
+    public String getPatientId() {return patientId; }
 
     public String getCondition() {
         return condition;
@@ -23,4 +21,5 @@ public class Alert {
     public long getTimestamp() {
         return timestamp;
     }
+
 }
