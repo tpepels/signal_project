@@ -1,23 +1,23 @@
 package com.alerts;
 
 public class AlertDecorator extends Alert {
-    private String patientId;
-    private String condition;
-    private long timestamp;
+    protected Alert decoratedAlert;
 
-    public AlertDecorator(String patientId, String condition, long timeStamp){
-        super(patientId, condition, timeStamp);
+    public AlertDecorator(Alert decoratedAlert){
+        super(decoratedAlert.getPatientId(), decoratedAlert.getCondition(), decoratedAlert.getTimestamp());
+        this.decoratedAlert = decoratedAlert;
     }
 
     @Override
-    public String getPatientId() {return patientId;}
+    public String getPatientId() {return decoratedAlert.getPatientId();}
     @Override
     public String getCondition() {
-        return condition;
+        return decoratedAlert.getCondition();
     }
     @Override
     public long getTimestamp() {
-        return timestamp;
+        return decoratedAlert.getTimestamp();
     }
+
 
 }

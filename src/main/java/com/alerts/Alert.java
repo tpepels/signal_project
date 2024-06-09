@@ -21,4 +21,5 @@ public class Alert {
     public long getTimestamp() {
         return timestamp;
     }
+
 }
