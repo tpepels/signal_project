@@ -52,6 +52,66 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        List<PatientRecord>ans = new ArrayList<>();
+        for(int i = 0;startTime<=endTime&&i<patientRecords.size();i++,startTime++){
+            ans.add(this.patientRecords.get(i));
+        }
+      return ans;
+    }
+
+    public long getEndTime(){
+        return patientRecords.get(patientRecords.size()-1).getTimestamp();
+    }
+
+    public long getPrevThreeTime(){
+        return patientRecords.get(patientRecords.size()-3).getTimestamp();
+    }
+    public int getPatientId(){
+        return this.patientId;
+    }
+    public long getStartTime(){
+        return patientRecords.get(0).getTimestamp();
+    }
+
+    public List<PatientRecord>lastTenMinutesOfType(String type){
+        List<PatientRecord>returnList = new ArrayList<>();
+        long endTime = patientRecords.get(patientRecords.size()-1).getTimestamp();
+        long stopTime = endTime-600000L;
+        for(int i = patientRecords.size()-1;i>=0;i--){
+            if(patientRecords.get(i).getTimestamp()<=stopTime){
+                return returnList;
+            }
+            if(patientRecords.get(i).getRecordType().equals(type)){
+                returnList.add(patientRecords.get(i));
+            }
+        }
+        return returnList;
+    }
+
+    public PatientRecord getECGRecord(){
+        for(int i = patientRecords.size()-1;i>=0;i--){
+            if(patientRecords.get(i).getRecordType().equals("ECG")){
+                return patientRecords.get(i);
+            }
+
+        }
+        return null;
+    }
+    public List<PatientRecord> getLastThreeBloodPressure(String type) {
+        List<PatientRecord> patientRecordList = this.getRecords(this.getStartTime(), this.getEndTime());
+        List<PatientRecord> lastThree = new ArrayList<>();
+        int count = 0; // To keep track of how many matching records we've added
+
+        // Iterate backwards through the patientRecordList
+        for (int i = patientRecordList.size() - 1; i >= 0 && count < 3; i--) {
+            PatientRecord record = patientRecordList.get(i);
+            if (record.getRecordType().equals(type)) {
+                lastThree.add(record);
+                count++; // Increment count for each matching record added
+            }
+        }
+
+        // If fewer than 3 matching records were found, lastThree will have fewer than 3 elements
+        return lastThree;
     }
 }

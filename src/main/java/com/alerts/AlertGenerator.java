@@ -1,5 +1,9 @@
 package com.alerts;
 
+import com.alerts.Decorator.PriorityAlertDecorator;
+import com.alerts.Decorator.RepeatedAlertDecorator;
+import com.alerts.Factory.*;
+import com.alerts.Strategy.*;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 
@@ -34,19 +38,71 @@ public class AlertGenerator {
      *
      * @param patient the patient data to evaluate for alert conditions
      */
+
+    /**
+     * Evaluates the specified patient's data to determine if any alert conditions
+     * are met based on various strategies. Each strategy is responsible for
+     * checking a specific health metric. This function initializes and manages
+     * the strategies internally.
+     *
+     * @param patient the patient data to evaluate for alert conditions
+     */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
+        // Standard alerts
+        checkAndTriggerAlert(patient, new BloodPressureStrategy("Systolic"), new BloodPressureAlertFactory());
+        // checkAndTriggerAlert(patient, new BloodPressureStrategy("Diastolic"), new BloodPressureAlertFactory());
+        checkAndTriggerAlert(patient, new OxygenSaturationStrategy(), new BloodOxygenAlertFactory());
+
+        // Decorated alerts with Priority
+        Alert ecgAlert = new ECGAlertFactory().createAlert(String.valueOf(patient.getPatientId()), "ECG", System.currentTimeMillis());
+        Alert priorityECGAlert = new PriorityAlertDecorator(ecgAlert); // Adding priority to ECG alerts
+        checkAndTriggerAlertWithDecorator(patient, new ECGStrategy(), priorityECGAlert);
+
+        // Decorated alerts with Repeated checks
+        Alert manuallyTriggeredAlert = new ManuallyTriggeredAlertFactory().createAlert(String.valueOf(patient.getPatientId()), "Manual", System.currentTimeMillis());
+        Alert repeatedManuallyTriggeredAlert = new RepeatedAlertDecorator(manuallyTriggeredAlert, 30000); // Repeats every 30 seconds
+        checkAndTriggerAlertWithDecorator(patient, new ManuallyTriggeredAlertStrategy(), repeatedManuallyTriggeredAlert);
+
+        // Combined alerts possibly needing both decorations
+        Alert combinedAlert = new CombinedAlertFactory().createAlert(String.valueOf(patient.getPatientId()), "Combined", System.currentTimeMillis());
+        Alert priorityCombinedAlert = new PriorityAlertDecorator(combinedAlert); // High priority
+        Alert repeatedPriorityCombinedAlert = new RepeatedAlertDecorator(priorityCombinedAlert, 60000); // Repeated and high priority
+        checkAndTriggerAlertWithDecorator(patient, new CombinedAlertStrategy(), repeatedPriorityCombinedAlert);
+    }
+
+    // Method to handle alerts with decorators
+    private void checkAndTriggerAlertWithDecorator(Patient patient, AlertStrategy strategy, Alert decoratedAlert) {
+        if (strategy.checkAlert(patient)) {
+            decoratedAlert.triggerAlert();
+        }
     }
 
     /**
-     * Triggers an alert for the monitoring system. This method can be extended to
-     * notify medical staff, log the alert, or perform other actions. The method
-     * currently assumes that the alert information is fully formed when passed as
-     * an argument.
+     * Helper method to check a specific strategy and trigger an alert if necessary.
+     *
+     * @param patient the patient data
+     * @param strategy the strategy to use for checking conditions
+     */
+    private void checkAndTriggerAlert(Patient patient, AlertStrategy strategy, AlertFactory alertFactory) {
+        if (strategy.checkAlert(patient)) {
+            long timestamp = System.currentTimeMillis(); // or derive from patient data
+            Alert alert = alertFactory.createAlert(String.valueOf(patient.getPatientId()),
+                    strategy.getClass().getSimpleName().replace("Strategy", ""), timestamp);
+            triggerAlert(alert);
+        }
+    }
+
+    /**
+     * Triggers an alert for the monitoring system.
+     * This method can be extended to notify medical staff, log the alert, or perform other actions.
      *
      * @param alert the alert object containing details about the alert condition
      */
     private void triggerAlert(Alert alert) {
-        // Implementation might involve logging the alert or notifying staff
+        System.out.println("Alert was triggered. Details:");
+        System.out.println("Condition: " + alert.getCondition());
+        System.out.println("Patient ID: " + alert.getPatientId());
+        System.out.println("Timestamp: " + alert.getTimestamp());
     }
 }
+

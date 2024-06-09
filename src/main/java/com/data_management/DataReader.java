@@ -1,6 +1,7 @@
 package com.data_management;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 public interface DataReader {
     /**

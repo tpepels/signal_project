@@ -1,9 +1,8 @@
 package com.data_management;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
+
 import com.alerts.AlertGenerator;
 
 /**
@@ -19,8 +18,18 @@ public class DataStorage {
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-    public DataStorage() {
+    private DataStorage() {
         this.patientMap = new HashMap<>();
+    }
+
+    private static DataStorage dataStorageInstance = null;
+
+
+    public static synchronized DataStorage getDataStorageInstance() {
+        if (dataStorageInstance == null) {
+            dataStorageInstance = new DataStorage();
+        }
+        return dataStorageInstance;
     }
 
     /**
@@ -66,6 +75,10 @@ public class DataStorage {
         return new ArrayList<>(); // return an empty list if no patient is found
     }
 
+    public Map<Integer, Patient> getPatientMap() {
+        return patientMap;
+    }
+
     /**
      * Retrieves a collection of all patients stored in the data storage.
      *
@@ -82,14 +95,15 @@ public class DataStorage {
      * 
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getDataStorageInstance();
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
-        // reader.readData(storage);
+        Reader reader = new Reader("./bin/src/");
+        reader.readData(storage);
 
         // Example of using DataStorage to retrieve and print records for a patient
         List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
