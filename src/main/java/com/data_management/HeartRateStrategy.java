@@ -26,5 +26,10 @@ public class HeartRateStrategy implements AlertStrategy {
             }
         }
     }
+
+    @Override
+    public void checkIntervals(Patient patient, String recordType) {
+
+    }
 }
 

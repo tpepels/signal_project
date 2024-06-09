@@ -30,4 +30,9 @@ public class OxygenSaturationStrategy implements AlertStrategy {
 
         }
     }
+
+    @Override
+    public void checkIntervals(Patient patient, String recordType) {
+
+    }
 }

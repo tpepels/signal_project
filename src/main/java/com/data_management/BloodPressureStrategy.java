@@ -35,4 +35,11 @@ public class BloodPressureStrategy implements AlertStrategy {
 
     }
 
+    @Override
+    public void checkIntervals(Patient patient, String recordType) {
+
+
+    }
+
+
 }
