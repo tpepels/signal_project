@@ -40,7 +40,7 @@ public class BloodPressureStrategy implements AlertStrategy {
     public void checkIntervals(Patient patient, String recordType) {
         List<PatientRecord> patientRec = patient.getRecords(startTime, endTime, recordType);
         for(int i = 0; i<patientRec.size();i++){
-            System.out.println("place holder");
+            System.out.println(patientRec.get(i));
         }
 
     }

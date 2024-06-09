@@ -4,6 +4,7 @@ import com.alerts.Alert;
 import com.alerts.BloodOxygenAlertFactory;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class OxygenSaturationStrategy implements AlertStrategy {
     private Patient patient;
@@ -34,11 +35,15 @@ public class OxygenSaturationStrategy implements AlertStrategy {
 
     @Override
     public void checkIntervals(Patient patient, String recordType) {
-        int iterations = 0;
-        List<PatientRecord> patientRec = patient.getRecords(startTime, endTime, recordType);
-        for(int i = 0; i<patientRec.size();i++){
-            System.out.println("place holder");
+        if(!recordType.equals("Oxygen Saturation")){
+            throw new IllegalArgumentException("Please provide the correct record");
         }
+        List<PatientRecord> patientRec = patient.getRecords(startTime, endTime, recordType);
+        IntStream.range(0, patientRec.size()).forEach(i -> {PatientRecord currentRecord = patientRec.get(i); long currentTime = currentRecord.getTimestamp(); double currentValue = currentRecord.getMeasurementValue();
+        boolean alertTriggered = patientRec.stream().skip(i+1).takeWhile(nextRecord -> nextRecord.getTimestamp() <= currentTime + 10 * 60 * 1000).anyMatch(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95);
+        if(alertTriggered){PatientRecord alertRecord = patientRec.stream().skip(i+1).filter(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95).findFirst().orElse(null);
+        if(alertRecord != null){Alert alert = new BloodOxygenAlertFactory().createAlert(patient.getPatientId(), "Blood oxygen dropped 5% or more" , alertRecord.getTimestamp());}}
+        });
 
 
     }
