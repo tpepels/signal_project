@@ -40,6 +40,10 @@ public class RepeatedAlertDecorator extends AlertDecorator {
         }
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     @Override
     public String getCondition() {
         return super.getCondition();
