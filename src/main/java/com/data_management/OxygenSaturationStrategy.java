@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class OxygenSaturationStrategy implements AlertStrategy {
-    private Patient patient;
-    private Long startTime;
-    private Long endTime;
-    private final String recordType = "Oxygen Saturation";
+    private final Patient patient;
+    private final Long startTime;
+    private final Long endTime;
+    private static final String RECORD_TYPE = "Oxygen Saturation";
 
     public OxygenSaturationStrategy(Patient patient, Long startTime, Long endTime) {
         this.patient = patient;
@@ -18,33 +18,50 @@ public class OxygenSaturationStrategy implements AlertStrategy {
         this.endTime = endTime;
     }
 
-
-
     @Override
     public void checkAlert(Patient patient, String recordType) {
-        if (!recordType.equals("Oxygen Saturation")) {
-            throw new IllegalArgumentException("Please provide the correct record");
+        if (!recordType.equalsIgnoreCase(RECORD_TYPE)) {
+            throw new IllegalArgumentException("Please provide the correct record type");
         }
+
         for (PatientRecord record : patient.getRecords(startTime, endTime, recordType)) {
             if (record.getMeasurementValue() < 92) {
-                new BloodOxygenAlertFactory();
+                Alert alert = new BloodOxygenAlertFactory().createAlert(patient.getPatientId(), "Low Oxygen Saturation", record.getTimestamp());
+                // Handle the alert (e.g., log, store, send it)
             }
-
         }
     }
 
     @Override
     public void checkIntervals(Patient patient, String recordType) {
-        if(!recordType.equals("Oxygen Saturation")){
-            throw new IllegalArgumentException("Please provide the correct record");
+        if (!recordType.equalsIgnoreCase(RECORD_TYPE)) {
+            throw new IllegalArgumentException("Please provide the correct record type");
         }
-        List<PatientRecord> patientRec = patient.getRecords(startTime, endTime, recordType);
-        IntStream.range(0, patientRec.size()).forEach(i -> {PatientRecord currentRecord = patientRec.get(i); long currentTime = currentRecord.getTimestamp(); double currentValue = currentRecord.getMeasurementValue();
-        boolean alertTriggered = patientRec.stream().skip(i+1).takeWhile(nextRecord -> nextRecord.getTimestamp() <= currentTime + 10 * 60 * 1000).anyMatch(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95);
-        if(alertTriggered){PatientRecord alertRecord = patientRec.stream().skip(i+1).filter(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95).findFirst().orElse(null);
-        if(alertRecord != null){Alert alert = new BloodOxygenAlertFactory().createAlert(patient.getPatientId(), "Blood oxygen dropped 5% or more" , alertRecord.getTimestamp());}}
+
+        List<PatientRecord> patientRecords = patient.getRecords(startTime, endTime, recordType);
+
+        IntStream.range(0, patientRecords.size()).forEach(i -> {
+            PatientRecord currentRecord = patientRecords.get(i);
+            long currentTime = currentRecord.getTimestamp();
+            double currentValue = currentRecord.getMeasurementValue();
+
+            boolean alertTriggered = patientRecords.stream()
+                    .skip(i + 1)
+                    .takeWhile(nextRecord -> nextRecord.getTimestamp() <= currentTime + 10 * 60 * 1000)
+                    .anyMatch(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95);
+
+            if (alertTriggered) {
+                PatientRecord alertRecord = patientRecords.stream()
+                        .skip(i + 1)
+                        .filter(nextRecord -> nextRecord.getMeasurementValue() <= currentValue * 0.95)
+                        .findFirst()
+                        .orElse(null);
+
+                if (alertRecord != null) {
+                    Alert alert = new BloodOxygenAlertFactory().createAlert(patient.getPatientId(), "Blood oxygen dropped 5% or more", alertRecord.getTimestamp());
+                    // Handle the alert (e.g., log, store, send it)
+                }
+            }
         });
-
-
     }
 }
