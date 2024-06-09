@@ -14,7 +14,7 @@ import com.data_management.Patient;
 public class AlertGenerator {
     private DataStorage dataStorage;
 
-    private final AlertCondition[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new RapidDropAlert(), new HypotensiveHypoxemiaAlert(), new TriggeredAlert()};
+    private final AlertCondition[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new RapidDropAlert(), new HypotensiveHypoxemiaAlert(), new TriggeredAlert(), new AbnormalDataAlert()};
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
