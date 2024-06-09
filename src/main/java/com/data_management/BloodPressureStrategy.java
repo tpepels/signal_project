@@ -13,7 +13,6 @@ public class BloodPressureStrategy implements AlertStrategy {
         this.patient = patient;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.recordType = recordType;
 
 
     }

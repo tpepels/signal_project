@@ -7,13 +7,12 @@ public class OxygenSaturationStrategy implements AlertStrategy {
     private Patient patient;
     private Long startTime;
     private Long endTime;
-    private String recordType;
+    private final String recordType = "Oxygen Saturation";
 
-    public OxygenSaturationStrategy(Patient patient, Long startTime, Long endTime, String recordType) {
+    public OxygenSaturationStrategy(Patient patient, Long startTime, Long endTime) {
         this.patient = patient;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.recordType = recordType;
     }
 
 
