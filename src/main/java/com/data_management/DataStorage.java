@@ -56,7 +56,7 @@ public class DataStorage {
      * @param endTime   the end of the time range, in milliseconds since the Unix
      *                  epoch
      * @return a list of PatientRecord objects that fall within the specified time
-     *         range
+     * range
      */
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
@@ -79,12 +79,13 @@ public class DataStorage {
      * The main method for the DataStorage class.
      * Initializes the system, reads data into storage, and continuously monitors
      * and evaluates patient data.
-     * 
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
         // DataReader is not defined in this scope, should be initialized appropriately.
-        // DataReader reader = new SomeDataReaderImplementation("path/to/data");
+
+        //DataReader reader = new SomeDataReaderImplementation("path/to/data");
         DataStorage storage = new DataStorage();
 
         // Assuming the reader has been properly initialized and can read data into the
@@ -106,6 +107,7 @@ public class DataStorage {
         // Evaluate all patients' data to check for conditions that may trigger alerts
         for (Patient patient : storage.getAllPatients()) {
             alertGenerator.evaluateData(patient);
+
         }
     }
 }
