@@ -69,3 +69,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Student ID: i6348267
 
 ## UML models link
+- Please click the link below for all UML diagrams and explanations
+- https://github.com/Jinyang-Wen/signal_project/tree/i6334927/src/main/java/com/cardio_generator/uml_models
