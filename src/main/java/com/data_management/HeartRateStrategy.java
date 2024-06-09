@@ -50,7 +50,7 @@ public class HeartRateStrategy implements AlertStrategy {
                     // Calculate the average within the  window
                     double average = records.subList(fromIndex, toIndex).stream().mapToDouble(PatientRecord::getMeasurementValue).average().orElse(0);
                     // Checking for abnormal data
-                    PatientRecord currentRecord = records.get(i);
+                   PatientRecord currentRecord = records.get(i);
                     double currentValue = currentRecord.getMeasurementValue();
                     if (currentValue > average * 1.5) { // Example threshold: 50% above average
                         Alert alert = new ECGAlertFactory().createAlert(patient.getPatientId(), "Abnormal ECG Data", currentRecord.getTimestamp());}
