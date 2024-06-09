@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.data_management.DataStorage;
-import com.data_management.Patient;
-import com.data_management.TrendWindow;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
