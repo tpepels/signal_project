@@ -58,7 +58,7 @@ public class DataStorage {
      * @return a list of PatientRecord objects that fall within the specified time
      *         range
      */
-    public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
+    public List<com.data_management.PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
         if (patient != null) {
             return patient.getRecords(startTime, endTime);
@@ -91,15 +91,6 @@ public class DataStorage {
         // storage
         // reader.readData(storage);
 
-        // Example of using DataStorage to retrieve and print records for a patient
-        List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
-        for (PatientRecord record : records) {
-            System.out.println("Record for Patient ID: " + record.getPatientId() +
-                    ", Type: " + record.getRecordType() +
-                    ", Data: " + record.getMeasurementValue() +
-                    ", Timestamp: " + record.getTimestamp());
-        }
-
         // Initialize the AlertGenerator with the storage
         AlertGenerator alertGenerator = new AlertGenerator(storage);
 
@@ -108,4 +99,83 @@ public class DataStorage {
             alertGenerator.evaluateData(patient);
         }
     }
+
+
+    // Almacena los registros de pacientes, donde la clave es el identificador del paciente
+    private Map<String, PatientRecord> patientRecords = new HashMap<>();
+
+    // Clase interna para representar el registro de un paciente
+    private static class PatientRecord {
+        // Agrega aquí los campos necesarios, por ejemplo:
+        private String id;
+        private String name;
+        private List<Data> dataPoints;
+
+        public PatientRecord(String id, String name) {
+            this.id = id;
+            this.name = name;
+            this.dataPoints = new ArrayList<>();
+        }
+
+        public synchronized void addData(Data data) {
+            // Lógica para actualizar el registro del paciente con nuevos datos
+            this.dataPoints.add(data);
+        }
+
+        public synchronized void update(Data data) {
+            // Lógica para actualizar campos específicos del registro del paciente
+            // Actualiza los campos según los datos entrantes
+        }
+    }
+
+    // Método para almacenar datos de pacientes sin duplicar información
+    public synchronized void store(Data data) {
+        String patientId = data.getPatientId(); // Obtén el ID del paciente de los datos entrantes
+        String patientName = data.getPatientName(); // Obtén el nombre del paciente de los datos entrantes
+
+        if (patientRecords.containsKey(patientId)) {
+            // Si el registro del paciente ya existe, actualiza el registro existente
+            PatientRecord existingRecord = patientRecords.get(patientId);
+            existingRecord.update(data);
+        } else {
+            // Si el registro del paciente no existe, crea un nuevo registro
+            PatientRecord newRecord = new PatientRecord(patientId, patientName);
+            newRecord.addData(data);
+            patientRecords.put(patientId, newRecord);
+        }
+    }
+
+    // Clase Data (ejemplo, deberías ajustarla según tu implementación real)
+    public static class Data {
+        private String patientId;
+        private String patientName;
+        private String healthMetric;
+        private String value;
+
+        // Constructor y getters
+        public Data(String patientId, String patientName, String healthMetric, String value) {
+            this.patientId = patientId;
+            this.patientName = patientName;
+            this.healthMetric = healthMetric;
+            this.value = value;
+        }
+
+        public String getPatientId() {
+            return patientId;
+        }
+
+        public String getPatientName() {
+            return patientName;
+        }
+
+        public String getHealthMetric() {
+            return healthMetric;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    
+    }
+
 }

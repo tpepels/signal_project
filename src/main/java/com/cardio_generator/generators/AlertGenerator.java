@@ -18,7 +18,7 @@ public class AlertGenerator implements PatientDataGenerator {
 
     // Evaluates data for a single patient within the last 24 hours
     public void evaluateData(Patient patient) {
-        evaluateBloodPressureRecords(patient);
+        evaluateECGRecords(patient);
         evaluateSaturationRecords(patient);
         evaluateCombinedAlerts(patient);
     }
@@ -40,7 +40,7 @@ public class AlertGenerator implements PatientDataGenerator {
     }
 
     // Trigger an alert with a specific message
-    private void triggerAlert(Alert alert) {
+    public void triggerAlert(Alert alert) {
         System.out.println("Alert Triggered: Patient ID = " + alert.getPatientId() +
                            ", Condition = " + alert.getCondition() +
                            ", Timestamp = " + alert.getTimestamp());

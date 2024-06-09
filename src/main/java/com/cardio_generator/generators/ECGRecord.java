@@ -24,7 +24,17 @@ public class ECGRecord extends PatientRecord {
     public void evaluateData(Patient patient) {
     evaluateBloodPressureRecords(patient);
     evaluateSaturationRecords(patient);
-    evaluateECGRecords(patient); // Add this call
+    evaluateBloodPressureRecords(patient); // Add this call
 }
+
+    private void evaluateSaturationRecords(Patient patient) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'evaluateSaturationRecords'");
+    }
+
+    private void evaluateBloodPressureRecords(Patient patient) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'evaluateBloodPressureRecords'");
+    }
 
 }

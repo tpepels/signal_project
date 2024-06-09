@@ -9,6 +9,7 @@ import com.cardio_generator.generators.AlertGenerator;
 
 import com.cardio_generator.generators.BloodPressureDataGenerator;
 import com.cardio_generator.generators.BloodSaturationDataGenerator;
+import com.cardio_generator.generators.DataStorage;
 import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.generators.HealthDataGenerator;

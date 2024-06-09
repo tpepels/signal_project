@@ -9,7 +9,7 @@ import com.data_management.Patient;
  * relies on a {@link DataStorage} instance to access patient data and evaluate
  * it against specific health criteria.
  */
-public class AlertGenerator {
+public class PatientTest {
     private DataStorage dataStorage;
 
     /**
@@ -20,7 +20,7 @@ public class AlertGenerator {
      * @param dataStorage the data storage system that provides access to patient
      *                    data
      */
-    public AlertGenerator(DataStorage dataStorage) {
+    public PatientTest(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
