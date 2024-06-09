@@ -18,5 +18,14 @@ public class DataStorageInstance {
         }
         return dataStorage;
     }
+
+    public static void reset() {
+        dataStorage = null;
+        reader = null;
+    }
+
+    public static CholesterolReader getReader() {
+        return reader;
+    }
 }
 

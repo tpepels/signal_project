@@ -12,4 +12,8 @@ public class HealthDataSimulatorInstance {
         }
         return healthDataSimulator;
     }
+
+    public static void reset() {
+        healthDataSimulator = null;
+    }
 }
