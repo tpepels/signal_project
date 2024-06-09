@@ -1,3 +1,5 @@
+package data_management;
+
 import com.alerts.AlertGenerator;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
@@ -10,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AlertGeneratorTest {
-    private AlertGenerator alertGenerator = new AlertGenerator(new DataStorage());
+    private AlertGenerator alertGenerator = new AlertGenerator(DataStorage.getDataStorageInstance());
 
     @Test
     void testBloodPressureIncreasingTrendAlert() {

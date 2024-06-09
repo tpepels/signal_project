@@ -18,13 +18,15 @@ public class WebSocketOutputStrategy implements OutputStrategy {
     public DataStorage dataStorage;
 
     public WebSocketOutputStrategy(int port) {
+        HealthDataSimulator simulator = HealthDataSimulator.getInstance();
+        this.dataStorage = DataStorage.getDataStorageInstance();
+
         server = new SimpleWebSocketServer(new InetSocketAddress(port));
         System.out.println("WebSocket server created on port: " + port + ", listening for connections...");
 
         server.start();
-        HealthDataSimulator.initializeWebSocketClient("ws://127.0.0.1:8080/");
-        dataStorage = HealthDataSimulator.dataStorage;
-        this.client = HealthDataSimulator.getClient();
+        simulator.initializeWebSocketClient("ws://127.0.0.1:8080/");
+        this.client = simulator.getClient();
     }
 
     public void addClient(RealTimeWebSocketClient client){
