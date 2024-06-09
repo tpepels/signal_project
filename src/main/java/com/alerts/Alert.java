@@ -5,6 +5,7 @@ public class Alert {
     private String patientId;
     private String condition;
     private long timestamp;
+    private String priority;
 
     public Alert(String patientId, String condition, long timestamp) {
         this.patientId = patientId;
@@ -22,5 +23,13 @@ public class Alert {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String Priority) {
+        this.priority = Priority;
     }
 }
