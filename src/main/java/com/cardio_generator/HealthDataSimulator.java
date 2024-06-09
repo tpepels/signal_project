@@ -26,11 +26,28 @@ public class HealthDataSimulator {
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static com.alerts.AlertGenerator alertGenerator;
-    public static DataStorage dataStorage = new DataStorage();
+    private static DataStorage dataStorage = DataStorage.getDataStorageInstance();
     private static final Random random = new Random();
     private static RealTimeWebSocketClient webSocketClient;
 
+    private static HealthDataSimulator healthDataSimulatorInstance= null;
+
+    private HealthDataSimulator() {
+
+    }
+
+    public static synchronized HealthDataSimulator getInstance() {
+        if (healthDataSimulatorInstance == null) {
+            healthDataSimulatorInstance = new HealthDataSimulator();
+        }
+        return healthDataSimulatorInstance;
+    }
+
+
+
+
     public static void main(String[] args) throws IOException {
+        HealthDataSimulator simulator = HealthDataSimulator.getInstance();
         outputStrategy = new WebSocketOutputStrategy(8080);
 //        initializeWebSocketClient("ws://127.0.0.1:8080/");
 
@@ -44,15 +61,17 @@ public class HealthDataSimulator {
         scanner.close();
         int optionInt = Integer.parseInt(option);
         switch(optionInt){
-            case 1: showGeneratedData();
+            case 1:
+                simulator.showGeneratedData();
             break;
-            case 2: showTestRun();
+            case 2:
+                simulator.showTestRun();
             break;
         }
 
 
     }
-    public static RealTimeWebSocketClient getClient(){
+    public RealTimeWebSocketClient getClient(){
         return webSocketClient;
     }
 
@@ -143,7 +162,7 @@ public class HealthDataSimulator {
 //    }
 
 
-    public static void initializeWebSocketClient(String serverURI) {
+    public void initializeWebSocketClient(String serverURI) {
         try {
             URI uri = new URI(serverURI);
             webSocketClient = new RealTimeWebSocketClient(uri, dataStorage);
@@ -182,7 +201,7 @@ public class HealthDataSimulator {
      * @param patientCount The total number of patient IDs to generate.
      * @return A list of integers representing patient IDs.
      */
-    private static List<Integer> initializePatientIds(int patientCount) {
+    private List<Integer> initializePatientIds(int patientCount) {
         List<Integer> patientIds = new ArrayList<>();
         for (int i = 1; i <= patientCount; i++) {
             patientIds.add(i);
@@ -196,7 +215,7 @@ public class HealthDataSimulator {
      *
      * @param patientIds A list of patient IDs for which to schedule data generation tasks.
      */
-    private static void scheduleTasksForPatients(List<Integer> patientIds) {
+    private void scheduleTasksForPatients(List<Integer> patientIds) {
         ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
         BloodSaturationDataGenerator bloodSaturationDataGenerator = new BloodSaturationDataGenerator(patientCount);
         BloodPressureDataGenerator bloodPressureDataGenerator = new BloodPressureDataGenerator(patientCount);
@@ -221,12 +240,12 @@ public class HealthDataSimulator {
      * @param timeUnit The time unit of the period and initial delay.
      */
 
-    private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
+    private void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
     }
 
 
-    public static void showGeneratedData(){
+    public void showGeneratedData(){
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
 
         List<Integer> patientIds = initializePatientIds(patientCount);
