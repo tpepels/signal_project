@@ -1,5 +1,6 @@
 package com.cardio_generator;
 
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -15,6 +16,7 @@ import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.*;
 import com.data_management.DataStorage;
+import org.java_websocket.server.WebSocketServer;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class HealthDataSimulator {
     private static RealTimeWebSocketClient webSocketClient;
 
     private static HealthDataSimulator healthDataSimulatorInstance= null;
+    private static WebSocketServer webSockerServer;
 
     private HealthDataSimulator() {
 
@@ -48,7 +51,9 @@ public class HealthDataSimulator {
 
     public static void main(String[] args) throws IOException {
         HealthDataSimulator simulator = HealthDataSimulator.getInstance();
-        outputStrategy = new WebSocketOutputStrategy(8080);
+        simulator.initializeWebSocketServer(8080);
+        simulator.initializeWebSocketClient("ws://127.0.0.1:8080/");
+
 //        initializeWebSocketClient("ws://127.0.0.1:8080/");
 
         System.out.println("Choose 1 if you want to use generated data from HealthDataSimulator using websocket");
@@ -171,6 +176,11 @@ public class HealthDataSimulator {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void initializeWebSocketServer(int port) {
+        WebSocketServer server = new SimpleWebSocketServer(new InetSocketAddress(port));
+        outputStrategy = new WebSocketOutputStrategy(server, webSocketClient, dataStorage);
     }
 
     /**
