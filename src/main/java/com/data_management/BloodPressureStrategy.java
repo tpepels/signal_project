@@ -4,6 +4,8 @@ import com.alerts.Alert;
 import com.alerts.AlertGenerator;
 import com.alerts.BloodPressureAlertFactory;
 
+import java.util.List;
+
 public class BloodPressureStrategy implements AlertStrategy {
     private Patient patient;
     private Long startTime;
@@ -36,7 +38,11 @@ public class BloodPressureStrategy implements AlertStrategy {
 
     @Override
     public void checkIntervals(Patient patient, String recordType) {
-
+        int iterations = 0;
+        List<PatientRecord> patientRec = patient.getRecords(startTime, endTime, recordType);
+        for(int i = 0; i<patientRec.size();i++){
+            System.out.println("place holder");
+        }
 
     }
 
