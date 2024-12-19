@@ -11,15 +11,12 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.resources.sourceEncoding>UTF-8</project.resources.sourceEncoding>
-
     </properties>
 
     <dependencies>
-
         <!-- Java-WebSocket for WebSocket client -->
         <dependency>
             <groupId>org.java-websocket</groupId>
@@ -27,13 +24,48 @@
             <version>1.5.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+
+
+
+        <!-- JUnit 4 for legacy test cases -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit 5 (Jupiter) for modern test cases -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.0</version> <!-- Use a specific stable version -->
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito for mocking in tests -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
+
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin for packaging Spring Boot applications -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.6</version> <!-- Use the version that's compatible with your Spring Boot version -->
+                <version>2.5.6</version> <!-- Ensure this matches your Spring Boot version -->
                 <executions>
                     <execution>
                         <goals>
@@ -45,7 +77,42 @@
                     <mainClass>com.cardio_generator.HealthDataSimulator</mainClass>
                 </configuration>
             </plugin>
+
+            <!-- JaCoCo Maven Plugin for code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Jar Plugin for building jar with manifest -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.cardio_generator.HealthDataSimulator</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>

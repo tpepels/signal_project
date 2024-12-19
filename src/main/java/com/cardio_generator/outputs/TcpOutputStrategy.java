@@ -5,6 +5,16 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
+/**
+ * Implements an OutputStrategy to send data over a TCP connection.
+ * This class sets up a TCP server that waits for a client connection and then sends data
+ * over this connection formatted as a CSV string whenever output is called.
+ *
+ * Usage: Instantiate this with a specific TCP port and use the output method to send data
+ * to a connected TCP client.
+ *
+ * @author Tepels
+ */
 
 public class TcpOutputStrategy implements OutputStrategy {
 
@@ -31,6 +41,16 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Sends data to a connected TCP client formatted as CSV. The data includes the patient ID,
+     * timestamp, label, and the data string.
+     *
+     * @param patientId the unique identifier of the patient
+     * @param timestamp the timestamp at which the data is applicable
+     * @param label the label describing the type of data
+     * @param data the actual data string to be sent
+     */
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {

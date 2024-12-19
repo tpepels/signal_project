@@ -10,8 +10,8 @@ import java.util.List;
  * of medical records based on specified criteria.
  */
 public class Patient {
-    private int patientId;
-    private List<PatientRecord> patientRecords;
+    private final int patientId;
+    private final List<PatientRecord> patientRecords;
 
     /**
      * Constructs a new Patient with a specified ID.
@@ -40,6 +40,12 @@ public class Patient {
         this.patientRecords.add(record);
     }
 
+    public void addRecord(double[] measurementValues, String recordType, long timestamp) {
+        PatientRecord record = new PatientRecord(this.patientId, measurementValues, recordType, timestamp);
+        this.patientRecords.add(record);
+    }
+
+
     /**
      * Retrieves a list of PatientRecord objects for this patient that fall within a
      * specified time range.
@@ -50,8 +56,21 @@ public class Patient {
      * @param endTime   the end of the time range, in milliseconds since UNIX epoch
      * @return a list of PatientRecord objects that fall within the specified time
      *         range
+     * @author Wenjie Liao
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         // TODO Implement and test this method
+        List<PatientRecord> filteredRecords = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            if (record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
+                filteredRecords.add(record);
+            }
+        }
+        return filteredRecords;
+    }
+
+
+    public int getPatientId() {
+        return patientId;
     }
 }
