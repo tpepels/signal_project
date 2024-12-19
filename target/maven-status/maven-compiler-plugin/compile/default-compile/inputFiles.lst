@@ -1,0 +1,12 @@
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/AlertGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/outputs/OutputStrategy.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/ECGDataGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/outputs/TcpOutputStrategy.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/PatientDataGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/BloodSaturationDataGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/outputs/FileOutputStrategy.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/BloodLevelsDataGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/outputs/ConsoleOutputStrategy.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/generators/BloodPressureDataGenerator.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/outputs/WebSocketOutputStrategy.java
+/Users/hadi/Desktop/signal_project/src/main/java/com/cardio_generator/HealthDataSimulator.java

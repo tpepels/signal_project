@@ -63,3 +63,11 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Project Members
+- Student ID:
+i6365574
+
+
+project week 2 
+The uml_models folder contains now the 4 class models ,1 sequence diagram and 1 state diagram, as well as their descriptions
