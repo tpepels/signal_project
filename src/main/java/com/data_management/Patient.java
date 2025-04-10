@@ -52,6 +52,6 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        return patientRecords;
     }
 }
