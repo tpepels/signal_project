@@ -6,11 +6,32 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 
+/**
+ * {@code TcpOutputStrategy} is an implementation of the {@link OutputStrategy} interface.
+ * It creates a TCP server that listens for client connections on a specified port. 
+ * Once a client connects, patient data is transmitted to the client as a formatted string.
+ *
+ * The {@code output} method sends a message containing patient data to the connected client 
+ * over the TCP connection. 
+ */
+
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
+
+/**
+ * Constructs a {@code TcpOutputStrategy} that listens for incoming client connections
+ * on the specified TCP port. Once a client connects, data can be streamed to the client.
+ *
+ * This constructor starts a new thread to accept the client connection.
+ *
+ * @param port the port number on which the TCP server socket listens
+ *
+ * @throws IOException if the server socket fails to open or bind to the specified port
+ */
+
 
     public TcpOutputStrategy(int port) {
         try {

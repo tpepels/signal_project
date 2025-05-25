@@ -11,8 +11,8 @@ package com.data_management;
  */
 public class PatientRecord {
     private int patientId;
-    private String recordType; // Example: ECG, blood pressure, etc.
-    private double measurementValue; // Example: heart rate
+    private String recordType; 
+    private double measurementValue; 
     private long timestamp;
 
     /**

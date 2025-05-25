@@ -11,7 +11,7 @@ public class BloodLevelsDataGenerator implements PatientDataGenerator {
     private final double[] baselineRedCells;
 
     public BloodLevelsDataGenerator(int patientCount) {
-        // Initialize arrays to store baseline values for each patient
+       
         baselineCholesterol = new double[patientCount + 1];
         baselineWhiteCells = new double[patientCount + 1];
         baselineRedCells = new double[patientCount + 1];

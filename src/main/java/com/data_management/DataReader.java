@@ -10,4 +10,6 @@ public interface DataReader {
      * @throws IOException if there is an error reading the data
      */
     void readData(DataStorage dataStorage) throws IOException;
+    void startReading();  //Method to start continuous reading for WebSocket
+    void stopReading();   //Method for closing connections
 }

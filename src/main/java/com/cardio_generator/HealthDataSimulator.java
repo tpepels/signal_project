@@ -11,14 +11,18 @@ import com.cardio_generator.generators.BloodSaturationDataGenerator;
 import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.ConsoleOutputStrategy;
-import com.cardio_generator.outputs.fileOutputStrategy;
+import com.cardio_generator.outputs.FileOutputStrategy;
 import com.cardio_generator.outputs.OutputStrategy;
 import com.cardio_generator.outputs.TcpOutputStrategy;
 import com.cardio_generator.outputs.WebSocketOutputStrategy;
+import com.data_management.DataStorage;
+import com.data_management.PatientRecord;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +31,7 @@ import java.util.ArrayList;
 
 public class HealthDataSimulator {
 
-    private static int patientCount = 50; // Default number of patients
+    private static int patientCount = 10; // Default number of patients
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
@@ -44,6 +48,29 @@ public class HealthDataSimulator {
         scheduleTasksForPatients(patientIds);
     }
 
+
+    /**
+ * The {@code HealthDataSimulator} class simulates the generation of health data for a specific number of patients.
+ * It allows for the configuration of displaying and storing the generated data. 
+ * 
+ * The simulator supports the following arguments:
+ * 
+ *   {@code -h}: Displays help information.
+ *   {@code --patient-count <number>}: Specifies the number of patients to simulate, the default is 10.
+ *   {@code --output <output_type>}: Defines the output. The available types are:
+ *   {@code console}: Output to the console.
+ *   {@code file:<path>}: Output to a file located at the specified path.
+ *   {@code websocket:<port>}: Output via WebSocket on the specified port.
+ *   {@code tcp:<port>}: Output via TCP socket on the specified port.
+ *     
+ * This class initializes the patients, shuffles their IDs, and schedules tasks to simulate health data generation 
+ * using the specified output type. It requires the command line arguments to configure patient count and output 
+ * type.
+ *
+ * @param args the command line arguments used for configuring the simulation.
+ * @throws IOException if an error occurs while creating directories or files for output, or when an invalid output type is specified.
+ * @return nothing (void method).
+ */
     private static void parseArguments(String[] args) throws IOException {
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -72,7 +99,7 @@ public class HealthDataSimulator {
                             if (!Files.exists(outputPath)) {
                                 Files.createDirectories(outputPath);
                             }
-                            outputStrategy = new fileOutputStrategy(baseDirectory);
+                            outputStrategy = new FileOutputStrategy(baseDirectory);
                         } else if (outputArg.startsWith("websocket:")) {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(10));
@@ -105,6 +132,14 @@ public class HealthDataSimulator {
         }
     }
 
+    /**
+ * Prints the help message to the console, providing usage instructions and available options for the {@code HealthDataSimulator}.
+ *
+ * Example usage:
+ * java HealthDataSimulator --patient-count 100 --output websocket:8080
+ * This command simulates data for 100 patients and sends the output to WebSocket clients connected to port 8080.
+ */
+
     private static void printHelp() {
         System.out.println("Usage: java HealthDataSimulator [options]");
         System.out.println("Options:");
@@ -122,6 +157,12 @@ public class HealthDataSimulator {
                 "  This command simulates data for 100 patients and sends the output to WebSocket clients connected to port 8080.");
     }
 
+    /**
+ * Initializes a list of patient IDs from 1 to the specified patient count.
+ *
+ * @param patientCount The number of patient IDs to generate. It must be a positive integer.
+ */
+
     private static List<Integer> initializePatientIds(int patientCount) {
         List<Integer> patientIds = new ArrayList<>();
         for (int i = 1; i <= patientCount; i++) {
@@ -129,6 +170,24 @@ public class HealthDataSimulator {
         }
         return patientIds;
     }
+
+
+    /**
+ * Schedules tasks for generating data for each patient, such as ECG, blood saturation, blood pressure, blood levels, 
+ * and alerts. 
+ *
+ * Each type of data is generated for each patient at the following intervals:
+ * 
+ * ECG data: every 1 second
+ * Blood saturation data: every 1 second
+ * Blood pressure data: every 1 minute
+ * Blood levels data: every 2 minutes
+ * Alerts: every 20 seconds
+ * 
+ *
+ * @param patientIds A list of patient IDs for which data tasks will be scheduled. 
+ * @return This method does not return any value (void method).
+ */
 
     private static void scheduleTasksForPatients(List<Integer> patientIds) {
         ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
@@ -145,6 +204,15 @@ public class HealthDataSimulator {
             scheduleTask(() -> alertGenerator.generate(patientId, outputStrategy), 20, TimeUnit.SECONDS);
         }
     }
+
+    /**
+ * Schedules a task to be executed at a fixed rate with a randomized initial delay.
+ * The task will be executed repeatedly with the specified time period between executions.
+ *
+ * @param task The {@code Runnable} task to be executed at fixed intervals.
+ * @param period The time period between successive executions of the task.
+ * @param timeUnit The time unit for the {@code period}, such as seconds or minutes.
+ */
 
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
