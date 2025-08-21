@@ -1,0 +1,8 @@
+AlertGenerator checks incoming vital signs data, comparing it with the patient’s set
+thresholds. If any threshold is exceeded, it generates an alert with the patient’s ID,
+the condition, and a timestamp. The AlertManager then handles sending the alert to the staff.
+The Staff class includes details like staff ID, name, and role,
+along with methods like receiveAlert() to notify them and requestData() if they need
+more information. Each patient has their own Threshold values, stored separately, so
+the system is easy to update. This setup keeps the alerting process
+logical, making it easy to manage and scale/update.

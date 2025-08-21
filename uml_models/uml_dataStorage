@@ -1,0 +1,10 @@
+DataStorage is the location of the dataset. It has three functions:storeData()
+for adding new data,retrieveData() to get past records by patient ID, deleteOldData()
+ to remove data after some time. The PatientData class keeps a record of each patient's
+ vitals, a timestamp, and a version number to track changes. When needed, staff can
+ access a patient's data using the DataRetriever class. It checks with AccessControl
+ to make sure the user is authorized to access the information. This ensures that
+ sensitive information are protected. PatientMatcher ensures incoming data from
+ simulators or devices is correctly linked to the right patient. If there’s no match,
+ it raises an error so that it can be dealt with. The Patient class holds basic info
+ like the patient’s name, age, and history, which connects everything in the system.

@@ -1,0 +1,1 @@
+PatientIdentifier matches NewPatient objects to existing Patient objects from the hospital database based on personal data. If no matching patient already exists within the hospital database, IdentityManager creates adds the new patient to the hospital database. Staff is notified about whether the patient already exists within the database or not.

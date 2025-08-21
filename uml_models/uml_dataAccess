@@ -1,0 +1,1 @@
+The different DataListeners, which are grouped under the DataListener interface, listen to different data inputs. DataParser then standardizes any incoming data into the same format. The DataSourceAdapter then stores them in the data storage, where they are stored inside of a hashmap data structure.
