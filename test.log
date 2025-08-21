@@ -1,0 +1,218 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< com.cardio_generator:cardio_generator >----------------
+[INFO] Building cardio_generator 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (default) @ cardio_generator ---
+Downloading from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar
+Progress (1): 1.4/302 kB
+Progress (1): 2.8/302 kB
+Progress (1): 4.1/302 kB
+Progress (1): 5.5/302 kB
+Progress (1): 6.9/302 kB
+Progress (1): 8.3/302 kB
+Progress (1): 9.7/302 kB
+Progress (1): 11/302 kB 
+Progress (1): 12/302 kB
+Progress (1): 14/302 kB
+Progress (1): 15/302 kB
+Progress (1): 17/302 kB
+Progress (1): 18/302 kB
+Progress (1): 19/302 kB
+Progress (1): 21/302 kB
+Progress (1): 22/302 kB
+Progress (1): 23/302 kB
+Progress (1): 25/302 kB
+Progress (1): 26/302 kB
+Progress (1): 28/302 kB
+Progress (1): 29/302 kB
+Progress (1): 30/302 kB
+Progress (1): 32/302 kB
+Progress (1): 33/302 kB
+Progress (1): 34/302 kB
+Progress (1): 36/302 kB
+Progress (1): 37/302 kB
+Progress (1): 39/302 kB
+Progress (1): 40/302 kB
+Progress (1): 41/302 kB
+Progress (1): 43/302 kB
+Progress (1): 44/302 kB
+Progress (1): 46/302 kB
+Progress (1): 47/302 kB
+Progress (1): 48/302 kB
+Progress (1): 50/302 kB
+Progress (1): 51/302 kB
+Progress (1): 52/302 kB
+Progress (1): 54/302 kB
+Progress (1): 55/302 kB
+Progress (1): 57/302 kB
+Progress (1): 58/302 kB
+Progress (1): 59/302 kB
+Progress (1): 61/302 kB
+Progress (1): 62/302 kB
+Progress (1): 63/302 kB
+Progress (1): 64/302 kB
+Progress (1): 80/302 kB
+Progress (1): 96/302 kB
+Progress (1): 113/302 kB
+Progress (1): 129/302 kB
+Progress (1): 146/302 kB
+Progress (1): 162/302 kB
+Progress (1): 178/302 kB
+Progress (1): 195/302 kB
+Progress (1): 211/302 kB
+Progress (1): 227/302 kB
+Progress (1): 244/302 kB
+Progress (1): 260/302 kB
+Progress (1): 277/302 kB
+Progress (1): 293/302 kB
+Progress (1): 302 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar (302 kB at 690 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.core/0.8.12/org.jacoco.core-0.8.12.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.report/0.8.12/org.jacoco.report-0.8.12.jar
+Progress (1): 16/73 kB
+Progress (1): 32/73 kB
+Progress (1): 49/73 kB
+Progress (1): 65/73 kB
+Progress (1): 73 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar (73 kB at 1.9 MB/s)
+Progress (1): 1.4/52 kB
+Progress (1): 2.8/52 kB
+Progress (1): 4.1/52 kB
+Progress (1): 5.5/52 kB
+Progress (1): 6.9/52 kB
+Progress (1): 8.3/52 kB
+Progress (1): 9.7/52 kB
+Progress (1): 11/52 kB 
+Progress (1): 12/52 kB
+Progress (1): 14/52 kB
+Progress (1): 15/52 kB
+Progress (1): 17/52 kB
+Progress (2): 17/52 kB | 16/125 kB
+Progress (2): 18/52 kB | 16/125 kB
+Progress (2): 19/52 kB | 16/125 kB
+Progress (3): 19/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 21/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 22/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 23/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 25/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 26/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 28/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 29/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 30/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 32/52 kB | 16/125 kB | 16/131 kB
+Progress (3): 32/52 kB | 33/125 kB | 16/131 kB
+Progress (3): 33/52 kB | 33/125 kB | 16/131 kB
+Progress (3): 33/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 34/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 36/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 37/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 39/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 40/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 41/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 43/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 44/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 46/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 47/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 48/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 50/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 51/52 kB | 33/125 kB | 33/131 kB
+Progress (3): 52 kB | 33/125 kB | 33/131 kB   
+Progress (3): 52 kB | 49/125 kB | 33/131 kB
+Progress (3): 52 kB | 49/125 kB | 49/131 kB
+                                           
+Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar (52 kB at 476 kB/s)
+Progress (3): 49/125 kB | 49/131 kB | 16/210 kB
+Progress (3): 66/125 kB | 49/131 kB | 16/210 kB
+Progress (3): 66/125 kB | 66/131 kB | 16/210 kB
+Progress (3): 66/125 kB | 66/131 kB | 33/210 kB
+Progress (3): 82/125 kB | 66/131 kB | 33/210 kB
+Progress (3): 82/125 kB | 82/131 kB | 33/210 kB
+Progress (3): 82/125 kB | 82/131 kB | 49/210 kB
+Progress (3): 98/125 kB | 82/131 kB | 49/210 kB
+Progress (3): 98/125 kB | 98/131 kB | 49/210 kB
+Progress (3): 98/125 kB | 98/131 kB | 66/210 kB
+Progress (3): 115/125 kB | 98/131 kB | 66/210 kB
+Progress (3): 125 kB | 98/131 kB | 66/210 kB    
+                                            
+Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.jar (125 kB at 705 kB/s)
+Progress (2): 98/131 kB | 82/210 kB
+Progress (2): 115/131 kB | 82/210 kB
+Progress (2): 131/131 kB | 82/210 kB
+Progress (2): 131 kB | 82/210 kB    
+                                
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.report/0.8.12/org.jacoco.report-0.8.12.jar (131 kB at 705 kB/s)
+Progress (1): 98/210 kB
+Progress (1): 115/210 kB
+Progress (1): 131/210 kB
+Progress (1): 147/210 kB
+Progress (1): 164/210 kB
+Progress (1): 180/210 kB
+Progress (1): 197/210 kB
+Progress (1): 210 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.core/0.8.12/org.jacoco.core-0.8.12.jar (210 kB at 891 kB/s)
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ cardio_generator ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ cardio_generator ---
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ cardio_generator ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ cardio_generator ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running cardio_managment.HealthDataSimulatorTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in cardio_managment.HealthDataSimulatorTest
+[INFO] Running data_management.DataReaderTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in data_management.DataReaderTest
+[INFO] Running data_management.PatientTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in data_management.PatientTest
+[INFO] Running data_management.DataStorageTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in data_management.DataStorageTest
+[INFO] Running alerts.RepeatedAlertDecoratorTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.890 s -- in alerts.RepeatedAlertDecoratorTest
+[INFO] Running alerts.AlertFactoryTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in alerts.AlertFactoryTest
+[INFO] Running alerts.AlertStrategyTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in alerts.AlertStrategyTest
+[INFO] Running alerts.PriorityAlertDecoratorTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in alerts.PriorityAlertDecoratorTest
+[INFO] Running alerts.AlertGeneratorTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in alerts.AlertGeneratorTest
+[INFO] Running WebSocketDataIntegrationTest
+Connected to server
+Server says: 123|120.5|HeartRate|1748209376520
+Disconnected from server. Reason: 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.102 s -- in WebSocketDataIntegrationTest
+[INFO] Running MyWebSocketClientTest
+Inline WebSocket server started
+Client connected
+Connected to server
+Server says: 123|85.0|HeartRate|1609459200000
+Client disconnected
+Disconnected from server. Reason: 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.144 s -- in MyWebSocketClientTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 42, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.603 s
+[INFO] Finished at: 2025-05-25T23:42:58+02:00
+[INFO] ------------------------------------------------------------------------

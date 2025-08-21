@@ -63,3 +63,18 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## Project Members
+
+Student ID : i6371087
+Student ID : i6380645
+
+## UML Diagrams 
+
+UML diagrams were added(along with their documentation) for the following subsystems:
+- Alert Generation System
+- Data Storage System
+- Patient Identification System
+- Data Access Layer
+These can be found in the [`uml_models`](./uml_models) directory.

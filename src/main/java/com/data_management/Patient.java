@@ -35,11 +35,12 @@ public class Patient {
      * @param timestamp        the time at which the measurement was taken, in
      *                         milliseconds since UNIX epoch
      */
-    public void addRecord(double measurementValue, String recordType, long timestamp) {
-        PatientRecord record = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
-        this.patientRecords.add(record);
+public void addRecord(double measurementValue, String recordType, long timestamp) {
+    PatientRecord newRecord = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
+    if (!this.patientRecords.contains(newRecord)) {
+        this.patientRecords.add(newRecord);
     }
-
+}
     /**
      * Retrieves a list of PatientRecord objects for this patient that fall within a
      * specified time range.
@@ -49,9 +50,24 @@ public class Patient {
      *                  epoch
      * @param endTime   the end of the time range, in milliseconds since UNIX epoch
      * @return a list of PatientRecord objects that fall within the specified time
-     *         range
+     * range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        List<PatientRecord> timeRangeRecords = new ArrayList<>();
+        for (PatientRecord record : this.patientRecords) {
+            long ts = record.getTimestamp();
+            if (ts >= startTime && ts <= endTime) {
+                timeRangeRecords.add(record);
+            }
+        }
+        return timeRangeRecords;
     }
-}
+    /**
+         * Returns Respective ID number
+         * @return PatientId
+         */
+        public int getPatientId(){
+            return patientId;
+        }
+    }
+

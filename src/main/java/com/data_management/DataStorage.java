@@ -1,9 +1,11 @@
 package com.data_management;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import com.alerts.AlertFactory;
 import com.alerts.AlertGenerator;
 
 /**
@@ -13,14 +15,31 @@ import com.alerts.AlertGenerator;
  * patient IDs.
  */
 public class DataStorage {
-    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+
+    // Singleton instance
+    private static volatile DataStorage instance;
+    private final ConcurrentMap<Integer, Patient> patientMap;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-    public DataStorage() {
-        this.patientMap = new HashMap<>();
+    protected DataStorage() {
+        this.patientMap = new ConcurrentHashMap<>();
+    }
+
+    /**
+     * Returns the singleton instance of DataStorage.
+     */
+    public static DataStorage getInstance() {
+        if (instance == null) {
+            synchronized (DataStorage.class) {
+                if (instance == null) {
+                    instance = new DataStorage();
+                }
+            }
+        }
+        return instance;
     }
 
     /**
@@ -37,12 +56,9 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
-        }
-        patient.addRecord(measurementValue, recordType, timestamp);
+        patientMap
+                .computeIfAbsent(patientId, id -> new Patient(id))
+                .addRecord(measurementValue, recordType, timestamp);
     }
 
     /**
@@ -77,19 +93,17 @@ public class DataStorage {
 
     /**
      * The main method for the DataStorage class.
-     * Initializes the system, reads data into storage, and continuously monitors
-     * and evaluates patient data.
-     * 
+     * Demonstrates adding data, retrieving records, and evaluating alerts.
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        // DataReader is not defined in this scope, should be initialized appropriately.
-        // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
 
-        // Assuming the reader has been properly initialized and can read data into the
-        // storage
-        // reader.readData(storage);
+        // Add some sample data
+        storage.addPatientData(1, 80.0, "HeartRate", 1700000000001L);
+        storage.addPatientData(1, 120.0, "BloodPressure", 1700000001000L);
+        storage.addPatientData(2, 75.0, "HeartRate", 1700000002000L);
 
         // Example of using DataStorage to retrieve and print records for a patient
         List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
@@ -100,12 +114,17 @@ public class DataStorage {
                     ", Timestamp: " + record.getTimestamp());
         }
 
-        // Initialize the AlertGenerator with the storage
-        AlertGenerator alertGenerator = new AlertGenerator(storage);
+        // Initialize the AlertGenerator with the storage (using empty strategies and alerts for demo)
+        AlertGenerator alertGenerator = new AlertGenerator(storage, new ArrayList<>(), new ArrayList<>());
 
         // Evaluate all patients' data to check for conditions that may trigger alerts
         for (Patient patient : storage.getAllPatients()) {
             alertGenerator.evaluateData(patient);
         }
     }
+
+    public void clear() {
+        patientMap.clear();
+    }
 }
+

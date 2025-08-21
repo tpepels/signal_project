@@ -6,12 +6,23 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 
+/**
+ * Outputs patient data to a TCP client over a network connection.
+ *
+ * <p>Starts a TCP server on the given port and sends data to the first connected client.
+ */
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
-
+    /**
+     * Creates a TCP server that listens on the specified port.
+     *
+     * @param port TCP port to listen on (0-65535)
+     * @throws IllegalArgumentException if port is out of range
+     * @throws RuntimeException if server socket cannot be started
+     */
     public TcpOutputStrategy(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -31,6 +42,15 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
+    /**
+     * Sends patient data as a CSV line to the connected TCP client.
+     *
+     * @param patientId patient identifier (must be positive)
+     * @param timestamp time in milliseconds since epoch
+     * @param label data type label (not null)
+     * @param data data value (not null)
+     * @throws IllegalArgumentException if parameters are invalid
+     */
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
